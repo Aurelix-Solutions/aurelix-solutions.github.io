@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toronto New Projects — free weekly permit list | Aurelix</title>
+<meta name="description" content="Every Monday, a free spreadsheet of the new building permit and development applications filed in Toronto. 547 permit applications this week.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/toronto/">
+<meta property="og:title" content="Toronto New Projects — find jobs at the permit stage">
+<meta property="og:description" content="A free spreadsheet of Toronto's new building permit and development applications, every Monday.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/toronto/">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f1726;--navy-2:#16213a;--navy-3:#1d2b49;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;
+  --ink:#0f1726;--body:#3b4559;--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;
+  --r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-999px}.skip:focus{left:16px;top:16px;z-index:10;background:#fff;color:var(--ink);padding:8px 12px;border-radius:8px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+
+/* header + hero */
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),
+  radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:44px 44px;mask-image:linear-gradient(180deg,#000,transparent 85%);-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:19px;letter-spacing:-.01em}
+.brand img{width:36px;height:36px;border-radius:9px}
+.nav-cta{font-size:14px;font-weight:600;text-decoration:none;color:var(--gold);padding:8px 14px;border:1px solid rgba(240,169,60,.4);border-radius:999px;transition:background .2s}
+.nav-cta:hover{background:rgba(240,169,60,.1)}
+.hero{position:relative;z-index:1;padding:40px 0 64px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.02em;color:#cfd6e4;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:6px 12px;border-radius:999px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18)}
+h1{color:#fff;font-size:clamp(34px,8.6vw,58px);line-height:1.06;letter-spacing:-.03em;font-weight:800;margin:20px 0 18px;max-width:16ch}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:36em;margin:0 0 30px}
+.lede strong{color:#fff;font-weight:600}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:52px;padding:0 24px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,box-shadow .2s,background .2s}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}
+.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.fine{margin:16px 0 0;font-size:14px;color:#98a3b8}
+
+.panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px;margin-top:40px;backdrop-filter:blur(6px);box-shadow:0 24px 60px rgba(0,0,0,.25)}
+.panel-h{margin:0 0 16px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.bars{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.bars li{display:grid;grid-template-columns:1fr auto;gap:6px 12px;font-size:14px;color:#dde3ee}
+.bars b{color:#fff;font-variant-numeric:tabular-nums}
+.bars i{grid-column:1/-1;height:6px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.bars i::before{content:"";display:block;height:100%;width:var(--w);border-radius:99px;background:linear-gradient(90deg,var(--teal),#5fd8cc)}
+.panel-f{margin:18px 0 0;font-size:13px;color:#98a3b8}
+.card.cta{background:var(--navy);border-color:var(--navy);color:#c6cede;flex-direction:column;justify-content:space-between}
+.card.cta h3{color:#fff}
+.card.cta a{color:var(--gold);font-weight:700;text-decoration:none;margin-top:14px}
+.card.cta a:hover{text-decoration:underline}
+/* live numbers */
+.stats{position:relative;z-index:2;margin-top:-34px}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.stat{background:#fff;padding:20px 18px}
+.stat b{display:block;font-size:clamp(28px,6vw,36px);line-height:1.1;color:var(--ink);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat span{display:block;font-size:14px;color:var(--muted);margin-top:4px}
+.stat.lead{grid-column:1/-1;background:var(--navy-2);color:#fff}
+.stat.lead b{color:var(--gold)}
+.stat.lead span{color:#b7c0d1}
+.live .dot{flex:none;margin-top:6px}
+.live{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--muted);margin:12px 4px 0}
+
+/* sections */
+section{padding:72px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 10px}
+h2{font-size:clamp(26px,4.6vw,38px);line-height:1.15;letter-spacing:-.025em;color:var(--ink);margin:0 0 12px;font-weight:800}
+.sub{margin:0 0 32px;max-width:40em;color:var(--body)}
+
+/* preview table */
+.sheet{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.sheet-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:#fbfbfd;font-size:13px;color:var(--muted)}
+.sheet-bar .xl{width:22px;height:22px;border-radius:5px;background:#1f7a4d;color:#fff;font-weight:800;font-size:11px;display:grid;place-items:center;flex:none}
+.sheet-bar strong{color:var(--ink);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:#fbfbfd;padding:12px 16px;border-bottom:1px solid var(--line)}
+td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink)}
+tr:last-child td{border-bottom:0}
+td .ward{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+td strong{font-weight:600}
+td.desc{color:var(--body);max-width:300px}
+td.num{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208;white-space:nowrap}
+.sheet-foot{padding:14px 16px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between;align-items:center}
+.sheet-foot a{color:#0d7f75;font-weight:600;text-decoration:none}
+.sheet-foot a:hover{text-decoration:underline}
+.cols{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0;padding:0;list-style:none}
+.cols li{font-size:13px;padding:6px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--body)}
+@media (max-width:760px){
+  thead{display:none}
+  table,tbody,tr,td{display:block;width:100%}
+  tr{padding:14px 16px;border-bottom:1px solid var(--line)}
+  tr:last-child{border-bottom:0}
+  td{border:0;padding:3px 0;display:grid;grid-template-columns:76px 1fr;gap:10px}
+  td::before{content:attr(data-l);font-size:12px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);padding-top:2px}
+  td.desc{max-width:none}
+  td .tag{justify-self:start}
+}
+
+/* audience cards */
+.cards{display:grid;grid-template-columns:1fr;gap:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);display:flex;gap:16px;align-items:flex-start}
+.ico{width:44px;height:44px;border-radius:12px;background:var(--navy);display:grid;place-items:center;flex:none}
+.ico svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card h3{margin:0;font-size:17px;color:var(--ink);font-weight:700}
+.card p{margin:4px 0 0;font-size:15px}
+.card .n{display:block;margin-top:10px;font-size:15px;color:var(--muted)}
+.card .n b{color:var(--ink);font-size:22px;font-weight:800;letter-spacing:-.01em;margin-right:4px;font-variant-numeric:tabular-nums}
+
+/* steps */
+.steps{display:grid;gap:14px;counter-reset:s;padding:0;margin:0;list-style:none}
+.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px 22px 22px 76px;box-shadow:var(--shadow)}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:22px;top:22px;width:36px;height:36px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+.steps h3{margin:0 0 4px;font-size:17px;color:var(--ink)}
+.steps p{margin:0;font-size:15px}
+
+/* form */
+.signup{margin-top:72px;background:var(--navy);color:#fff;position:relative;overflow:hidden;padding:72px 0}
+.signup::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 100% 0,rgba(240,169,60,.16),transparent 70%),radial-gradient(500px 300px at 0 100%,rgba(46,196,182,.12),transparent 70%)}
+.signup .wrap{position:relative;display:grid;gap:32px;align-items:start}
+.signup h2{color:#fff}
+.signup .sub{color:#c6cede;margin-bottom:20px}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.checks li{display:flex;gap:12px;align-items:flex-start;color:#dde3ee}
+.checks svg{width:22px;height:22px;flex:none;margin-top:1px;stroke:var(--teal);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.form-card{background:#fff;border-radius:20px;padding:28px 22px 12px;box-shadow:0 24px 60px rgba(0,0,0,.35);color:var(--ink);scroll-margin-top:20px}
+.form-card h3{margin:0 0 6px;font-size:20px;font-weight:800;letter-spacing:-.01em}
+.form-card .note{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.form-card iframe{width:calc(100% + 16px);margin:0 -8px;border:0;min-height:560px;display:block}
+.form-card noscript a{color:#0d7f75}
+
+/* faq */
+.faq-in{max-width:780px}
+details{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:10px;box-shadow:0 1px 2px rgba(15,23,38,.04)}
+summary{cursor:pointer;list-style:none;padding:18px 52px 18px 20px;font-weight:600;color:var(--ink);position:relative;font-size:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";position:absolute;right:22px;top:50%;width:10px;height:10px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);transition:transform .2s}
+details[open] summary::after{transform:translateY(-30%) rotate(225deg)}
+details p{margin:0;padding:0 20px 18px;font-size:15px}
+details a{color:#0d7f75;font-weight:600}
+
+/* footer */
+footer{margin-top:72px;background:var(--navy);color:#98a3b8;font-size:14px;padding:40px 0}
+footer .wrap{display:grid;gap:16px}
+footer .brand{color:#fff}
+footer a{color:#dde3ee}
+footer p{margin:0;max-width:60em}
+
+@media (min-width:640px){
+  .stat-grid{grid-template-columns:repeat(3,1fr)}
+  .stat.lead{grid-column:span 1}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .form-card{padding:32px 32px 14px}
+}
+@media (min-width:960px){
+  .wrap{padding:0 32px}
+  .hero{padding:56px 0 96px}
+  .stat-grid{grid-template-columns:1.3fr repeat(4,1fr)}
+  .stat{padding:24px 22px}
+  .cards{grid-template-columns:repeat(3,1fr)}
+  .cards .card:nth-child(4),.cards .card:nth-child(5){grid-column:span 1}
+  .steps{grid-template-columns:repeat(3,1fr)}
+  .steps li{padding:76px 24px 24px}
+  .steps li::before{top:24px;left:24px}
+  .signup .wrap{grid-template-columns:1fr 1.1fr;gap:56px}
+  .hero{display:grid;grid-template-columns:1.35fr 1fr;gap:56px;align-items:center}
+  .panel{margin-top:0}
+  .signup .copy{position:sticky;top:32px;padding-top:12px}
+  footer .wrap{grid-template-columns:auto 1fr;gap:12px 48px;align-items:start}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top">
+  <div class="wrap">
+    <header>
+      <a class="brand" href="./" aria-label="Aurelix home"><img src="logo.png" alt="" width="36" height="36">Aurelix</a>
+      <a class="nav-cta" href="#signup">Get it free</a>
+    </header>
+    <div class="hero">
+      <div class="hero-copy">
+      <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Toronto New Projects · weekly</span>
+      <h1>Find Toronto jobs at the permit stage, <em>before your competitors</em></h1>
+      <p class="lede">A free spreadsheet of the <strong>new building permit and development applications</strong> filed with the City of Toronto, in your inbox <strong>every Monday</strong>. Address, ward, project type, size, status and a link to the City record.</p>
+      <div class="btns">
+        <a class="btn btn-gold" href="#signup">Get it free
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+        <a class="btn btn-ghost" href="https://api.apify.com/v2/key-value-stores/twkCCtTWzsi8fVbx5/records/toronto-new-projects-sample.xlsx" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download this week's sample</a>
+      </div>
+      <p class="fine">Free for 4 weeks · No card needed · Unsubscribe anytime</p>
+      </div>
+      <aside class="panel" aria-label="Busiest wards this week">
+        <p class="panel-h">Busiest wards this week</p>
+        <ol class="bars">
+<li><span>Ward 10 (Spadina-Fort York)</span><b>64</b><i style="--w:100%"></i></li>
+<li><span>Ward 11 (University-Rosedale)</span><b>40</b><i style="--w:62%"></i></li>
+<li><span>Ward 14 (Toronto-Danforth)</span><b>38</b><i style="--w:59%"></i></li>
+<li><span>Ward 3 (Etobicoke-Lakeshore)</span><b>37</b><i style="--w:58%"></i></li>
+<li><span>Ward 18 (Willowdale)</span><b>32</b><i style="--w:50%"></i></li>
+        </ol>
+        <p class="panel-f">Building permit applications filed Oct 29 – Nov 3, 2026</p>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+<div class="stats">
+  <div class="wrap">
+    <div class="stat-grid" role="list" aria-label="This week's numbers">
+      <div class="stat lead" role="listitem"><b>575</b><span>projects this week</span></div>
+      <div class="stat" role="listitem"><b>189</b><span>renovations &amp; additions</span></div>
+      <div class="stat" role="listitem"><b>174</b><span>plumbing &amp; drains</span></div>
+      <div class="stat" role="listitem"><b>85</b><span>HVAC &amp; mechanical</span></div>
+      <div class="stat" role="listitem"><b>11</b><span>new builds</span></div>
+    </div>
+    <p class="live"><span class="dot" aria-hidden="true"></span>This week's file: 547 permit applications filed Oct 29 – Nov 3, 2026, plus 28 recent development applications.</p>
+  </div>
+</div>
+
+<section aria-labelledby="inside">
+  <div class="wrap">
+    <p class="kicker">What's inside</p>
+    <h2 id="inside">One clean row per project</h2>
+    <p class="sub">Five real rows from this week's file. The full spreadsheet has every project, plus a summary sheet with counts by type, the busiest wards and the biggest jobs.</p>
+    <div class="sheet">
+      <div class="sheet-bar"><span class="xl" aria-hidden="true">X</span><strong>toronto_new_projects.xlsx</strong><span>· 575 rows</span></div>
+      <table>
+        <thead><tr><th scope="col">Filed</th><th scope="col">Address</th><th scope="col">Type</th><th scope="col">Project</th><th scope="col">Size</th><th scope="col">Status</th></tr></thead>
+        <tbody>
+<tr><td data-l="Filed">Nov 3</td><td data-l="Address"><div><strong>25 St Dennis Dr</strong><span class="ward">Don Valley East</span></div></td><td data-l="Type"><span class="tag">New build</span></td><td data-l="Project" class="desc">To construct (8) three storey townhouses on one lot with one combined unit on…</td><td data-l="Size" class="num">$5.0M</td><td data-l="Status">Application On Hold</td></tr>
+<tr><td data-l="Filed">Oct 29</td><td data-l="Address"><div><strong>50 Village Station Rd</strong><span class="ward">Don Valley West</span></div></td><td data-l="Type"><span class="tag">Addition / renovation</span></td><td data-l="Project" class="desc">Proposal for construction of a service overhead working platform within the…</td><td data-l="Size" class="num">$93.7M</td><td data-l="Status">Not Started</td></tr>
+<tr><td data-l="Filed">Oct 30</td><td data-l="Address"><div><strong>529 Marlee Ave</strong><span class="ward">Eglinton-Lawrence</span></div></td><td data-l="Type"><span class="tag">Mechanical / HVAC</span></td><td data-l="Project" class="desc">Geothermal System for a new rental development.</td><td data-l="Size" class="num">$100.0M</td><td data-l="Status">Under Review</td></tr>
+<tr><td data-l="Filed">Nov 3</td><td data-l="Address"><div><strong>251 Ferrand Dr</strong><span class="ward">Don Valley East</span></div></td><td data-l="Type"><span class="tag">Plumbing / drains</span></td><td data-l="Project" class="desc">Existing park being renovated to include new playground areas, splash pad and…</td><td data-l="Size" class="num">$1.5M</td><td data-l="Status">Application On Hold</td></tr>
+<tr><td data-l="Filed">Sep 29</td><td data-l="Address"><div><strong>4632-4648 Yonge St</strong><span class="ward">Willowdale</span></div></td><td data-l="Type"><span class="tag">Development application</span></td><td data-l="Project" class="desc">OPA &amp; Rezoning Application proposes the development of a 50-storey mixed-use…</td><td data-l="Size" class="num">569 units</td><td data-l="Status">Under Review</td></tr>
+        </tbody>
+      </table>
+      <div class="sheet-foot"><span>Size is the estimated construction cost in CAD.</span><a href="https://api.apify.com/v2/key-value-stores/twkCCtTWzsi8fVbx5/records/toronto-new-projects-sample.xlsx" download>Download the full sample (Excel) →</a></div>
+    </div>
+    <ul class="cols" aria-label="Columns in the file">
+      <li>Date filed</li><li>Address &amp; ward</li><li>Work group</li><li>Project type</li><li>Description</li><li>New units</li><li>Est. cost</li><li>Residential / commercial</li><li>Status</li><li>Link to City record</li>
+    </ul>
+  </div>
+</section>
+
+<section aria-labelledby="who">
+  <div class="wrap">
+    <p class="kicker">Who it's for</p>
+    <h2 id="who">Built for the trades that win work early</h2>
+    <p class="sub">Numbers below are from this week's file.</p>
+    <div class="cards">
+      <article class="card"><div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></div>
+        <div><h3>Renovators</h3><p>Homeowners and landlords who just filed for an addition or alteration.</p><span class="n"><b>189</b>renovations &amp; additions</span></div></article>
+      <article class="card"><div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></div>
+        <div><h3>Plumbers &amp; drains</h3><p>Plumbing permits, drain work and backwater valves, by street.</p><span class="n"><b>174</b>plumbing &amp; drain projects</span></div></article>
+      <article class="card"><div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v20M4.9 4.9l14.2 14.2M2 12h20M4.9 19.1L19.1 4.9"/></svg></div>
+        <div><h3>HVAC</h3><p>Mechanical permits for heating, ventilation and air conditioning.</p><span class="n"><b>85</b>HVAC &amp; mechanical projects</span></div></article>
+      <article class="card"><div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 20h20"/><path d="M5 20V8l7-4 7 4v12"/><path d="M9 20v-5h6v5"/><path d="M9 10h6"/></svg></div>
+        <div><h3>General contractors</h3><p>New buildings, demolitions and development applications before they go to tender.</p><span class="n"><b>53</b>new builds, demolitions &amp; development applications</span></div></article>
+      <article class="card"><div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></div>
+        <div><h3>Supply firms</h3><p>See where the next builds are, so your sales team calls the right contractors.</p><span class="n"><b>3,040</b>new homes proposed</span></div></article>
+      <article class="card cta"><div><h3>Every trade, one file</h3><p>Electrical, roofing, demolition and more: all 575 projects are in the spreadsheet, ready to filter.</p></div><a href="#signup">Get it free →</a></article>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="how">
+  <div class="wrap">
+    <p class="kicker">How it works</p>
+    <h2 id="how">Three steps, two minutes</h2>
+    <p class="sub">No account, no app, nothing to install.</p>
+    <ol class="steps">
+      <li><h3>Sign up below</h3><p>Your work email, company name and the kind of projects you care about.</p></li>
+      <li><h3>Get the file every Monday</h3><p>A spreadsheet of the past week's new applications lands in your inbox.</p></li>
+      <li><h3>Call first</h3><p>Filter by ward or type, open the City record, and reach the owner before anyone else does.</p></li>
+    </ol>
+  </div>
+</section>
+
+<div class="signup" id="signup">
+  <div class="wrap">
+    <div class="copy">
+      <p class="kicker" style="color:var(--gold)">Free for 4 weeks</p>
+      <h2>Get next Monday's file</h2>
+      <p class="sub">Join the list and the next spreadsheet arrives from aurelix_solutions@outlook.com.</p>
+      <ul class="checks">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Every new permit and development application in Toronto</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Excel file, ready to filter by ward and type</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>No card needed, unsubscribe anytime</li>
+      </ul>
+    </div>
+    <div class="form-card">
+      <h3>Sign up free</h3>
+      <iframe data-tally-src="https://tally.so/embed/vXrPOQ?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1" loading="lazy" width="100%" height="560" frameborder="0" marginheight="0" marginwidth="0" title="Toronto New Projects sign-up form"></iframe>
+      <noscript><p><a href="https://tally.so/r/vXrPOQ">Open the sign-up form</a></p></noscript>
+    </div>
+  </div>
+</div>
+
+<section aria-labelledby="faq">
+  <div class="wrap"><div class="faq-in">
+    <p class="kicker">FAQ</p>
+    <h2 id="faq">Questions</h2>
+    <details><summary>Where does the data come from?</summary>
+      <p>From the City of Toronto's Open Data portal: the building permit applications and development applications datasets, used under the <a href="https://open.toronto.ca/open-data-license/">Open Government Licence – Toronto</a>. Every row links back to its City record.</p></details>
+    <details><summary>Is it really free?</summary>
+      <p>Yes. The first 4 weeks are free. After that it's $29/month if you want to keep it. No card is needed now.</p></details>
+    <details><summary>How do I unsubscribe?</summary>
+      <p>Reply "stop" to any email, or write to <a href="mailto:aurelix_solutions@outlook.com">aurelix_solutions@outlook.com</a>, and we'll take you off the list.</p></details>
+    <details><summary>Is personal data included?</summary>
+      <p>No. The file lists projects, not people: no owner names, phone numbers or emails. Only what the City publishes about each application.</p></details>
+  </div></div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="./"><img src="logo.png" alt="" width="36" height="36">Aurelix</a>
+    <div>
+      <p><a href="mailto:aurelix_solutions@outlook.com">aurelix_solutions@outlook.com</a></p>
+      <p style="margin-top:8px">Contains information licensed under the <a href="https://open.toronto.ca/open-data-license/">Open Government Licence – Toronto</a>. Source: City of Toronto Open Data. Aurelix is not affiliated with the City of Toronto.</p>
+    </div>
+  </div>
+</footer>
+<script>
+var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
+</script>
+</body>
+</html>
