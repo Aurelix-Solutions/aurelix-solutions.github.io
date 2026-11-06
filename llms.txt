@@ -18,6 +18,7 @@
 - [Competitor Watch](https://aurelix-solutions.github.io/tools/competitor-watch/): One report per competitor with only what is new: Meta and TikTok ads, page changes, Shopify products and prices, jobs. Price: $30.00 per 1,000 competitor checks ($27.00 on paid Apify plans). Run it: https://apify.com/aurelix/competitor-watch (Actor id aurelix/competitor-watch).
 - [Funded Companies Hiring](https://aurelix-solutions.github.io/tools/funded-companies-hiring/): Companies that just raised money (SEC Form D), with their open roles and business contacts, as a new-only monitor. Price: $20.00 per 1,000 hiring companies ($16.00 on paid Apify plans). Run it: https://apify.com/aurelix/funded-companies-hiring (Actor id aurelix/funded-companies-hiring).
 - [PDF to Markdown OCR & Table Extraction](https://aurelix-solutions.github.io/tools/pdf-to-markdown/): Turns linked PDF and Word files into Markdown per page, with tables as JSON rows, RAG chunks and OCR. Price: $0.30 per 1,000 pages ($0.25 on paid Apify plans). Run it: https://apify.com/aurelix/pdf-to-markdown (Actor id aurelix/pdf-to-markdown).
+- [Google Autocomplete API](https://aurelix-solutions.github.io/tools/google-autocomplete-scraper/): Expands seed keywords into hundreds of real Google and YouTube autocomplete phrases, tagged by search intent. Price: $0.45 per 1,000 keywords ($0.35 on paid Apify plans). Run it: https://apify.com/aurelix/google-autocomplete-scraper (Actor id aurelix/google-autocomplete-scraper).
 
 ## Guides
 
