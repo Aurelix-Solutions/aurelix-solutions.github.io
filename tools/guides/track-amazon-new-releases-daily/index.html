@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Track Amazon New Releases daily and catch new products as they enter the list | Aurelix</title>
+<meta name="description" content="Save Amazon&#x27;s Hot New Releases top 100 for any category every day, flag the products that just entered, and spot new launches with few reviews, with a short Python script.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/tools/guides/track-amazon-new-releases-daily/">
+<meta property="og:title" content="Track Amazon New Releases daily and catch new products as they enter the list | Aurelix">
+<meta property="og:description" content="Save Amazon&#x27;s Hot New Releases top 100 for any category every day, flag the products that just entered, and spot new launches with few reviews, with a short Python script.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/tools/guides/track-amazon-new-releases-daily/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aurelix">
+<meta property="og:image" content="https://aurelix-solutions.github.io/tools/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aurelix-solutions.github.io/tools/og.png">
+<link rel="icon" type="image/png" href="/tools/favicon.png">
+<link rel="apple-touch-icon" href="/tools/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1726;--navy-2:#16213a;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;--ink:#0f1726;--body:#3b4559;
+--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;--r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:#0d7f75}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:16px;font-size:14px;font-weight:600}.nav a{color:#c6cede;text-decoration:none}.nav a:hover{color:#fff}
+.hero{position:relative;z-index:1;padding:28px 0 56px}
+.crumbs{font-size:13px;color:#98a3b8;margin:0 0 18px}.crumbs a{color:#c6cede;text-decoration:none}
+.idrow{display:flex;align-items:center;gap:16px}
+.idrow img{width:64px;height:64px;border-radius:16px;background:#fff;flex:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+h1{color:#fff;font-size:clamp(30px,6.4vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:0}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:40em;margin:18px 0 8px}
+.lede-sub{font-size:16px;color:#98a3b8;max-width:42em;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;margin:0 0 22px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18);flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:520px){.btn{flex:1 1 100%}}
+main section{padding:56px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 8px}
+h2{font-size:clamp(24px,4vw,32px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;font-weight:800}
+h3{color:var(--ink);font-size:18px;margin:0 0 6px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;gap:16px}.grid2>*{min-width:0}@media (min-width:820px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.glance{display:grid;gap:0;margin:0}.glance div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.glance div:last-child{border:0}
+.glance dd,.glance dt{overflow-wrap:anywhere}.glance dt{font-weight:700;color:var(--ink);font-size:14px}.glance dd{margin:0;font-size:15px}
+@media (max-width:520px){.glance div{grid-template-columns:1fr;gap:2px}}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:28px}ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:10px;border-left:3px solid var(--teal);border-bottom:3px solid var(--teal);transform:rotate(-45deg) scale(.8)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 66px;box-shadow:var(--shadow)}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+pre{background:var(--navy);color:#e6ebf5;border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.5;margin:0;max-height:460px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code,td code{background:#eef1f6;color:var(--ink);padding:1px 5px;border-radius:5px;font-size:.9em}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+table.price{width:100%;border-collapse:collapse;font-size:15px}table.price td{padding:11px 0;border-bottom:1px solid var(--line)}table.price tr:last-child td{border:0}table.price td:last-child{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin:0 0 10px;box-shadow:0 1px 2px rgba(15,23,38,.05)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;position:relative;padding-right:28px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--muted)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px}
+.cards{display:grid;gap:14px}@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}@media (min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:var(--body);transition:transform .15s,box-shadow .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,38,.06),0 14px 32px rgba(15,23,38,.10)}
+.tcard .row{display:flex;align-items:center;gap:12px}.tcard img{width:44px;height:44px;border-radius:11px;flex:none;border:1px solid var(--line)}
+.tcard h3{margin:0;font-size:17px}.tcard p{margin:0;font-size:15px;flex:1}
+.tcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208}
+.price-s{font-weight:700;color:var(--ink);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.chips button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.links a{font-weight:600}
+.article{max-width:760px}.article h2{font-size:clamp(22px,3.4vw,28px);margin:40px 0 12px}.article h3{margin:28px 0 8px}
+.article pre{margin:16px 0}.article table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto;margin:16px 0}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}.article th{background:#fbfbfd}
+.article img{border-radius:12px}
+.cta{margin-top:56px;background:var(--navy);color:#c6cede;padding:36px 28px;border-radius:20px}.cta h2{color:#fff}.cta p{max-width:40em}
+footer{padding:36px 0 48px;font-size:14px;color:var(--muted)}footer a{color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Track Amazon New Releases daily and catch new products as they enter the list", "description": "Save Amazon's Hot New Releases top 100 for any category every day, flag the products that just entered, and spot new launches with few reviews, with a short Python script.", "url": "https://aurelix-solutions.github.io/tools/guides/track-amazon-new-releases-daily/", "author": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "publisher": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "image": "https://aurelix-solutions.github.io/tools/og.png", "about": [{"@type": "SoftwareApplication", "name": "Amazon New Releases & Best Sellers", "url": "https://aurelix-solutions.github.io/tools/amazon-best-sellers/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Guides", "item": "https://aurelix-solutions.github.io/tools/guides/"}, {"@type": "ListItem", "position": 2, "name": "Track Amazon New Releases daily and catch new products as they enter the list", "item": "https://aurelix-solutions.github.io/tools/guides/track-amazon-new-releases-daily/"}]}</script>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<header><a class="brand" href="/tools/"><img src="/tools/logo.png" alt="" width="34" height="34">Aurelix</a><nav class="nav"><a href="/tools/">Tools</a><a href="/tools/guides/" aria-current=page>Guides</a></nav></header>
+<div class="hero"><p class="crumbs"><a href="/tools/guides/">Guides</a></p><h1>Track Amazon New Releases daily and catch new products as they enter the list</h1><p class="lede">Save Amazon&#x27;s Hot New Releases top 100 for any category every day, flag the products that just entered, and spot new launches with few reviews, with a short Python script.</p><a class="btn btn-gold" href="/tools/amazon-best-sellers/">Amazon New Releases &amp; Best Sellers: price and examples</a></div>
+</div></div>
+<main class="wrap">
+<section><article class="article"><p>Amazon's <strong>Hot New Releases</strong> list ranks the best-selling recent and upcoming products in each category, and Amazon updates it frequently. For product researchers, private-label sellers and brand teams, it is one of the earliest public signals of a launch that is working: a product with 30 reviews sitting in the top 10 of its category's new releases is selling, and nobody has written about it yet.</p>
+<p>Checking it by hand does not scale past one category. This guide saves the list every day and flags what just entered.</p>
+<p><strong>Disclosure:</strong> I'm Aurelix, and I built the <a href="https://apify.com/aurelix/amazon-best-sellers">Amazon Best Sellers Scraper</a> used below. It reads both Best Sellers and New Releases. It is a paid tool, priced per product returned; the current price is on its <a href="/tools/amazon-best-sellers/">tool page</a>.</p>
+<h2>The input</h2>
+<pre><code class="language-json">{
+  &quot;categories&quot;: [&quot;kitchen&quot;, &quot;pet-supplies&quot;, &quot;https://www.amazon.co.uk/gp/new-releases/kitchen&quot;],
+  &quot;listType&quot;: &quot;new-releases&quot;,
+  &quot;amazonDomain&quot;: &quot;com&quot;,
+  &quot;maxPages&quot;: 2,
+  &quot;stateKey&quot;: &quot;new-releases-daily&quot;
+}
+</code></pre>
+<ul>
+<li><code>categories</code> takes the slug from a list URL (<code>amazon.com/gp/new-releases/kitchen</code> gives <code>kitchen</code>) or a full list URL; full URLs keep their own marketplace, so you can mix amazon.com and amazon.co.uk in one run. Ten marketplaces work: .com, .co.uk, .de, .fr, .it, .es, .ca, .com.au, .in and .co.jp.</li>
+<li><code>listType: "new-releases"</code> makes bare slugs mean the New Releases list instead of Best Sellers.</li>
+<li><code>maxPages: 2</code> returns the full top 100 (50 ranks per page, Amazon's maximum).</li>
+<li><code>stateKey</code> names the memory used to compare with your previous run.</li>
+</ul>
+<p>Every row from the second run on carries <code>previous_rank</code>, <code>rank_change</code> (positive means it climbed) and <code>new_entry</code> (it was not on the list last time). Set <code>onlyNewEntries</code> to true to get, and pay for, only the products that just entered.</p>
+<h2>A daily report in Python</h2>
+<pre><code class="language-bash">pip install apify-client
+</code></pre>
+<pre><code class="language-python">import csv
+import os
+from datetime import date
+
+from apify_client import ApifyClient
+
+client = ApifyClient(os.environ[&quot;APIFY_TOKEN&quot;])
+run = client.actor(&quot;aurelix/amazon-best-sellers&quot;).call(run_input={
+    &quot;categories&quot;: [&quot;kitchen&quot;, &quot;pet-supplies&quot;],
+    &quot;listType&quot;: &quot;new-releases&quot;,
+    &quot;maxPages&quot;: 2,
+    &quot;stateKey&quot;: &quot;new-releases-daily&quot;,
+})
+rows = list(client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items())
+
+with open(f&quot;new-releases-{date.today()}.csv&quot;, &quot;w&quot;, newline=&quot;&quot;, encoding=&quot;utf-8&quot;) as f:
+    w = csv.DictWriter(f, fieldnames=[&quot;category_name&quot;, &quot;rank&quot;, &quot;asin&quot;, &quot;title&quot;, &quot;price&quot;, &quot;rating&quot;,
+                                      &quot;reviews_count&quot;, &quot;new_entry&quot;, &quot;rank_change&quot;, &quot;product_url&quot;],
+                       extrasaction=&quot;ignore&quot;)
+    w.writeheader()
+    w.writerows(rows)
+
+entered = [r for r in rows if r.get(&quot;new_entry&quot;)]
+early = [r for r in rows if r[&quot;rank&quot;] &lt;= 20 and (r.get(&quot;reviews_count&quot;) or 0) &lt; 50]
+print(f&quot;{len(rows)} ranks saved, {len(entered)} new on the list since the last run&quot;)
+for r in early:
+    print(f&quot;#{r['rank']:&gt;3} {r['category_name']}: {r['title'][:70]} ({r.get('reviews_count') or 0} reviews)&quot;)
+</code></pre>
+<p>Schedule it daily (cron, GitHub Actions or an Apify schedule). The script prints two short lists: products that entered since yesterday, and top-20 products that still have fewer than 50 reviews, which are often the newest launches.</p>
+<h2>Real output</h2>
+<p>The first ranks of amazon.com's Kitchen &amp; Dining New Releases from a run of this tool:</p>
+<table>
+<thead>
+<tr>
+<th>rank</th>
+<th>title (shortened)</th>
+<th>price</th>
+<th>rating</th>
+<th>reviews</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Simple Modern Travel Coffee Mug with Lid, 16oz</td>
+<td>22.99</td>
+<td>4.7</td>
+<td>12,683</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Leakproof Silicone Baking Mat with Snap Lock Edges</td>
+<td>15.88</td>
+<td>4.0</td>
+<td>59</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Frost Buddy Togo Buddy 30oz Iced Coffee Tumbler</td>
+<td>39.99</td>
+<td>4.6</td>
+<td>3,650</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Large Portable Printed Tote Bag for Women</td>
+<td>3.97</td>
+<td>4.7</td>
+<td>4</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3D Highland Cow Silicone Ice Mold</td>
+<td>2.74</td>
+<td>4.4</td>
+<td>31</td>
+</tr>
+</tbody>
+</table>
+<p>In that run, 23 of the top 50 had fewer than 50 reviews. Each row also has the ASIN, product URL, image URL, currency and <code>price_max</code> for products listed with a price range. On a first run <code>previous_rank</code> and <code>rank_change</code> are empty and <code>new_entry</code> is false, because there is nothing to compare with yet.</p>
+<h2>Tips</h2>
+<ul>
+<li><strong>Best Sellers too.</strong> Run the same categories with <code>"listType": "bestsellers"</code> under a different <code>stateKey</code> to see which new releases later break into the main list.</li>
+<li><strong>Per-client tracking.</strong> Use one <code>stateKey</code> per client or project so each keeps its own comparison.</li>
+<li><strong>Alerts.</strong> Add <code>slackWebhookUrl</code> to the input for a Slack digest after each run.</li>
+</ul>
+<h2>Limits</h2>
+<ul>
+<li>Up to 100 ranks per list, Amazon's own maximum.</li>
+<li>Movers &amp; Shakers and Most Wished For are not supported: Amazon serves them empty to logged-out visitors.</li>
+<li>Some products show no price on the list (for example when only sold through other offers); the price is left empty rather than guessed.</li>
+</ul>
+<p>For rank history on the Best Sellers list itself, see <a href="https://dev.to/aurelix_solutions/track-amazon-best-seller-rank-changes-over-time-with-python-j71">Track Amazon best seller rank changes over time</a>.</p>
+<h2>Links</h2>
+<ul>
+<li><a href="/tools/amazon-best-sellers/">Amazon Best Sellers Scraper: price, example input and output, FAQ</a></li>
+<li><a href="https://apify.com/aurelix/amazon-best-sellers">Amazon Best Sellers Scraper on the Apify Store</a></li>
+<li><a href="https://github.com/Aurelix-Solutions/amazon-best-sellers-example">Runnable Python example on GitHub</a></li>
+</ul></article></section><section><p class="kicker">Tools used</p><div class="cards"><a class="tcard" href="/tools/amazon-best-sellers/" data-cat="E-commerce"><div class="row"><img src="/tools/amazon-best-sellers/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Amazon New Releases &amp; Best Sellers</h3></div><p>Amazon Best Sellers and New Releases top 100 on 10 marketplaces: rank, ASIN, price, rating, rank change.</p><div class="meta"><span class="tag">E-commerce</span><span class="price-s">$1.80 / 1,000 products</span></div></a></div></section>
+</main>
+<footer class="wrap"><p>Aurelix builds and maintains these tools. They run on the <a href="https://apify.com/aurelix">Apify Store</a>, which handles accounts and billing; prices on this site are read from the Store each time the site is rebuilt. Tools read only public pages a logged-out visitor can see. <a href="/tools/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p></footer>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Facebook Ad Library Search &amp; API - Meta Ads to CSV | Aurelix</title>
+<meta name="description" content="Facebook Ad Library scraper: $0.70 vs $5.80 per 1,000 ads for Apify&#x27;s own, exact limits, plain keywords, new-ads mode, optional EU reach.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/tools/facebook-ad-library-scraper/">
+<meta property="og:title" content="Facebook Ad Library Search &amp; API - Meta Ads to CSV | Aurelix">
+<meta property="og:description" content="Facebook Ad Library scraper: $0.70 vs $5.80 per 1,000 ads for Apify&#x27;s own, exact limits, plain keywords, new-ads mode, optional EU reach.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/tools/facebook-ad-library-scraper/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aurelix">
+<meta property="og:image" content="https://aurelix-solutions.github.io/tools/facebook-ad-library-scraper/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aurelix-solutions.github.io/tools/facebook-ad-library-scraper/og.png">
+<link rel="icon" type="image/png" href="/tools/favicon.png">
+<link rel="apple-touch-icon" href="/tools/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1726;--navy-2:#16213a;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;--ink:#0f1726;--body:#3b4559;
+--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;--r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:#0d7f75}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:16px;font-size:14px;font-weight:600}.nav a{color:#c6cede;text-decoration:none}.nav a:hover{color:#fff}
+.hero{position:relative;z-index:1;padding:28px 0 56px}
+.crumbs{font-size:13px;color:#98a3b8;margin:0 0 18px}.crumbs a{color:#c6cede;text-decoration:none}
+.idrow{display:flex;align-items:center;gap:16px}
+.idrow img{width:64px;height:64px;border-radius:16px;background:#fff;flex:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+h1{color:#fff;font-size:clamp(30px,6.4vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:0}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:40em;margin:18px 0 8px}
+.lede-sub{font-size:16px;color:#98a3b8;max-width:42em;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;margin:0 0 22px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18);flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:520px){.btn{flex:1 1 100%}}
+main section{padding:56px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 8px}
+h2{font-size:clamp(24px,4vw,32px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;font-weight:800}
+h3{color:var(--ink);font-size:18px;margin:0 0 6px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;gap:16px}.grid2>*{min-width:0}@media (min-width:820px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.glance{display:grid;gap:0;margin:0}.glance div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.glance div:last-child{border:0}
+.glance dd,.glance dt{overflow-wrap:anywhere}.glance dt{font-weight:700;color:var(--ink);font-size:14px}.glance dd{margin:0;font-size:15px}
+@media (max-width:520px){.glance div{grid-template-columns:1fr;gap:2px}}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:28px}ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:10px;border-left:3px solid var(--teal);border-bottom:3px solid var(--teal);transform:rotate(-45deg) scale(.8)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 66px;box-shadow:var(--shadow)}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+pre{background:var(--navy);color:#e6ebf5;border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.5;margin:0;max-height:460px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code,td code{background:#eef1f6;color:var(--ink);padding:1px 5px;border-radius:5px;font-size:.9em}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+table.price{width:100%;border-collapse:collapse;font-size:15px}table.price td{padding:11px 0;border-bottom:1px solid var(--line)}table.price tr:last-child td{border:0}table.price td:last-child{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin:0 0 10px;box-shadow:0 1px 2px rgba(15,23,38,.05)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;position:relative;padding-right:28px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--muted)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px}
+.cards{display:grid;gap:14px}@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}@media (min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:var(--body);transition:transform .15s,box-shadow .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,38,.06),0 14px 32px rgba(15,23,38,.10)}
+.tcard .row{display:flex;align-items:center;gap:12px}.tcard img{width:44px;height:44px;border-radius:11px;flex:none;border:1px solid var(--line)}
+.tcard h3{margin:0;font-size:17px}.tcard p{margin:0;font-size:15px;flex:1}
+.tcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208}
+.price-s{font-weight:700;color:var(--ink);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.chips button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.links a{font-weight:600}
+.article{max-width:760px}.article h2{font-size:clamp(22px,3.4vw,28px);margin:40px 0 12px}.article h3{margin:28px 0 8px}
+.article pre{margin:16px 0}.article table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto;margin:16px 0}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}.article th{background:#fbfbfd}
+.article img{border-radius:12px}
+.cta{margin-top:56px;background:var(--navy);color:#c6cede;padding:36px 28px;border-radius:20px}.cta h2{color:#fff}.cta p{max-width:40em}
+footer{padding:36px 0 48px;font-size:14px;color:var(--muted)}footer a{color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Facebook Ad Library Search & API", "url": "https://aurelix-solutions.github.io/tools/facebook-ad-library-scraper/", "description": "Facebook Ad Library scraper: $0.70 vs $5.80 per 1,000 ads for Apify's own, exact limits, plain keywords, new-ads mode, optional EU reach.", "applicationCategory": "BusinessApplication", "applicationSubCategory": "Marketing", "operatingSystem": "Web (Apify platform)", "image": "https://aurelix-solutions.github.io/tools/facebook-ad-library-scraper/og.png", "sameAs": ["https://apify.com/aurelix/facebook-ad-library-scraper"], "publisher": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "offers": {"@type": "Offer", "price": "0.70", "priceCurrency": "USD", "url": "https://apify.com/aurelix/facebook-ad-library-scraper", "description": "$0.70 per 1,000 ads ($0.60 on paid Apify plans)"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is there a cheaper alternative to Apify's Facebook Ads Scraper?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. This Actor costs $0.70 per 1,000 ads on the free plan and $0.60 on paid plans; apify/facebook-ads-scraper costs $5.80 and $5.00, and curious_coder/facebook-ads-library-scraper $0.75. This Actor takes plain keywords (the other two take Ad Library URLs) and stops at exactly the number of ads you set. Its start fee is $0.003 per run, higher than curious_coder's $0.00005, so tiny runs can cost less there."}}, {"@type": "Question", "name": "How do I monitor competitor Facebook ads in Google Sheets, n8n or an AI agent?", "acceptedAnswer": {"@type": "Answer", "text": "Two ways. For a fixed workflow, add Apify's n8n or Make node, choose **Run Actor**, enter `aurelix/facebook-ad-library-scraper` and map the dataset to the next step. For an AI agent (Claude, ChatGPT, Cursor or an n8n AI Agent node), add `https://mcp.apify.com/?tools=aurelix/facebook-ad-library-scraper` as an MCP server and ask for ads in plain words; setup for each client is in the section above. Runs bill your own Apify account at the same per-result price."}}, {"@type": "Question", "name": "How much does the Facebook Ad Library Search & API cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.70 per 1,000 ads ($0.60 on paid Apify plans), billed through your Apify account; you pay only for results. Apify's free plan includes $5 of credit a month, enough for about 7,142 ads."}}, {"@type": "Question", "name": "Do I need a Facebook account or an access token?", "acceptedAnswer": {"@type": "Answer", "text": "No. The Actor reads the public Ad Library pages that anyone can open without logging in. It never logs in and uses no account."}}, {"@type": "Question", "name": "Is this legal?", "acceptedAnswer": {"@type": "Answer", "text": "It reads only public data any logged-out visitor can see: the Meta Ad Library. It goes at a polite pace, never logs in and never solves CAPTCHAs. It returns ad fields for business advertisers (page, ad text, media links, dates, platforms, status); political ads and personal pages are excluded. To have a record removed, open an issue on this Actor's Issues tab; if Meta formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice."}}, {"@type": "Question", "name": "How are political and personal advertisers excluded?", "acceptedAnswer": {"@type": "Answer", "text": "An ad is dropped if Meta labels it political or issue, carries a 'Paid for by' disclaimer, comes from a page whose category is a person (Public figure, Politician, Profile, Digital creator, Entrepreneur, Coach and similar) or has no category at all, or from a page named like a person (a common first name plus surname, e.g. 'Dr. Jane Smith'). Dropped ads are counted in the log and never charged."}}, {"@type": "Question", "name": "Why are spend and impressions empty?", "acceptedAnswer": {"@type": "Answer", "text": "Meta publishes spend and impressions only for political/issue ads and some EU-delivered ads. Political ads are excluded, so these fields are usually empty. For EU reach and audience data, turn on 'Add EU transparency data'."}}, {"@type": "Question", "name": "What EU transparency data do I get?", "acceptedAnswer": {"@type": "Answer", "text": "Turn on 'Add EU transparency data'. For ads delivered in the EU (Meta's 'See ad details' panel), each row gets eu_total_reach, eu_reach_breakdown (country, age range, male, female, unknown), eu_target_locations, eu_target_gender, eu_target_age_min/max and eu_payer_beneficiary. Other ads get empty EU fields and are not charged the $0.20 per 1,000."}}, {"@type": "Question", "name": "Does the limit really hold?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. 'Max ads per query' is an exact cap applied after exclusions and duplicates are removed, and Apify's spending limit is respected too."}}, {"@type": "Question", "name": "Can I use it from an AI assistant?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The input is described for agents: give 'queries' and optional filters. It works through Apify's MCP server and API."}}, {"@type": "Question", "name": "What happens if a search finds no ads?", "acceptedAnswer": {"@type": "Answer", "text": "The run still succeeds with 0 ads and a status message such as '0 ads; 1/1 queries complete'. You pay only the start fee, since ads are charged one by one as they are saved. If every query fails (blocked, or no results page) and nothing was saved, the run ends FAILED and names the queries."}}, {"@type": "Question", "name": "Which parts of a pasted Ad Library URL are used?", "acceptedAnswer": {"@type": "Answer", "text": "The search term (q) or the page id (view_all_page_id), plus country, active_status, media_type and search_type, so an exact-phrase search stays exact. These override the Country, Ad status and Media type fields for that URL. Other filters in the URL, such as language, platform or date range, are ignored. A URL with neither a search term nor a page id is skipped with a warning in the log."}}, {"@type": "Question", "name": "How do I get every ad of one advertiser?", "acceptedAnswer": {"@type": "Answer", "text": "Put the advertiser's page id into queries, as digits (e.g. 20409006880) or as page:20409006880, or paste the Ad Library URL of their page view, which contains view_all_page_id. A normal facebook.com/brand link is not recognised as a page and is searched as a keyword. Set Ad status to 'Active and inactive' to include stopped ads."}}, {"@type": "Question", "name": "How does 'Only new ads since last run' work?", "acceptedAnswer": {"@type": "Answer", "text": "The Actor remembers the ad ids it returned, in a store named after your queries, country, status and media type (or after 'Incremental state name' if you set one). Ads returned before are skipped, not charged and not counted against 'Max ads per query'. An ad not seen again for 60 days is forgotten. Changing the queries or filters starts a new feed unless you keep the same state name."}}, {"@type": "Question", "name": "Are duplicates removed?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Within a run each ad id is returned once, even when several queries match it, and a query entered twice runs once. Meta groups near-identical versions of an ad; each version is its own row, with variants_count and collation_id telling you which belong together."}}, {"@type": "Question", "name": "How long does a run take?", "acceptedAnswer": {"@type": "Answer", "text": "The Actor pauses 1.5 s between result pages of about 30 ads. In our tests 150 ads over two queries took 49 s and 60 ads from one page took 31 s, while 400 ads took about 6 minutes because Meta rate-limited the run. EU transparency data adds about 0.2 s per ad."}}, {"@type": "Question", "name": "Which countries can I search?", "acceptedAnswer": {"@type": "Answer", "text": "Any two-letter country code the Ad Library accepts, e.g. US, GB, CA or FR, or ALL for every country. Each row's search_country records the filter used. reached_countries is filled only where Meta publishes it, and EU transparency data exists only for ads delivered in the EU."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tools", "item": "https://aurelix-solutions.github.io/tools/"}, {"@type": "ListItem", "position": 2, "name": "Facebook Ad Library Search & API", "item": "https://aurelix-solutions.github.io/tools/facebook-ad-library-scraper/"}]}</script>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<header><a class="brand" href="/tools/"><img src="/tools/logo.png" alt="" width="34" height="34">Aurelix</a><nav class="nav"><a href="/tools/">Tools</a><a href="/tools/guides/">Guides</a></nav></header>
+<div class="hero"><p class="crumbs"><a href="/tools/">Tools</a> › Marketing</p><div class="idrow"><img src="/tools/facebook-ad-library-scraper/icon.png" alt="" width="64" height="64"><h1>Facebook Ad Library Search &amp; API</h1></div><p class="lede">See the ads your competitors run on Facebook and Instagram (copy, creatives, landing pages, run dates) for $0.70 per 1,000 ads, no login.</p><p class="lede-sub">For marketers, agencies and founders tracking rivals. Search by keyword, page ID or a pasted Ad Library URL; political, issue and personal-page ads are dropped before charging.</p><p class="pill"><span class="dot"></span>$0.70 per 1,000 ads ($0.60 on paid Apify plans)</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/facebook-ad-library-scraper">Run it on Apify</a><a class="btn btn-ghost" href="https://github.com/Aurelix-Solutions/facebook-ad-library-example">Python example on GitHub</a></div></div>
+</div></div>
+<main class="wrap">
+<section><p class="kicker">At a glance</p><h2>What the Facebook Ad Library Search &amp; API does</h2><div class="grid2"><div class="box"><dl class="glance"><div><dt>Search by</dt><dd>Keyword, Facebook page ID or Ad Library URL</dd></div><div><dt>Filters</dt><dd>Country, active/inactive status, media type, exact max ads per query</dd></div><div><dt>Output</dt><dd>33 fields per ad, 41 with EU transparency; JSON, CSV, Excel, API</dd></div><div><dt>Automate</dt><dd>Schedules, Slack or webhook digest, Zapier, Make, n8n, Google Sheets, MCP for AI agents</dd></div></dl></div><div class="box"><h3>Who it is for</h3><ul class="ticks"><li>Marketers and agencies studying competitors&#x27; ad copy and creatives</li><li>E-commerce brands tracking which products rivals advertise, with the new-ads feed</li><li>Copywriters collecting ad examples by keyword and country</li><li>Sales teams finding businesses that are actively advertising</li></ul></div></div></section>
+<section><p class="kicker">Output</p><h2>What you get</h2><div class="box"><ul class="ticks"><li>Advertiser page name, id, link, categories and like count</li><li>Ad id and public Ad Library link</li><li>Ad text, headline, link description, display link, button text and type, landing page URL</li><li>Image and video creative links, carousel/dynamic cards</li><li>Start and stop dates in ISO 8601 UTC, active flag</li><li>Platforms (Facebook, Instagram, Messenger, Audience Network, Threads)</li><li>Spend range and impressions where Meta publishes them</li><li>Number of near-identical versions Meta groups with the ad</li><li>Optional EU transparency: EU reach, reach by country/age/gender, targeted locations/gender/ages, payer and beneficiary</li></ul></div></section>
+<section><p class="kicker">Example</p><h2>Input and output</h2><div class="grid2"><div><h3>Input</h3><pre><code>{
+  &quot;queries&quot;: [
+    &quot;meal kit&quot;,
+    &quot;https://www.facebook.com/ads/library/?active_status=active&amp;ad_type=all&amp;country=CA&amp;q=shopify&quot;
+  ],
+  &quot;country&quot;: &quot;US&quot;,
+  &quot;activeStatus&quot;: &quot;active&quot;,
+  &quot;maxResultsPerQuery&quot;: 50
+}</code></pre></div><div><h3>One output record</h3><pre><code>{
+  &quot;ad_id&quot;: &quot;4477357355914906&quot;,
+  &quot;page_id&quot;: &quot;1811034678977534&quot;,
+  &quot;page_name&quot;: &quot;Coohom&quot;,
+  &quot;page_url&quot;: &quot;https://facebook.com/coohom&quot;,
+  &quot;page_categories&quot;: [
+    &quot;Business&quot;
+  ],
+  &quot;page_like_count&quot;: 39638,
+  &quot;is_active&quot;: true,
+  &quot;start_date&quot;: &quot;2026-08-26T07:00:00Z&quot;,
+  &quot;end_date&quot;: &quot;2026-11-04T08:00:00Z&quot;,
+  &quot;platforms&quot;: [
+    &quot;facebook&quot;,
+    &quot;instagram&quot;,
+    &quot;audience_network&quot;
+  ],
+  &quot;search_country&quot;: &quot;ALL&quot;,
+  &quot;reached_countries&quot;: [],
+  &quot;ad_text&quot;: &quot;From design to production, all in one connected workflow.\n\n✔ Design &amp; render faster\n✔ Quote accurately in real time\n✔ Generate CAM-ready production data\n✔…&quot;,
+  &quot;title&quot;: &quot;AI-Powered Design to Production&quot;,
+  &quot;link_description&quot;: &quot;Create designs and renders in minutes.&quot;,
+  &quot;caption&quot;: &quot;fb.me&quot;,
+  &quot;cta_text&quot;: &quot;Get quote&quot;,
+  &quot;cta_type&quot;: &quot;GET_QUOTE&quot;,
+  &quot;link_url&quot;: &quot;http://fb.me/&quot;,
+  &quot;display_format&quot;: &quot;DCO&quot;,
+  &quot;image_urls&quot;: [
+    &quot;https://scontent-phl2-1.xx.fbcdn.net/v/t39.35426-6/775280732_2238348630340852_5154949849446191823_n.jpg?_nc_cat=104&amp;ccb=1-7&amp;_nc_sid=c53f8f&amp;_nc_ohc=tAi5np9bX3…&quot;,
+    &quot;https://scontent-phl2-1.xx.fbcdn.net/v/t39.35426-6/778735461_1427873105866349_7149590165820850646_n.jpg?_nc_cat=100&amp;ccb=1-7&amp;_nc_sid=c53f8f&amp;_nc_ohc=cM74U5KQ55…&quot;,
+    &quot;https://scontent-phl2-1.xx.fbcdn.net/v/t39.35426-6/779357208_1579852603619327_4038369567686651060_n.jpg?_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=c53f8f&amp;_nc_ohc=mKT2Gotyqb…&quot;,
+    &quot;… 9 more&quot;
+  ],
+  &quot;video_urls&quot;: [
+    &quot;https://video-phl2-1.xx.fbcdn.net/o1/v/t2/f2/m412/AQNWAem6W_OqTU0qvfnndgBECIVlL_Co5FiUTxZVrq9uU7fm_5dZlE9waeqy8weHO2Y_YK7Z46Sr44snspwq6mr9kLCW8qiOIknHpeVSLA.…&quot;
+  ],
+  &quot;cards&quot;: [
+    {
+      &quot;body&quot;: &quot;From design to production, all in one connected workflow.\n\n✔ Design &amp; render faster\n✔ Quote accurately in real time\n✔ Generate CAM-ready production data\n✔…&quot;,
+      &quot;title&quot;: &quot;AI-Powered Design to Production&quot;,
+      &quot;link_url&quot;: &quot;http://fb.me/&quot;,
+      &quot;image_url&quot;: &quot;https://scontent-phl2-1.xx.fbcdn.net/v/t39.35426-6/775280732_2238348630340852_5154949849446191823_n.jpg?_nc_cat=104&amp;ccb=1-7&amp;_nc_sid=c53f8f&amp;_nc_ohc=tAi5np9bX3…&quot;,
+      &quot;video_url&quot;: null
+    },
+    {
+      &quot;body&quot;: &quot;From design to production, all in one connected workflow.\n\n✔ Design &amp; render faster\n✔ Quote accurately in real time\n✔ Generate CAM-ready production data\n✔…&quot;,
+      &quot;title&quot;: &quot;Design Faster. Sell Smarter.&quot;,
+      &quot;link_url&quot;: &quot;http://fb.me/&quot;,
+      &quot;image_url&quot;: &quot;https://scontent-phl2-1.xx.fbcdn.net/v/t39.35426-6/778735461_1427873105866349_7149590165820850646_n.jpg?_nc_cat=100&amp;ccb=1-7&amp;_nc_sid=c53f8f&amp;_nc_ohc=cM74U5KQ55…&quot;,
+      &quot;video_url&quot;: null
+    },
+    {
+      &quot;body&quot;: &quot;From design to production, all in one connected workflow.\n\n✔ Design &amp; render faster\n✔ Quote accurately in real time\n✔ Generate CAM-ready production data\n✔…&quot;,
+      &quot;title&quot;: &quot;AI-Powered Design to Production&quot;,
+      &quot;link_url&quot;: &quot;http://fb.me/&quot;,
+      &quot;image_url&quot;: &quot;https://scontent-phl2-1.xx.fbcdn.net/v/t39.35426-6/779357208_1579852603619327_4038369567686651060_n.jpg?_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=c53f8f&amp;_nc_ohc=mKT2Gotyqb…&quot;,
+      &quot;video_url&quot;: null
+    },
+    &quot;… 15 more&quot;
+  ],
+  &quot;variants_count&quot;: 1,
+  &quot;collation_id&quot;: &quot;1087839470334171&quot;,
+  &quot;spend_range&quot;: null,
+  &quot;impressions_range&quot;: null,
+  &quot;impressions_text&quot;: null,
+  &quot;reach_estimate&quot;: null,
+  &quot;currency&quot;: null,
+  &quot;ad_library_url&quot;: &quot;https://www.facebook.com/ads/library/?id=4477357355914906&quot;,
+  &quot;source_url&quot;: &quot;https://www.facebook.com/ads/library/?id=4477357355914906&quot;,
+  &quot;scraped_at&quot;: &quot;2026-11-04T16:15:38Z&quot;
+}</code></pre><p class="note">From a real run of this tool; long text and lists shortened here.</p></div></div></section>
+<section><p class="kicker">How to use it</p><h2>Three steps</h2><ol class="steps"><li>Put search terms (e.g. &#x27;meal kit&#x27;), Facebook page ids or Ad Library URLs into Queries.</li><li>Optionally pick a country, active/inactive status, media type and the exact number of ads per query; turn on &#x27;Only new ads since last run&#x27; for a feed.</li><li>Click Start, then download JSON, CSV or Excel, or schedule it and send results to Google Sheets, Zapier, Make or n8n.</li></ol></section>
+<section><p class="kicker">API</p><h2>Call it from Python</h2><pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+run = client.actor(&quot;aurelix/facebook-ad-library-scraper&quot;).call(run_input={&#x27;queries&#x27;: [&#x27;meal kit&#x27;,
+             &#x27;https://www.facebook.com/ads/library/?active_status=active&amp;ad_type=all&amp;country=CA&amp;q=shopify&#x27;],
+ &#x27;country&#x27;: &#x27;US&#x27;,
+ &#x27;activeStatus&#x27;: &#x27;active&#x27;,
+ &#x27;maxResultsPerQuery&#x27;: 50})
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)</code></pre><p class="note"><code>pip install apify-client</code>. The same input works from the Apify console, a schedule, Make, n8n, Zapier or an AI agent through the Apify MCP server.</p></section>
+<section><p class="kicker">Pricing</p><h2>Pay per result</h2><div class="box"><table class="price"><tr><td>Per 1,000 ads, free plan</td><td>$0.70</td></tr><tr><td>Per 1,000 ads, paid plans</td><td>$0.60</td></tr><tr><td>Eu details, per 1,000, free plan</td><td>$0.20</td></tr><tr><td>Start fee per run</td><td>$0.003</td></tr></table><p class="note">Live prices from the Apify Store; no subscription and no platform usage billed on top. <a href="https://apify.com/aurelix/facebook-ad-library-scraper">See the Store page</a>.</p></div></section>
+<section><p class="kicker">Honest limits</p><h2>What it does not do</h2><div class="box"><ul class="ticks"><li>Data comes from the public Ad Library web pages, not Meta&#x27;s official API (which needs a personally verified developer account). A Meta layout change can break it until fixed; the daily health run catches that within 24 hours.</li><li>Meta rate-limits datacenter addresses quickly, so the Actor starts on datacenter proxy and switches to residential proxy (included in the price) after the first rate limit.</li><li>The personal-page filter is a heuristic on Meta&#x27;s page categories and page names. A person with an unusual name who files their page under a business category can slip through; a business with no category, or one named exactly like a person (e.g. &#x27;Sarah Jane&#x27;), is dropped.</li><li>Meta groups near-identical ad versions; each version is returned as its own row with &#x27;variants_count&#x27;.</li><li>Reached-countries, spend and impressions are only filled where Meta publishes them (mostly EU and political ads).</li><li>Meta rate-limits the Ad Library from time to time. The Actor waits and retries with up to 8 fresh sessions (new IP addresses), backing off up to a minute between tries. If Meta still refuses, that query stops early: the status message names it as PARTIAL (&#x27;stopped at N ads (Meta rate limit)&#x27;) and does not count it as complete; the run still succeeds and you pay only for the ads returned. A query that stops on another error after saving ads is also named as PARTIAL.</li><li>A run that would outlast its timeout stops by itself shortly before it, keeps and charges only the ads already saved, and ends SUCCEEDED with a PARTIAL status message. With the default 1-hour timeout that is several thousand ads; raise the timeout for bigger pulls.</li><li>EU transparency data exists only for ads Meta shows it for (delivered in the EU); it adds about 0.2 s per ad to the run.</li></ul></div></section>
+<section><p class="kicker">FAQ</p><h2>Questions buyers ask</h2><details><summary>Is there a cheaper alternative to Apify&#x27;s Facebook Ads Scraper?</summary><p>Yes. This Actor costs $0.70 per 1,000 ads on the free plan and $0.60 on paid plans; apify/facebook-ads-scraper costs $5.80 and $5.00, and curious_coder/facebook-ads-library-scraper $0.75. This Actor takes plain keywords (the other two take Ad Library URLs) and stops at exactly the number of ads you set. Its start fee is $0.003 per run, higher than curious_coder&#x27;s $0.00005, so tiny runs can cost less there.</p></details><details><summary>How do I monitor competitor Facebook ads in Google Sheets, n8n or an AI agent?</summary><p>Two ways. For a fixed workflow, add Apify&#x27;s n8n or Make node, choose **Run Actor**, enter <code>aurelix/facebook-ad-library-scraper</code> and map the dataset to the next step. For an AI agent (Claude, ChatGPT, Cursor or an n8n AI Agent node), add <code>https://mcp.apify.com/?tools=aurelix/facebook-ad-library-scraper</code> as an MCP server and ask for ads in plain words; setup for each client is in the section above. Runs bill your own Apify account at the same per-result price.</p></details><details><summary>How much does the Facebook Ad Library Search &amp; API cost?</summary><p>$0.70 per 1,000 ads ($0.60 on paid Apify plans), billed through your Apify account; you pay only for results. Apify&#x27;s free plan includes $5 of credit a month, enough for about 7,142 ads.</p></details><details><summary>Do I need a Facebook account or an access token?</summary><p>No. The Actor reads the public Ad Library pages that anyone can open without logging in. It never logs in and uses no account.</p></details><details><summary>Is this legal?</summary><p>It reads only public data any logged-out visitor can see: the Meta Ad Library. It goes at a polite pace, never logs in and never solves CAPTCHAs. It returns ad fields for business advertisers (page, ad text, media links, dates, platforms, status); political ads and personal pages are excluded. To have a record removed, open an issue on this Actor&#x27;s Issues tab; if Meta formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice.</p></details><details><summary>How are political and personal advertisers excluded?</summary><p>An ad is dropped if Meta labels it political or issue, carries a &#x27;Paid for by&#x27; disclaimer, comes from a page whose category is a person (Public figure, Politician, Profile, Digital creator, Entrepreneur, Coach and similar) or has no category at all, or from a page named like a person (a common first name plus surname, e.g. &#x27;Dr. Jane Smith&#x27;). Dropped ads are counted in the log and never charged.</p></details><details><summary>Why are spend and impressions empty?</summary><p>Meta publishes spend and impressions only for political/issue ads and some EU-delivered ads. Political ads are excluded, so these fields are usually empty. For EU reach and audience data, turn on &#x27;Add EU transparency data&#x27;.</p></details><details><summary>What EU transparency data do I get?</summary><p>Turn on &#x27;Add EU transparency data&#x27;. For ads delivered in the EU (Meta&#x27;s &#x27;See ad details&#x27; panel), each row gets eu_total_reach, eu_reach_breakdown (country, age range, male, female, unknown), eu_target_locations, eu_target_gender, eu_target_age_min/max and eu_payer_beneficiary. Other ads get empty EU fields and are not charged the $0.20 per 1,000.</p></details><details><summary>Does the limit really hold?</summary><p>Yes. &#x27;Max ads per query&#x27; is an exact cap applied after exclusions and duplicates are removed, and Apify&#x27;s spending limit is respected too.</p></details><details><summary>Can I use it from an AI assistant?</summary><p>Yes. The input is described for agents: give &#x27;queries&#x27; and optional filters. It works through Apify&#x27;s MCP server and API.</p></details><details><summary>What happens if a search finds no ads?</summary><p>The run still succeeds with 0 ads and a status message such as &#x27;0 ads; 1/1 queries complete&#x27;. You pay only the start fee, since ads are charged one by one as they are saved. If every query fails (blocked, or no results page) and nothing was saved, the run ends FAILED and names the queries.</p></details><details><summary>Which parts of a pasted Ad Library URL are used?</summary><p>The search term (q) or the page id (view_all_page_id), plus country, active_status, media_type and search_type, so an exact-phrase search stays exact. These override the Country, Ad status and Media type fields for that URL. Other filters in the URL, such as language, platform or date range, are ignored. A URL with neither a search term nor a page id is skipped with a warning in the log.</p></details><details><summary>How do I get every ad of one advertiser?</summary><p>Put the advertiser&#x27;s page id into queries, as digits (e.g. 20409006880) or as page:20409006880, or paste the Ad Library URL of their page view, which contains view_all_page_id. A normal facebook.com/brand link is not recognised as a page and is searched as a keyword. Set Ad status to &#x27;Active and inactive&#x27; to include stopped ads.</p></details><details><summary>How does &#x27;Only new ads since last run&#x27; work?</summary><p>The Actor remembers the ad ids it returned, in a store named after your queries, country, status and media type (or after &#x27;Incremental state name&#x27; if you set one). Ads returned before are skipped, not charged and not counted against &#x27;Max ads per query&#x27;. An ad not seen again for 60 days is forgotten. Changing the queries or filters starts a new feed unless you keep the same state name.</p></details><details><summary>Are duplicates removed?</summary><p>Yes. Within a run each ad id is returned once, even when several queries match it, and a query entered twice runs once. Meta groups near-identical versions of an ad; each version is its own row, with variants_count and collation_id telling you which belong together.</p></details><details><summary>How long does a run take?</summary><p>The Actor pauses 1.5 s between result pages of about 30 ads. In our tests 150 ads over two queries took 49 s and 60 ads from one page took 31 s, while 400 ads took about 6 minutes because Meta rate-limited the run. EU transparency data adds about 0.2 s per ad.</p></details><details><summary>Which countries can I search?</summary><p>Any two-letter country code the Ad Library accepts, e.g. US, GB, CA or FR, or ALL for every country. Each row&#x27;s search_country records the filter used. reached_countries is filled only where Meta publishes it, and EU transparency data exists only for ads delivered in the EU.</p></details></section>
+<section><p class="kicker">Guides</p><h2>Tutorials using this tool</h2><div class="box"><ul class="links"><li><a href="https://aurelix-solutions.github.io/tools/guides/longest-running-facebook-ads-competitor/">Find a competitor&#x27;s longest-running Facebook and Instagram ads with the Meta Ad Library</a></li><li><a href="https://dev.to/aurelix_solutions/monitor-your-competitors-facebook-and-instagram-ads-with-python-18do">Monitor your competitors&#x27; Facebook and Instagram ads with Python</a></li><li><a href="https://dev.to/aurelix_solutions/a-weekly-competitor-digest-new-ads-page-edits-price-changes-and-job-posts-in-one-report-1ee8">A weekly competitor digest: new ads, page edits, price changes and job posts in one report</a></li></ul></div></section>
+<section><p class="kicker">Related</p><h2>Related tools</h2><div class="cards"><a class="tcard" href="/tools/competitor-watch/" data-cat="Marketing E-commerce"><div class="row"><img src="/tools/competitor-watch/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Competitor Watch</h3></div><p>One report per competitor with only what is new: Meta and TikTok ads, page changes, Shopify products and prices, jobs.</p><div class="meta"><span class="tag">Marketing</span><span class="price-s">$30.00 / 1,000 competitor checks</span></div></a></div></section>
+<section class="cta"><div><h2>Try the Facebook Ad Library Search &amp; API</h2><p>Open it on the Apify Store, paste the example input above and click Start. Results download as CSV, Excel or JSON.</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/facebook-ad-library-scraper">Run it on Apify</a></div></div></section>
+</main>
+<footer class="wrap"><p>Aurelix builds and maintains these tools. They run on the <a href="https://apify.com/aurelix">Apify Store</a>, which handles accounts and billing; prices on this site are read from the Store each time the site is rebuilt. Tools read only public pages a logged-out visitor can see. <a href="/tools/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p></footer>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toronto development applications for contractors - a weekly list of new projects from open data | Aurelix</title>
+<meta name="description" content="Pull new Toronto rezoning, site plan and condominium applications (address, ward, storeys, units) from the City&#x27;s open data every week, filter them for your trade, and get them into a spreadsheet.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/tools/guides/toronto-development-applications-for-contractors/">
+<meta property="og:title" content="Toronto development applications for contractors - a weekly list of new projects from open data | Aurelix">
+<meta property="og:description" content="Pull new Toronto rezoning, site plan and condominium applications (address, ward, storeys, units) from the City&#x27;s open data every week, filter them for your trade, and get them into a spreadsheet.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/tools/guides/toronto-development-applications-for-contractors/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aurelix">
+<meta property="og:image" content="https://aurelix-solutions.github.io/tools/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aurelix-solutions.github.io/tools/og.png">
+<link rel="icon" type="image/png" href="/tools/favicon.png">
+<link rel="apple-touch-icon" href="/tools/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1726;--navy-2:#16213a;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;--ink:#0f1726;--body:#3b4559;
+--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;--r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:#0d7f75}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:16px;font-size:14px;font-weight:600}.nav a{color:#c6cede;text-decoration:none}.nav a:hover{color:#fff}
+.hero{position:relative;z-index:1;padding:28px 0 56px}
+.crumbs{font-size:13px;color:#98a3b8;margin:0 0 18px}.crumbs a{color:#c6cede;text-decoration:none}
+.idrow{display:flex;align-items:center;gap:16px}
+.idrow img{width:64px;height:64px;border-radius:16px;background:#fff;flex:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+h1{color:#fff;font-size:clamp(30px,6.4vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:0}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:40em;margin:18px 0 8px}
+.lede-sub{font-size:16px;color:#98a3b8;max-width:42em;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;margin:0 0 22px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18);flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:520px){.btn{flex:1 1 100%}}
+main section{padding:56px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 8px}
+h2{font-size:clamp(24px,4vw,32px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;font-weight:800}
+h3{color:var(--ink);font-size:18px;margin:0 0 6px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;gap:16px}.grid2>*{min-width:0}@media (min-width:820px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.glance{display:grid;gap:0;margin:0}.glance div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.glance div:last-child{border:0}
+.glance dd,.glance dt{overflow-wrap:anywhere}.glance dt{font-weight:700;color:var(--ink);font-size:14px}.glance dd{margin:0;font-size:15px}
+@media (max-width:520px){.glance div{grid-template-columns:1fr;gap:2px}}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:28px}ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:10px;border-left:3px solid var(--teal);border-bottom:3px solid var(--teal);transform:rotate(-45deg) scale(.8)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 66px;box-shadow:var(--shadow)}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+pre{background:var(--navy);color:#e6ebf5;border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.5;margin:0;max-height:460px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code,td code{background:#eef1f6;color:var(--ink);padding:1px 5px;border-radius:5px;font-size:.9em}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+table.price{width:100%;border-collapse:collapse;font-size:15px}table.price td{padding:11px 0;border-bottom:1px solid var(--line)}table.price tr:last-child td{border:0}table.price td:last-child{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin:0 0 10px;box-shadow:0 1px 2px rgba(15,23,38,.05)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;position:relative;padding-right:28px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--muted)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px}
+.cards{display:grid;gap:14px}@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}@media (min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:var(--body);transition:transform .15s,box-shadow .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,38,.06),0 14px 32px rgba(15,23,38,.10)}
+.tcard .row{display:flex;align-items:center;gap:12px}.tcard img{width:44px;height:44px;border-radius:11px;flex:none;border:1px solid var(--line)}
+.tcard h3{margin:0;font-size:17px}.tcard p{margin:0;font-size:15px;flex:1}
+.tcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208}
+.price-s{font-weight:700;color:var(--ink);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.chips button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.links a{font-weight:600}
+.article{max-width:760px}.article h2{font-size:clamp(22px,3.4vw,28px);margin:40px 0 12px}.article h3{margin:28px 0 8px}
+.article pre{margin:16px 0}.article table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto;margin:16px 0}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}.article th{background:#fbfbfd}
+.article img{border-radius:12px}
+.cta{margin-top:56px;background:var(--navy);color:#c6cede;padding:36px 28px;border-radius:20px}.cta h2{color:#fff}.cta p{max-width:40em}
+footer{padding:36px 0 48px;font-size:14px;color:var(--muted)}footer a{color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Toronto development applications for contractors - a weekly list of new projects from open data", "description": "Pull new Toronto rezoning, site plan and condominium applications (address, ward, storeys, units) from the City's open data every week, filter them for your trade, and get them into a spreadsheet.", "url": "https://aurelix-solutions.github.io/tools/guides/toronto-development-applications-for-contractors/", "author": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "publisher": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "image": "https://aurelix-solutions.github.io/tools/og.png", "about": [{"@type": "SoftwareApplication", "name": "Canada Building Permits", "url": "https://aurelix-solutions.github.io/tools/canada-building-permits-scraper/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Guides", "item": "https://aurelix-solutions.github.io/tools/guides/"}, {"@type": "ListItem", "position": 2, "name": "Toronto development applications for contractors - a weekly list of new projects from open data", "item": "https://aurelix-solutions.github.io/tools/guides/toronto-development-applications-for-contractors/"}]}</script>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<header><a class="brand" href="/tools/"><img src="/tools/logo.png" alt="" width="34" height="34">Aurelix</a><nav class="nav"><a href="/tools/">Tools</a><a href="/tools/guides/" aria-current=page>Guides</a></nav></header>
+<div class="hero"><p class="crumbs"><a href="/tools/guides/">Guides</a></p><h1>Toronto development applications for contractors - a weekly list of new projects from open data</h1><p class="lede">Pull new Toronto rezoning, site plan and condominium applications (address, ward, storeys, units) from the City&#x27;s open data every week, filter them for your trade, and get them into a spreadsheet.</p><a class="btn btn-gold" href="/tools/canada-building-permits-scraper/">Canada Building Permits: price and examples</a></div>
+</div></div>
+<main class="wrap">
+<section><article class="article"><p>A building permit is late in a project's life: by then the general contractor is usually chosen. A <strong>development application</strong> is earlier. In Toronto, a rezoning (Official Plan or Zoning By-law Amendment), a site plan, a draft plan of condominium or a part-lot-control application tells you a building is coming months or years before it is built, with its address, ward and often its storeys and unit count.</p>
+<p>The City of Toronto publishes these applications as open data. This guide turns them into a weekly list a contractor, supplier or consultant can actually work.</p>
+<p><strong>Disclosure:</strong> I'm Aurelix, and I built the <a href="https://apify.com/aurelix/canada-building-permits-scraper">Canada Building Permits Scraper</a> used below, which reads Toronto's development applications and building permits plus five other Canadian cities. It is a paid tool, priced per application returned; the current price is on its <a href="/tools/canada-building-permits-scraper/">tool page</a>.</p>
+<h2>What is in Toronto's data</h2>
+<p>Toronto's Development Applications dataset holds about 25 to 40 planning applications a month, and new applications appear in it about a month after submission. Each record has:</p>
+<ul>
+<li>the application number and type: <code>OZ</code> rezoning or official plan amendment, <code>SA</code> site plan, <code>SB</code> subdivision, <code>CD</code> condominium, <code>PL</code> part lot control;</li>
+<li>the address and ward;</li>
+<li>a free-text description, which for larger projects usually gives storeys, units, gross floor area and parking;</li>
+<li>the status (Application Received, Under Review, Closed) and the submitted date.</li>
+</ul>
+<p>For volume, Toronto's building permits dataset is far larger (thousands of records a month); the tool reads it as <code>toronto-building</code>.</p>
+<h2>The input</h2>
+<pre><code class="language-json">{
+  &quot;cities&quot;: [&quot;toronto&quot;],
+  &quot;daysBack&quot;: 60,
+  &quot;applicationTypes&quot;: [&quot;zoning&quot;, &quot;site plan&quot;, &quot;condominium&quot;],
+  &quot;keywords&quot;: [&quot;storey&quot;, &quot;units&quot;],
+  &quot;incremental&quot;: true,
+  &quot;stateKey&quot;: &quot;toronto-dev-weekly&quot;
+}
+</code></pre>
+<ul>
+<li><code>applicationTypes</code> and <code>keywords</code> match case-insensitively on the type and on the description or address.</li>
+<li><code>wards</code> narrows to the wards you work in, by number or name, for example <code>["18", "Etobicoke-Lakeshore"]</code>.</li>
+<li><code>incremental</code> returns only applications you have not received before, plus applications whose status changed, so a weekly schedule never repeats a project.</li>
+</ul>
+<h2>Real output</h2>
+<p>These are Toronto applications from a run of the tool over the last 60 days, unfiltered (28 applications: 15 site plans, 9 rezonings, 3 draft plans of condominium, 1 part lot control):</p>
+<table>
+<thead>
+<tr>
+<th>type (shortened)</th>
+<th>address</th>
+<th>ward</th>
+<th>description (shortened)</th>
+<th>status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rezoning</td>
+<td>7 LABATT AVE</td>
+<td>13 Toronto Centre</td>
+<td>Proposed 46-storey residential building and a 2-storey non-residential building, 1,170 dwelling units</td>
+<td>Application Received</td>
+</tr>
+<tr>
+<td>Rezoning</td>
+<td>689 KING ST W</td>
+<td>10 Spadina-Fort York</td>
+<td>30-storey mixed-use: 251 hotel suites, 160 purpose-built rental units</td>
+<td>Application Received</td>
+</tr>
+<tr>
+<td>Site plan</td>
+<td>4632-4648 YONGE ST</td>
+<td>18 Willowdale</td>
+<td>50-storey mixed-use building, 569 residential units, 3 levels of below-grade parking</td>
+<td>Under Review</td>
+</tr>
+<tr>
+<td>Site plan</td>
+<td>20 PULLMAN CRT</td>
+<td>23 Scarborough North</td>
+<td>Three-storey expansion to an existing data centre, about 7,076 m² GFA</td>
+<td>Under Review</td>
+</tr>
+<tr>
+<td>Site plan</td>
+<td>860 BATHURST ST</td>
+<td>11 University-Rosedale</td>
+<td>3-storey addition: medical office, commercial space and 15 residential units</td>
+<td>Under Review</td>
+</tr>
+<tr>
+<td>Condominium</td>
+<td>933 THE QUEENSWAY</td>
+<td>03 Etobicoke-Lakeshore</td>
+<td>Draft Plan of Condominium, 210 units</td>
+<td>Application Received</td>
+</tr>
+</tbody>
+</table>
+<p>Each row also carries the application number, the submitted date, the city and province, and a link to its open-data source.</p>
+<h2>Filter for your trade in Python</h2>
+<pre><code class="language-bash">pip install apify-client openpyxl
+</code></pre>
+<pre><code class="language-python">import os
+import re
+
+from apify_client import ApifyClient
+from openpyxl import Workbook
+
+client = ApifyClient(os.environ[&quot;APIFY_TOKEN&quot;])
+run = client.actor(&quot;aurelix/canada-building-permits-scraper&quot;).call(run_input={
+    &quot;cities&quot;: [&quot;toronto&quot;],
+    &quot;daysBack&quot;: 60,
+    &quot;incremental&quot;: True,
+    &quot;stateKey&quot;: &quot;toronto-dev-weekly&quot;,
+})
+apps = list(client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items())
+
+def number(pattern, text):
+    m = re.search(pattern, text or &quot;&quot;, re.I)
+    return int(m.group(1).replace(&quot;,&quot;, &quot;&quot;)) if m else None
+
+wb = Workbook()
+ws = wb.active
+ws.append([&quot;Type&quot;, &quot;Address&quot;, &quot;Ward&quot;, &quot;Storeys&quot;, &quot;Units&quot;, &quot;Status&quot;, &quot;Description&quot;, &quot;Application&quot;])
+for a in apps:
+    d = a.get(&quot;description&quot;) or &quot;&quot;
+    storeys = number(r&quot;(\d+)[\s-]*stor(?:e)?y&quot;, d)
+    units = number(r&quot;([\d,]+)\s+(?:residential |dwelling |rental )?units&quot;, d)
+    if storeys and storeys &lt; 4 and not units:
+        continue  # skip small projects
+    ws.append([a[&quot;application_type&quot;], a[&quot;address&quot;], a.get(&quot;ward&quot;), storeys, units, a[&quot;status&quot;], d[:300],
+               a[&quot;application_number&quot;]])
+wb.save(&quot;toronto-new-projects.xlsx&quot;)
+print(f&quot;{ws.max_row - 1} projects saved&quot;)
+</code></pre>
+<p>Change the filter for your work: a concrete or formwork supplier keeps high storey counts, a millwork or appliance supplier sorts by <code>units</code>, an HVAC firm might keep the data-centre and institutional entries.</p>
+<h2>Limits</h2>
+<ul>
+<li>Toronto's development applications are thin by nature and arrive in the open data about a month after submission; that is the source, not a cap in the tool.</li>
+<li>Toronto Committee of Adjustment (minor variances and consents) is not covered: there is no current open dataset for it.</li>
+<li>Descriptions are free text written by applicants; some are empty, and some use placeholders like "(_)-storey" until figures are final.</li>
+</ul>
+<p>If you would rather receive a ready-made weekly spreadsheet than run anything, Aurelix also publishes <a href="/toronto/">Toronto New Projects</a>, a weekly list of new Toronto building permit and development applications for contractors. For the same approach across Calgary, Edmonton, Vancouver, Winnipeg, Kitchener and Montréal, see <a href="https://dev.to/aurelix_solutions/find-new-construction-projects-in-canadian-cities-from-open-permit-data-4jh0">Find new construction projects in Canadian cities from open permit data</a>.</p>
+<h2>Links</h2>
+<ul>
+<li><a href="/tools/canada-building-permits-scraper/">Canada Building Permits Scraper: price, example input and output, FAQ</a></li>
+<li><a href="https://apify.com/aurelix/canada-building-permits-scraper">Canada Building Permits Scraper on the Apify Store</a></li>
+<li><a href="https://github.com/Aurelix-Solutions/canada-development-applications-example">Runnable Python example on GitHub</a></li>
+</ul></article></section><section><p class="kicker">Tools used</p><div class="cards"><a class="tcard" href="/tools/canada-building-permits-scraper/" data-cat="Real estate Leads Business"><div class="row"><img src="/tools/canada-building-permits-scraper/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Canada Building Permits</h3></div><p>Building permits and development applications from 7 Canadian cities: address, type, status, dates, value, contractor company.</p><div class="meta"><span class="tag">Real estate</span><span class="price-s">$3.00 / 1,000 applications</span></div></a></div></section>
+</main>
+<footer class="wrap"><p>Aurelix builds and maintains these tools. They run on the <a href="https://apify.com/aurelix">Apify Store</a>, which handles accounts and billing; prices on this site are read from the Store each time the site is rebuilt. Tools read only public pages a logged-out visitor can see. <a href="/tools/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p></footer>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turn a documentation site into one Markdown file for ChatGPT, Claude or Cursor | Aurelix</title>
+<meta name="description" content="Crawl a docs site, strip menus, footers and cookie banners, and merge every page into a single Markdown file (or an llms-full.txt) you can upload to ChatGPT, Claude, a Claude Project or Cursor.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/tools/guides/documentation-site-to-markdown-for-chatgpt-claude/">
+<meta property="og:title" content="Turn a documentation site into one Markdown file for ChatGPT, Claude or Cursor | Aurelix">
+<meta property="og:description" content="Crawl a docs site, strip menus, footers and cookie banners, and merge every page into a single Markdown file (or an llms-full.txt) you can upload to ChatGPT, Claude, a Claude Project or Cursor.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/tools/guides/documentation-site-to-markdown-for-chatgpt-claude/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aurelix">
+<meta property="og:image" content="https://aurelix-solutions.github.io/tools/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aurelix-solutions.github.io/tools/og.png">
+<link rel="icon" type="image/png" href="/tools/favicon.png">
+<link rel="apple-touch-icon" href="/tools/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1726;--navy-2:#16213a;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;--ink:#0f1726;--body:#3b4559;
+--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;--r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:#0d7f75}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:16px;font-size:14px;font-weight:600}.nav a{color:#c6cede;text-decoration:none}.nav a:hover{color:#fff}
+.hero{position:relative;z-index:1;padding:28px 0 56px}
+.crumbs{font-size:13px;color:#98a3b8;margin:0 0 18px}.crumbs a{color:#c6cede;text-decoration:none}
+.idrow{display:flex;align-items:center;gap:16px}
+.idrow img{width:64px;height:64px;border-radius:16px;background:#fff;flex:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+h1{color:#fff;font-size:clamp(30px,6.4vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:0}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:40em;margin:18px 0 8px}
+.lede-sub{font-size:16px;color:#98a3b8;max-width:42em;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;margin:0 0 22px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18);flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:520px){.btn{flex:1 1 100%}}
+main section{padding:56px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 8px}
+h2{font-size:clamp(24px,4vw,32px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;font-weight:800}
+h3{color:var(--ink);font-size:18px;margin:0 0 6px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;gap:16px}.grid2>*{min-width:0}@media (min-width:820px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.glance{display:grid;gap:0;margin:0}.glance div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.glance div:last-child{border:0}
+.glance dd,.glance dt{overflow-wrap:anywhere}.glance dt{font-weight:700;color:var(--ink);font-size:14px}.glance dd{margin:0;font-size:15px}
+@media (max-width:520px){.glance div{grid-template-columns:1fr;gap:2px}}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:28px}ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:10px;border-left:3px solid var(--teal);border-bottom:3px solid var(--teal);transform:rotate(-45deg) scale(.8)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 66px;box-shadow:var(--shadow)}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+pre{background:var(--navy);color:#e6ebf5;border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.5;margin:0;max-height:460px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code,td code{background:#eef1f6;color:var(--ink);padding:1px 5px;border-radius:5px;font-size:.9em}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+table.price{width:100%;border-collapse:collapse;font-size:15px}table.price td{padding:11px 0;border-bottom:1px solid var(--line)}table.price tr:last-child td{border:0}table.price td:last-child{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin:0 0 10px;box-shadow:0 1px 2px rgba(15,23,38,.05)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;position:relative;padding-right:28px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--muted)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px}
+.cards{display:grid;gap:14px}@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}@media (min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:var(--body);transition:transform .15s,box-shadow .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,38,.06),0 14px 32px rgba(15,23,38,.10)}
+.tcard .row{display:flex;align-items:center;gap:12px}.tcard img{width:44px;height:44px;border-radius:11px;flex:none;border:1px solid var(--line)}
+.tcard h3{margin:0;font-size:17px}.tcard p{margin:0;font-size:15px;flex:1}
+.tcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208}
+.price-s{font-weight:700;color:var(--ink);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.chips button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.links a{font-weight:600}
+.article{max-width:760px}.article h2{font-size:clamp(22px,3.4vw,28px);margin:40px 0 12px}.article h3{margin:28px 0 8px}
+.article pre{margin:16px 0}.article table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto;margin:16px 0}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}.article th{background:#fbfbfd}
+.article img{border-radius:12px}
+.cta{margin-top:56px;background:var(--navy);color:#c6cede;padding:36px 28px;border-radius:20px}.cta h2{color:#fff}.cta p{max-width:40em}
+footer{padding:36px 0 48px;font-size:14px;color:var(--muted)}footer a{color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Turn a documentation site into one Markdown file for ChatGPT, Claude or Cursor", "description": "Crawl a docs site, strip menus, footers and cookie banners, and merge every page into a single Markdown file (or an llms-full.txt) you can upload to ChatGPT, Claude, a Claude Project or Cursor.", "url": "https://aurelix-solutions.github.io/tools/guides/documentation-site-to-markdown-for-chatgpt-claude/", "author": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "publisher": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "image": "https://aurelix-solutions.github.io/tools/og.png", "about": [{"@type": "SoftwareApplication", "name": "Website to Markdown API", "url": "https://aurelix-solutions.github.io/tools/website-to-markdown/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Guides", "item": "https://aurelix-solutions.github.io/tools/guides/"}, {"@type": "ListItem", "position": 2, "name": "Turn a documentation site into one Markdown file for ChatGPT, Claude or Cursor", "item": "https://aurelix-solutions.github.io/tools/guides/documentation-site-to-markdown-for-chatgpt-claude/"}]}</script>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<header><a class="brand" href="/tools/"><img src="/tools/logo.png" alt="" width="34" height="34">Aurelix</a><nav class="nav"><a href="/tools/">Tools</a><a href="/tools/guides/" aria-current=page>Guides</a></nav></header>
+<div class="hero"><p class="crumbs"><a href="/tools/guides/">Guides</a></p><h1>Turn a documentation site into one Markdown file for ChatGPT, Claude or Cursor</h1><p class="lede">Crawl a docs site, strip menus, footers and cookie banners, and merge every page into a single Markdown file (or an llms-full.txt) you can upload to ChatGPT, Claude, a Claude Project or Cursor.</p><a class="btn btn-gold" href="/tools/website-to-markdown/">Website to Markdown API: price and examples</a></div>
+</div></div>
+<main class="wrap">
+<section><article class="article"><p>AI assistants answer better about a library or product when they have its documentation in front of them. Pasting 80 pages one at a time is not realistic, and saving pages as HTML wastes most of the context on navigation, footers and scripts. What you want is one clean Markdown file: every page's main content, with headings, code blocks and tables kept, and a source URL on each section.</p>
+<p>Some sites now publish exactly that as <code>llms-full.txt</code>. For the many that do not, this guide builds it.</p>
+<p><strong>Disclosure:</strong> I'm Aurelix, and I built the <a href="https://apify.com/aurelix/website-to-markdown">Website to Markdown Crawler</a> used below. It is a paid tool, priced per page converted; the current price is on its <a href="/tools/website-to-markdown/">tool page</a>.</p>
+<h2>The input</h2>
+<pre><code class="language-json">{
+  &quot;startUrls&quot;: [&quot;https://docs.apify.com/academy&quot;],
+  &quot;maxPages&quot;: 100,
+  &quot;scope&quot;: &quot;path&quot;,
+  &quot;excludeGlobs&quot;: [&quot;**/changelog/**&quot;]
+}
+</code></pre>
+<ul>
+<li><code>scope: "path"</code> follows only links under the start URL's folder, so starting at <code>/academy</code> stays in the Academy; <code>"domain"</code> crawls the whole site.</li>
+<li><code>includeGlobs</code> and <code>excludeGlobs</code> fine-tune it (<code>**</code> matches anything).</li>
+<li><code>maxPages</code> caps the pages converted and charged; skipped pages (robots.txt, errors, duplicates) do not count.</li>
+</ul>
+<p>The crawler obeys robots.txt and goes at most two requests per second per site.</p>
+<h2>Real output</h2>
+<p>One row per page. From a run of this input:</p>
+<table>
+<thead>
+<tr>
+<th>url</th>
+<th>title</th>
+<th>words</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docs.apify.com/academy</td>
+<td>Apify Academy</td>
+<td>231</td>
+</tr>
+<tr>
+<td>docs.apify.com/academy/scraping-with-ai</td>
+<td>Web scraping with AI and Apify</td>
+<td>419</td>
+</tr>
+<tr>
+<td>docs.apify.com/academy/api-scraping</td>
+<td>API scraping</td>
+<td>889</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>markdown</code> field starts like this, with the site's menus and footer gone:</p>
+<pre><code class="language-markdown"># Web scraping with AI and Apify
+
+**Learn how to use AI to extract information from websites, starting from the absolute basics.**
+
+---
+
+In this practical course, we'll use AI assistants to create an ...
+</code></pre>
+<p>Each row also has <code>description</code>, <code>language</code>, <code>last_modified</code> (when the server sends it), the page's <code>headings</code> and <code>links</code>, <code>crawl_depth</code> and <code>http_status</code>.</p>
+<h2>Merge into one file in Python</h2>
+<pre><code class="language-bash">pip install apify-client
+</code></pre>
+<pre><code class="language-python">import os
+
+from apify_client import ApifyClient
+
+client = ApifyClient(os.environ[&quot;APIFY_TOKEN&quot;])
+run = client.actor(&quot;aurelix/website-to-markdown&quot;).call(run_input={
+    &quot;startUrls&quot;: [&quot;https://docs.apify.com/academy&quot;],
+    &quot;maxPages&quot;: 100,
+    &quot;scope&quot;: &quot;path&quot;,
+})
+pages = sorted(client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items(), key=lambda p: p[&quot;url&quot;])
+
+parts = [f&quot;# Apify Academy documentation\n\n{len(pages)} pages, one section per page.\n&quot;]
+for p in pages:
+    parts.append(f&quot;\n---\n\nSource: {p['url']}\n\n{p['markdown'].strip()}\n&quot;)
+text = &quot;&quot;.join(parts)
+
+with open(&quot;academy-docs.md&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+    f.write(text)
+words = sum(p.get(&quot;word_count&quot;) or 0 for p in pages)
+print(f&quot;{len(pages)} pages, about {words:,} words, {len(text):,} characters -&gt; academy-docs.md&quot;)
+</code></pre>
+<p>Sorting by URL keeps related pages together. The <code>Source:</code> line before each page lets the assistant cite where an answer came from.</p>
+<h2>Using the file</h2>
+<ul>
+<li><strong>ChatGPT or Claude:</strong> attach <code>academy-docs.md</code> to a chat, or add it to a Claude Project or a custom GPT's knowledge so every chat can use it.</li>
+<li><strong>Cursor and other editors:</strong> put it in the repository (for example <code>docs/vendor/academy-docs.md</code>) and reference it in your prompt.</li>
+<li><strong>Too big for one context window?</strong> Split it by top-level path, or use the word count printed above to keep each file under your model's limit. For retrieval (RAG) rather than one big file, see <a href="https://dev.to/aurelix_solutions/turn-any-website-into-clean-markdown-chunks-for-rag-475h">Turn any website into clean Markdown chunks for RAG</a>.</li>
+</ul>
+<p>To keep the file current, schedule the run weekly and rebuild it.</p>
+<h2>Limits</h2>
+<ul>
+<li>No JavaScript rendering: pages that are only an empty app shell until JavaScript runs are skipped and listed in the log, not converted.</li>
+<li>Only HTML pages are converted; PDFs, images and other files are skipped.</li>
+<li>One site per start URL: www. and the bare domain count as one site, other subdomains are not followed.</li>
+<li>Pages behind a login, paywall or bot challenge are not accessible.</li>
+</ul>
+<h2>Links</h2>
+<ul>
+<li><a href="/tools/website-to-markdown/">Website to Markdown Crawler: price, example input and output, FAQ</a></li>
+<li><a href="https://apify.com/aurelix/website-to-markdown">Website to Markdown Crawler on the Apify Store</a></li>
+<li><a href="https://github.com/Aurelix-Solutions/website-to-markdown-example">Runnable Python example on GitHub</a></li>
+</ul></article></section><section><p class="kicker">Tools used</p><div class="cards"><a class="tcard" href="/tools/website-to-markdown/" data-cat="AI and RAG Developer tools AI agents (MCP)"><div class="row"><img src="/tools/website-to-markdown/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Website to Markdown API</h3></div><p>Crawls a site and returns one row of clean main-content Markdown per page, with title, headings and links.</p><div class="meta"><span class="tag">AI and RAG</span><span class="price-s">$1.50 / 1,000 pages</span></div></a></div></section>
+</main>
+<footer class="wrap"><p>Aurelix builds and maintains these tools. They run on the <a href="https://apify.com/aurelix">Apify Store</a>, which handles accounts and billing; prices on this site are read from the Store each time the site is rebuilt. Tools read only public pages a logged-out visitor can see. <a href="/tools/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p></footer>
+</body>
+</html>

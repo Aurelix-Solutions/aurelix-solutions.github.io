@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multi Job Board Scraper - LinkedIn + Career Sites | Aurelix</title>
+<meta name="description" content="Multi job board scraper: LinkedIn plus ~50 company career sites and remote boards in one deduplicated list, 25% under rivals. $1.50 per 1,000 jobs.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/tools/multi-job-board-scraper/">
+<meta property="og:title" content="Multi Job Board Scraper - LinkedIn + Career Sites | Aurelix">
+<meta property="og:description" content="Multi job board scraper: LinkedIn plus ~50 company career sites and remote boards in one deduplicated list, 25% under rivals. $1.50 per 1,000 jobs.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/tools/multi-job-board-scraper/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aurelix">
+<meta property="og:image" content="https://aurelix-solutions.github.io/tools/multi-job-board-scraper/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aurelix-solutions.github.io/tools/multi-job-board-scraper/og.png">
+<link rel="icon" type="image/png" href="/tools/favicon.png">
+<link rel="apple-touch-icon" href="/tools/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1726;--navy-2:#16213a;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;--ink:#0f1726;--body:#3b4559;
+--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;--r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:#0d7f75}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:16px;font-size:14px;font-weight:600}.nav a{color:#c6cede;text-decoration:none}.nav a:hover{color:#fff}
+.hero{position:relative;z-index:1;padding:28px 0 56px}
+.crumbs{font-size:13px;color:#98a3b8;margin:0 0 18px}.crumbs a{color:#c6cede;text-decoration:none}
+.idrow{display:flex;align-items:center;gap:16px}
+.idrow img{width:64px;height:64px;border-radius:16px;background:#fff;flex:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+h1{color:#fff;font-size:clamp(30px,6.4vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:0}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:40em;margin:18px 0 8px}
+.lede-sub{font-size:16px;color:#98a3b8;max-width:42em;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;margin:0 0 22px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18);flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:520px){.btn{flex:1 1 100%}}
+main section{padding:56px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 8px}
+h2{font-size:clamp(24px,4vw,32px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;font-weight:800}
+h3{color:var(--ink);font-size:18px;margin:0 0 6px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;gap:16px}.grid2>*{min-width:0}@media (min-width:820px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.glance{display:grid;gap:0;margin:0}.glance div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.glance div:last-child{border:0}
+.glance dd,.glance dt{overflow-wrap:anywhere}.glance dt{font-weight:700;color:var(--ink);font-size:14px}.glance dd{margin:0;font-size:15px}
+@media (max-width:520px){.glance div{grid-template-columns:1fr;gap:2px}}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:28px}ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:10px;border-left:3px solid var(--teal);border-bottom:3px solid var(--teal);transform:rotate(-45deg) scale(.8)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 66px;box-shadow:var(--shadow)}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+pre{background:var(--navy);color:#e6ebf5;border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.5;margin:0;max-height:460px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code,td code{background:#eef1f6;color:var(--ink);padding:1px 5px;border-radius:5px;font-size:.9em}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+table.price{width:100%;border-collapse:collapse;font-size:15px}table.price td{padding:11px 0;border-bottom:1px solid var(--line)}table.price tr:last-child td{border:0}table.price td:last-child{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin:0 0 10px;box-shadow:0 1px 2px rgba(15,23,38,.05)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;position:relative;padding-right:28px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--muted)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px}
+.cards{display:grid;gap:14px}@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}@media (min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:var(--body);transition:transform .15s,box-shadow .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,38,.06),0 14px 32px rgba(15,23,38,.10)}
+.tcard .row{display:flex;align-items:center;gap:12px}.tcard img{width:44px;height:44px;border-radius:11px;flex:none;border:1px solid var(--line)}
+.tcard h3{margin:0;font-size:17px}.tcard p{margin:0;font-size:15px;flex:1}
+.tcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208}
+.price-s{font-weight:700;color:var(--ink);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.chips button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.links a{font-weight:600}
+.article{max-width:760px}.article h2{font-size:clamp(22px,3.4vw,28px);margin:40px 0 12px}.article h3{margin:28px 0 8px}
+.article pre{margin:16px 0}.article table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto;margin:16px 0}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}.article th{background:#fbfbfd}
+.article img{border-radius:12px}
+.cta{margin-top:56px;background:var(--navy);color:#c6cede;padding:36px 28px;border-radius:20px}.cta h2{color:#fff}.cta p{max-width:40em}
+footer{padding:36px 0 48px;font-size:14px;color:var(--muted)}footer a{color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Multi Job Board Scraper", "url": "https://aurelix-solutions.github.io/tools/multi-job-board-scraper/", "description": "Multi job board scraper: LinkedIn plus ~50 company career sites and remote boards in one deduplicated list, 25% under rivals. $1.50 per 1,000 jobs.", "applicationCategory": "BusinessApplication", "applicationSubCategory": "Jobs", "operatingSystem": "Web (Apify platform)", "image": "https://aurelix-solutions.github.io/tools/multi-job-board-scraper/og.png", "sameAs": ["https://apify.com/aurelix/multi-job-board-scraper"], "publisher": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "offers": {"@type": "Offer", "price": "1.50", "priceCurrency": "USD", "url": "https://apify.com/aurelix/multi-job-board-scraper", "description": "$1.50 per 1,000 jobs ($0.90 on paid Apify plans)"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does the Multi Job Board Scraper cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.50 per 1,000 jobs ($0.90 on paid Apify plans), billed through your Apify account; you pay only for results. Apify's free plan includes $5 of credit a month, enough for about 3,333 jobs."}}, {"@type": "Question", "name": "How are duplicates matched?", "acceptedAnswer": {"@type": "Answer", "text": "By normalised company name (legal suffixes like Inc. or Ltd removed), job title and an overlapping location: any shared city (a career site's 'Mississauga/Toronto' matches LinkedIn's 'Mississauga'), both remote, or one side without a location. Jobs are sorted newest posting first before merging, so the copy with the latest posting time keeps the row (a career-site copy with a full timestamp usually wins over a LinkedIn copy from the same day); in a long run, a copy saved in an earlier batch keeps it. The others are listed in 'also_listed_on', and their pay, apply link or description fill any gaps."}}, {"@type": "Question", "name": "Which career sites are searched?", "acceptedAnswer": {"@type": "Answer", "text": "About 50 bundled public job boards on Greenhouse, Lever, Ashby and SmartRecruiters (Canadian employers such as Geotab, Wealthsimple and Cohere, plus global employers such as Stripe and GitLab), plus any you add in 'Extra companies'. By default 25 of them are searched per run, home-country employers first; set 'Max bundled company boards' to 0 for all, or the bundled list to 'canada' or 'none' to narrow it."}}, {"@type": "Question", "name": "Do I need accounts on these sites?", "acceptedAnswer": {"@type": "Answer", "text": "No. Everything is read logged-out: LinkedIn's public job search, the employers' public job-board APIs, and the remote boards' public feeds."}}, {"@type": "Question", "name": "What happens if a source is rate-limited?", "acceptedAnswer": {"@type": "Answer", "text": "The other sources still run. Jobs already found are kept and charged; the run ends with a 'Partial' status naming the source that stopped. Retry later for the rest."}}, {"@type": "Question", "name": "Is this legal?", "acceptedAnswer": {"@type": "Answer", "text": "It reads only public data any logged-out visitor can see: job postings on LinkedIn, the Greenhouse, Lever, Ashby and SmartRecruiters job-board APIs, Remote OK's API and We Work Remotely's RSS feed. It goes at a polite pace, never logs in and never solves CAPTCHAs. It returns job posting fields (title, company, location, pay, dates, description, link); no member or candidate profiles; descriptions can name a recruiter or hiring contact (business contact information, B2B use only, see Lawful use). To have a record removed, open an issue on this Actor's Issues tab; if a source formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice."}}, {"@type": "Question", "name": "Why not Indeed, Glassdoor or ZipRecruiter?", "acceptedAnswer": {"@type": "Answer", "text": "Indeed is not included. Glassdoor and ZipRecruiter block shared datacenter addresses, so they are not included either."}}, {"@type": "Question", "name": "Can I use it from an AI assistant?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Give 'keywords' and a 'country'. It works through Apify's MCP server and API."}}, {"@type": "Question", "name": "What am I charged when nothing matches, or only part of the search works?", "acceptedAnswer": {"@type": "Answer", "text": "A run that finds nothing pays only its start fee. Jobs are charged one by one as they are saved, so a run where one source is rate-limited still pays only for the jobs the other sources delivered. Duplicates merged into another row, jobs dropped by your filters and, in new-jobs mode, jobs already returned are never charged."}}, {"@type": "Question", "name": "How many jobs can one run return?", "acceptedAnswer": {"@type": "Answer", "text": "Up to 'Max jobs per source' from each of the three sources (LinkedIn, career sites, and the two remote boards together), at most 500 each, so at most 1,500 rows. The limit counts rows after dedupe, newest first. LinkedIn also stops at about 1,000 results per search; the Actor runs one LinkedIn search per keyword."}}, {"@type": "Question", "name": "How long does a run take?", "acceptedAnswer": {"@type": "Answer", "text": "In our tests a search with no matches took 8 s, 171 jobs from LinkedIn and career sites took 36 s with descriptions off, and 18 jobs from all sources took 30 s. Full descriptions need one extra LinkedIn request per job, so turn 'Include full description' off when you only need the list. Searching the whole bundled list (Max bundled company boards = 0) is slower than the default 25."}}, {"@type": "Question", "name": "How does 'Only new jobs since last run' work?", "acceptedAnswer": {"@type": "Answer", "text": "The Actor remembers each job by its company, title and first city (or 'remote'), the 'dedupe_key' field, so a job reposted on another source is not new. The memory is shared by runs with the same keywords, country, city, remote, date, sources and company settings, or by every run with the same 'Incremental state name'. Changing 'Max jobs per source' or descriptions keeps the memory. A job is forgotten 60 days after it was last seen."}}, {"@type": "Question", "name": "Which countries can I search?", "acceptedAnswer": {"@type": "Answer", "text": "The 30 countries in the Country list, including the US, Canada, the UK, most of Western Europe, India, Singapore, Japan, Australia and Brazil. LinkedIn searches that country (or the city you give). Career-site jobs are kept when their location is in that country; remote-board jobs when they are open to that country or worldwide."}}, {"@type": "Question", "name": "What do 'source', 'sources' and 'also_listed_on' mean?", "acceptedAnswer": {"@type": "Answer", "text": "'source' is where the saved row came from: linkedin, careersite, remoteok or weworkremotely. 'sources' lists every source the same job was found on, and 'also_listed_on' gives the other copies' source, job_id and job_url. 'search_keyword' is the keyword that matched, and 'job_id' is the source plus that source's own ID."}}, {"@type": "Question", "name": "Why do I get only a few career-site jobs?", "acceptedAnswer": {"@type": "Answer", "text": "Career-site jobs are matched by keyword in the title, so 'data engineer' does not find 'Data Platform Engineer'. Only the bundled employers (25 per run by default, 10 in the prefilled input) and the boards you add are searched, and a job must be in the chosen country and mention your city unless it is remote. Add more keywords, raise 'Max bundled company boards', or add employers in 'Extra companies'."}}, {"@type": "Question", "name": "Which proxy does it need?", "acceptedAnswer": {"@type": "Answer", "text": "Only the LinkedIn search uses a proxy, and Apify's datacenter proxy (the default) works; it is included in the price. Career sites and the remote boards are public APIs and feeds and are read without a proxy."}}, {"@type": "Question", "name": "How do I export jobs to Google Sheets?", "acceptedAnswer": {"@type": "Answer", "text": "Download the run's results as CSV or Excel and open them in Google Sheets, or add Apify's Google Sheets integration to the run or a schedule so every run's results land in a sheet."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tools", "item": "https://aurelix-solutions.github.io/tools/"}, {"@type": "ListItem", "position": 2, "name": "Multi Job Board Scraper", "item": "https://aurelix-solutions.github.io/tools/multi-job-board-scraper/"}]}</script>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<header><a class="brand" href="/tools/"><img src="/tools/logo.png" alt="" width="34" height="34">Aurelix</a><nav class="nav"><a href="/tools/">Tools</a><a href="/tools/guides/">Guides</a></nav></header>
+<div class="hero"><p class="crumbs"><a href="/tools/">Tools</a> › Jobs</p><div class="idrow"><img src="/tools/multi-job-board-scraper/icon.png" alt="" width="64" height="64"><h1>Multi Job Board Scraper</h1></div><p class="lede">Search LinkedIn, about 50 company career sites, Remote OK and We Work Remotely at once, duplicates merged and charged once, for $1.50 per 1,000 jobs, no login.</p><p class="lede-sub">For job boards, recruiters and newsletters. One input (keywords, country, city, remote, date posted) runs on every source, and every job comes back in one schema with ISO dates and numeric pay.</p><p class="pill"><span class="dot"></span>$1.50 per 1,000 jobs ($0.90 on paid Apify plans)</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/multi-job-board-scraper">Run it on Apify</a><a class="btn btn-ghost" href="https://github.com/Aurelix-Solutions/multi-board-jobs-example">Python example on GitHub</a></div></div>
+</div></div>
+<main class="wrap">
+<section><p class="kicker">At a glance</p><h2>What the Multi Job Board Scraper does</h2><div class="grid2"><div class="box"><dl class="glance"><div><dt>Search by</dt><dd>Keywords + country, optional city</dd></div><div><dt>Sources</dt><dd>LinkedIn, ~50 bundled company career sites plus your own, Remote OK, We Work Remotely</dd></div><div><dt>Filters</dt><dd>Remote only, date posted, sources, max jobs per source, new jobs only</dd></div><div><dt>Output</dt><dd>30 fields per job; JSON, CSV, Excel, API</dd></div><div><dt>Automate</dt><dd>Schedules, webhooks, Zapier, Make, n8n, Google Sheets, MCP for AI agents</dd></div></dl></div><div class="box"><h3>Who it is for</h3><ul class="ticks"><li>Job seekers and career coaches running one daily search instead of three</li><li>Job boards and newsletters backfilling deduplicated postings with the new-jobs-only mode</li><li>Recruiters comparing a role&#x27;s pay and posting date across LinkedIn and the employer&#x27;s own site</li><li>Market researchers counting hiring demand without double-counting cross-posted jobs</li></ul></div></div></section>
+<section><p class="kicker">Output</p><h2>What you get</h2><div class="box"><ul class="ticks"><li>source, sources and also_listed_on (source, id, link)</li><li>Title, company, location, city, region, ISO country</li><li>Remote/hybrid/on-site, job types, seniority (LinkedIn)</li><li>Pay minimum, maximum, currency, period, or pay text where published</li><li>Posted date where the source gives one</li><li>Job link, employer apply link where known, description text and HTML</li></ul></div></section>
+<section><p class="kicker">Example</p><h2>Input and output</h2><div class="grid2"><div><h3>Input</h3><pre><code>{
+  &quot;keywords&quot;: [
+    &quot;data engineer&quot;
+  ],
+  &quot;country&quot;: &quot;CA&quot;,
+  &quot;location&quot;: &quot;Toronto, ON&quot;,
+  &quot;datePosted&quot;: &quot;pastWeek&quot;,
+  &quot;sources&quot;: [
+    &quot;linkedin&quot;,
+    &quot;careersites&quot;,
+    &quot;remoteboards&quot;
+  ],
+  &quot;companies&quot;: [
+    &quot;greenhouse:stripe&quot;
+  ],
+  &quot;maxResultsPerSource&quot;: 50
+}</code></pre></div><div><h3>One output record</h3><pre><code>{
+  &quot;job_id&quot;: &quot;careersite:lever:pointclickcare:6ec25484-b204-48a6-ab91-7b0b1625aa02&quot;,
+  &quot;source&quot;: &quot;careersite&quot;,
+  &quot;source_job_id&quot;: &quot;lever:pointclickcare:6ec25484-b204-48a6-ab91-7b0b1625aa02&quot;,
+  &quot;title&quot;: &quot;Intermediate Software Engineer&quot;,
+  &quot;company&quot;: &quot;PointClickCare&quot;,
+  &quot;company_url&quot;: &quot;https://www.linkedin.com/company/pointclickcare&quot;,
+  &quot;location&quot;: &quot;Mississauga/Toronto/Kitchener/Waterloo/Cambridge&quot;,
+  &quot;city&quot;: &quot;Mississauga&quot;,
+  &quot;region&quot;: &quot;ON&quot;,
+  &quot;country&quot;: &quot;CA&quot;,
+  &quot;workplace_type&quot;: &quot;hybrid&quot;,
+  &quot;job_types&quot;: [
+    &quot;fullTime&quot;
+  ],
+  &quot;seniority&quot;: null,
+  &quot;salary_min&quot;: 102600,
+  &quot;salary_max&quot;: 128300,
+  &quot;salary_currency&quot;: &quot;CAD&quot;,
+  &quot;salary_interval&quot;: &quot;year&quot;,
+  &quot;salary_text&quot;: &quot;At PointClickCare, base salary is one of the many components that make up our total rewards package. The CAD base salary range for this position is $102,600…&quot;,
+  &quot;posted_at&quot;: &quot;2026-10-21T20:57:35Z&quot;,
+  &quot;posted_date&quot;: &quot;2026-10-21&quot;,
+  &quot;job_url&quot;: &quot;https://jobs.lever.co/pointclickcare/6ec25484-b204-48a6-ab91-7b0b1625aa02&quot;,
+  &quot;apply_url&quot;: &quot;https://jobs.lever.co/pointclickcare/6ec25484-b204-48a6-ab91-7b0b1625aa02/apply&quot;,
+  &quot;description_text&quot;: null,
+  &quot;search_keyword&quot;: &quot;intermediate software engineer&quot;,
+  &quot;sources&quot;: [
+    &quot;careersite&quot;,
+    &quot;linkedin&quot;
+  ],
+  &quot;also_listed_on&quot;: [
+    {
+      &quot;source&quot;: &quot;linkedin&quot;,
+      &quot;job_id&quot;: &quot;linkedin:4481154739&quot;,
+      &quot;job_url&quot;: &quot;https://www.linkedin.com/jobs/view/4481154739/&quot;
+    }
+  ],
+  &quot;dedupe_key&quot;: &quot;pointclickcare|intermediate software engineer|mississauga toronto kitchener waterloo cambridge&quot;,
+  &quot;source_url&quot;: &quot;https://jobs.lever.co/pointclickcare/6ec25484-b204-48a6-ab91-7b0b1625aa02&quot;,
+  &quot;scraped_at&quot;: &quot;2026-11-04T06:18:09Z&quot;
+}</code></pre><p class="note">From a real run of this tool; long text and lists shortened here.</p></div></div></section>
+<section><p class="kicker">How to use it</p><h2>Three steps</h2><ol class="steps"><li>Type job keywords (e.g. &#x27;data engineer&#x27;) and pick a country; optionally a city.</li><li>Pick the sources (LinkedIn, career sites and remote boards by default), remote-only, date posted and how many jobs to take from each source; optionally add company job boards.</li><li>Click Start, then download one deduplicated list as JSON, CSV or Excel, or schedule it as a daily feed to Google Sheets, Zapier, Make or n8n.</li></ol></section>
+<section><p class="kicker">API</p><h2>Call it from Python</h2><pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+run = client.actor(&quot;aurelix/multi-job-board-scraper&quot;).call(run_input={&#x27;keywords&#x27;: [&#x27;data engineer&#x27;],
+ &#x27;country&#x27;: &#x27;CA&#x27;,
+ &#x27;location&#x27;: &#x27;Toronto, ON&#x27;,
+ &#x27;datePosted&#x27;: &#x27;pastWeek&#x27;,
+ &#x27;sources&#x27;: [&#x27;linkedin&#x27;, &#x27;careersites&#x27;, &#x27;remoteboards&#x27;],
+ &#x27;companies&#x27;: [&#x27;greenhouse:stripe&#x27;],
+ &#x27;maxResultsPerSource&#x27;: 50})
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)</code></pre><p class="note"><code>pip install apify-client</code>. The same input works from the Apify console, a schedule, Make, n8n, Zapier or an AI agent through the Apify MCP server.</p></section>
+<section><p class="kicker">Pricing</p><h2>Pay per result</h2><div class="box"><table class="price"><tr><td>Per 1,000 jobs, free plan</td><td>$1.50</td></tr><tr><td>Per 1,000 jobs, paid plans</td><td>$0.90</td></tr><tr><td>Start fee per run</td><td>$0.001</td></tr></table><p class="note">Live prices from the Apify Store; no subscription and no platform usage billed on top. <a href="https://apify.com/aurelix/multi-job-board-scraper">See the Store page</a>.</p></div></section>
+<section><p class="kicker">Honest limits</p><h2>What it does not do</h2><div class="box"><ul class="ticks"><li>LinkedIn caps results per search at about 1,000; split broad searches.</li><li>Career sites cover only the bundled employers plus the boards you add, not every company in the country.</li><li>Career-site and remote-board jobs are matched by keyword in the title (and company, for remote boards), not by full-text relevance.</li><li>Dedupe is by company, title and overlapping location: two genuinely different openings with the same title in a shared city are merged. Rows are saved in batches during long runs (after the first minute); a duplicate found after its first copy was saved is dropped, but is not added to that row&#x27;s &#x27;also_listed_on&#x27;.</li><li>LinkedIn shows a posted date without a time; posted_at is null for LinkedIn rows.</li><li>Pay and remote flags are only as complete as each source publishes them.</li><li>Sources can change their pages; the daily health run catches breakage within 24 hours.</li></ul></div></section>
+<section><p class="kicker">FAQ</p><h2>Questions buyers ask</h2><details><summary>How much does the Multi Job Board Scraper cost?</summary><p>$1.50 per 1,000 jobs ($0.90 on paid Apify plans), billed through your Apify account; you pay only for results. Apify&#x27;s free plan includes $5 of credit a month, enough for about 3,333 jobs.</p></details><details><summary>How are duplicates matched?</summary><p>By normalised company name (legal suffixes like Inc. or Ltd removed), job title and an overlapping location: any shared city (a career site&#x27;s &#x27;Mississauga/Toronto&#x27; matches LinkedIn&#x27;s &#x27;Mississauga&#x27;), both remote, or one side without a location. Jobs are sorted newest posting first before merging, so the copy with the latest posting time keeps the row (a career-site copy with a full timestamp usually wins over a LinkedIn copy from the same day); in a long run, a copy saved in an earlier batch keeps it. The others are listed in &#x27;also_listed_on&#x27;, and their pay, apply link or description fill any gaps.</p></details><details><summary>Which career sites are searched?</summary><p>About 50 bundled public job boards on Greenhouse, Lever, Ashby and SmartRecruiters (Canadian employers such as Geotab, Wealthsimple and Cohere, plus global employers such as Stripe and GitLab), plus any you add in &#x27;Extra companies&#x27;. By default 25 of them are searched per run, home-country employers first; set &#x27;Max bundled company boards&#x27; to 0 for all, or the bundled list to &#x27;canada&#x27; or &#x27;none&#x27; to narrow it.</p></details><details><summary>Do I need accounts on these sites?</summary><p>No. Everything is read logged-out: LinkedIn&#x27;s public job search, the employers&#x27; public job-board APIs, and the remote boards&#x27; public feeds.</p></details><details><summary>What happens if a source is rate-limited?</summary><p>The other sources still run. Jobs already found are kept and charged; the run ends with a &#x27;Partial&#x27; status naming the source that stopped. Retry later for the rest.</p></details><details><summary>Is this legal?</summary><p>It reads only public data any logged-out visitor can see: job postings on LinkedIn, the Greenhouse, Lever, Ashby and SmartRecruiters job-board APIs, Remote OK&#x27;s API and We Work Remotely&#x27;s RSS feed. It goes at a polite pace, never logs in and never solves CAPTCHAs. It returns job posting fields (title, company, location, pay, dates, description, link); no member or candidate profiles; descriptions can name a recruiter or hiring contact (business contact information, B2B use only, see Lawful use). To have a record removed, open an issue on this Actor&#x27;s Issues tab; if a source formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice.</p></details><details><summary>Why not Indeed, Glassdoor or ZipRecruiter?</summary><p>Indeed is not included. Glassdoor and ZipRecruiter block shared datacenter addresses, so they are not included either.</p></details><details><summary>Can I use it from an AI assistant?</summary><p>Yes. Give &#x27;keywords&#x27; and a &#x27;country&#x27;. It works through Apify&#x27;s MCP server and API.</p></details><details><summary>What am I charged when nothing matches, or only part of the search works?</summary><p>A run that finds nothing pays only its start fee. Jobs are charged one by one as they are saved, so a run where one source is rate-limited still pays only for the jobs the other sources delivered. Duplicates merged into another row, jobs dropped by your filters and, in new-jobs mode, jobs already returned are never charged.</p></details><details><summary>How many jobs can one run return?</summary><p>Up to &#x27;Max jobs per source&#x27; from each of the three sources (LinkedIn, career sites, and the two remote boards together), at most 500 each, so at most 1,500 rows. The limit counts rows after dedupe, newest first. LinkedIn also stops at about 1,000 results per search; the Actor runs one LinkedIn search per keyword.</p></details><details><summary>How long does a run take?</summary><p>In our tests a search with no matches took 8 s, 171 jobs from LinkedIn and career sites took 36 s with descriptions off, and 18 jobs from all sources took 30 s. Full descriptions need one extra LinkedIn request per job, so turn &#x27;Include full description&#x27; off when you only need the list. Searching the whole bundled list (Max bundled company boards = 0) is slower than the default 25.</p></details><details><summary>How does &#x27;Only new jobs since last run&#x27; work?</summary><p>The Actor remembers each job by its company, title and first city (or &#x27;remote&#x27;), the &#x27;dedupe_key&#x27; field, so a job reposted on another source is not new. The memory is shared by runs with the same keywords, country, city, remote, date, sources and company settings, or by every run with the same &#x27;Incremental state name&#x27;. Changing &#x27;Max jobs per source&#x27; or descriptions keeps the memory. A job is forgotten 60 days after it was last seen.</p></details><details><summary>Which countries can I search?</summary><p>The 30 countries in the Country list, including the US, Canada, the UK, most of Western Europe, India, Singapore, Japan, Australia and Brazil. LinkedIn searches that country (or the city you give). Career-site jobs are kept when their location is in that country; remote-board jobs when they are open to that country or worldwide.</p></details><details><summary>What do &#x27;source&#x27;, &#x27;sources&#x27; and &#x27;also_listed_on&#x27; mean?</summary><p>&#x27;source&#x27; is where the saved row came from: linkedin, careersite, remoteok or weworkremotely. &#x27;sources&#x27; lists every source the same job was found on, and &#x27;also_listed_on&#x27; gives the other copies&#x27; source, job_id and job_url. &#x27;search_keyword&#x27; is the keyword that matched, and &#x27;job_id&#x27; is the source plus that source&#x27;s own ID.</p></details><details><summary>Why do I get only a few career-site jobs?</summary><p>Career-site jobs are matched by keyword in the title, so &#x27;data engineer&#x27; does not find &#x27;Data Platform Engineer&#x27;. Only the bundled employers (25 per run by default, 10 in the prefilled input) and the boards you add are searched, and a job must be in the chosen country and mention your city unless it is remote. Add more keywords, raise &#x27;Max bundled company boards&#x27;, or add employers in &#x27;Extra companies&#x27;.</p></details><details><summary>Which proxy does it need?</summary><p>Only the LinkedIn search uses a proxy, and Apify&#x27;s datacenter proxy (the default) works; it is included in the price. Career sites and the remote boards are public APIs and feeds and are read without a proxy.</p></details><details><summary>How do I export jobs to Google Sheets?</summary><p>Download the run&#x27;s results as CSV or Excel and open them in Google Sheets, or add Apify&#x27;s Google Sheets integration to the run or a schedule so every run&#x27;s results land in a sheet.</p></details></section>
+<section><p class="kicker">Guides</p><h2>Tutorials using this tool</h2><div class="box"><ul class="links"><li><a href="https://dev.to/aurelix_solutions/search-linkedin-company-career-sites-and-remote-boards-in-one-run-with-duplicates-merged-d6l">Search LinkedIn, company career sites and remote boards in one run, with duplicates merged</a></li></ul></div></section>
+<section><p class="kicker">Related</p><h2>Related tools</h2><div class="cards"><a class="tcard" href="/tools/greenhouse-jobs-scraper/" data-cat="Jobs Leads"><div class="row"><img src="/tools/greenhouse-jobs-scraper/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Greenhouse Jobs Scraper</h3></div><p>Live jobs from a company&#x27;s Greenhouse, Lever, Ashby or SmartRecruiters board, with salary and Canadian province tags.</p><div class="meta"><span class="tag">Jobs</span><span class="price-s">$1.50 / 1,000 jobs</span></div></a><a class="tcard" href="/tools/linkedin-jobs/" data-cat="Jobs Leads"><div class="row"><img src="/tools/linkedin-jobs/icon.png" alt="" width="44" height="44" loading="lazy"><h3>LinkedIn Jobs No Login Scraper</h3></div><p>Public LinkedIn job postings by keyword and country: title, company, location, seniority, job type, salary text, description.</p><div class="meta"><span class="tag">Jobs</span><span class="price-s">$1.50 / 1,000 jobs</span></div></a></div></section>
+<section class="cta"><div><h2>Try the Multi Job Board Scraper</h2><p>Open it on the Apify Store, paste the example input above and click Start. Results download as CSV, Excel or JSON.</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/multi-job-board-scraper">Run it on Apify</a></div></div></section>
+</main>
+<footer class="wrap"><p>Aurelix builds and maintains these tools. They run on the <a href="https://apify.com/aurelix">Apify Store</a>, which handles accounts and billing; prices on this site are read from the Store each time the site is rebuilt. Tools read only public pages a logged-out visitor can see. <a href="/tools/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p></footer>
+</body>
+</html>

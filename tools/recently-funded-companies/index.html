@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recently Funded Companies API - SEC Funding Leads | Aurelix</title>
+<meta name="description" content="Recently funded companies from SEC Form D, 93-96% under top funding-lead Actors: funds and SPVs removed, confirmed websites, new-only mode. $5/1,000.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/tools/recently-funded-companies/">
+<meta property="og:title" content="Recently Funded Companies API - SEC Funding Leads | Aurelix">
+<meta property="og:description" content="Recently funded companies from SEC Form D, 93-96% under top funding-lead Actors: funds and SPVs removed, confirmed websites, new-only mode. $5/1,000.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/tools/recently-funded-companies/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aurelix">
+<meta property="og:image" content="https://aurelix-solutions.github.io/tools/recently-funded-companies/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aurelix-solutions.github.io/tools/recently-funded-companies/og.png">
+<link rel="icon" type="image/png" href="/tools/favicon.png">
+<link rel="apple-touch-icon" href="/tools/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1726;--navy-2:#16213a;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;--ink:#0f1726;--body:#3b4559;
+--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;--r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:#0d7f75}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:16px;font-size:14px;font-weight:600}.nav a{color:#c6cede;text-decoration:none}.nav a:hover{color:#fff}
+.hero{position:relative;z-index:1;padding:28px 0 56px}
+.crumbs{font-size:13px;color:#98a3b8;margin:0 0 18px}.crumbs a{color:#c6cede;text-decoration:none}
+.idrow{display:flex;align-items:center;gap:16px}
+.idrow img{width:64px;height:64px;border-radius:16px;background:#fff;flex:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+h1{color:#fff;font-size:clamp(30px,6.4vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:0}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:40em;margin:18px 0 8px}
+.lede-sub{font-size:16px;color:#98a3b8;max-width:42em;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;margin:0 0 22px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18);flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:520px){.btn{flex:1 1 100%}}
+main section{padding:56px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 8px}
+h2{font-size:clamp(24px,4vw,32px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;font-weight:800}
+h3{color:var(--ink);font-size:18px;margin:0 0 6px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;gap:16px}.grid2>*{min-width:0}@media (min-width:820px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.glance{display:grid;gap:0;margin:0}.glance div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.glance div:last-child{border:0}
+.glance dd,.glance dt{overflow-wrap:anywhere}.glance dt{font-weight:700;color:var(--ink);font-size:14px}.glance dd{margin:0;font-size:15px}
+@media (max-width:520px){.glance div{grid-template-columns:1fr;gap:2px}}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:28px}ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:10px;border-left:3px solid var(--teal);border-bottom:3px solid var(--teal);transform:rotate(-45deg) scale(.8)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 66px;box-shadow:var(--shadow)}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+pre{background:var(--navy);color:#e6ebf5;border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.5;margin:0;max-height:460px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code,td code{background:#eef1f6;color:var(--ink);padding:1px 5px;border-radius:5px;font-size:.9em}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+table.price{width:100%;border-collapse:collapse;font-size:15px}table.price td{padding:11px 0;border-bottom:1px solid var(--line)}table.price tr:last-child td{border:0}table.price td:last-child{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin:0 0 10px;box-shadow:0 1px 2px rgba(15,23,38,.05)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;position:relative;padding-right:28px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--muted)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px}
+.cards{display:grid;gap:14px}@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}@media (min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:var(--body);transition:transform .15s,box-shadow .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,38,.06),0 14px 32px rgba(15,23,38,.10)}
+.tcard .row{display:flex;align-items:center;gap:12px}.tcard img{width:44px;height:44px;border-radius:11px;flex:none;border:1px solid var(--line)}
+.tcard h3{margin:0;font-size:17px}.tcard p{margin:0;font-size:15px;flex:1}
+.tcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208}
+.price-s{font-weight:700;color:var(--ink);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.chips button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.links a{font-weight:600}
+.article{max-width:760px}.article h2{font-size:clamp(22px,3.4vw,28px);margin:40px 0 12px}.article h3{margin:28px 0 8px}
+.article pre{margin:16px 0}.article table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto;margin:16px 0}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}.article th{background:#fbfbfd}
+.article img{border-radius:12px}
+.cta{margin-top:56px;background:var(--navy);color:#c6cede;padding:36px 28px;border-radius:20px}.cta h2{color:#fff}.cta p{max-width:40em}
+footer{padding:36px 0 48px;font-size:14px;color:var(--muted)}footer a{color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Recently Funded Companies", "url": "https://aurelix-solutions.github.io/tools/recently-funded-companies/", "description": "Recently funded companies from SEC Form D, 93-96% under top funding-lead Actors: funds and SPVs removed, confirmed websites, new-only mode. $5/1,000.", "applicationCategory": "BusinessApplication", "applicationSubCategory": "Leads", "operatingSystem": "Web (Apify platform)", "image": "https://aurelix-solutions.github.io/tools/recently-funded-companies/og.png", "sameAs": ["https://apify.com/aurelix/recently-funded-companies"], "publisher": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "offers": {"@type": "Offer", "price": "5.00", "priceCurrency": "USD", "url": "https://apify.com/aurelix/recently-funded-companies", "description": "$5.00 per 1,000 filings ($3.50 on paid Apify plans)"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is there a cheaper SEC Form D scraper on Apify?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, cheaper ones exist: pink_comic/sec-form-d-startup-funding-leads costs $2 per 1,000 filings and logiover/sec-edgar-form-d-scraper $3.50 on the free plan, against $5 and $3.50 here. This Actor costs more because it removes funds and SPVs by default, adds a company website confirmed against the filing, has a free only-new-filings mode, and can add website emails and decision-makers, charged only when found."}}, {"@type": "Question", "name": "How do I get recently funded startups into a CRM, Google Sheets or an AI agent?", "acceptedAnswer": {"@type": "Answer", "text": "Two ways. For a fixed workflow, add Apify's n8n or Make node, choose **Run Actor**, enter `aurelix/recently-funded-companies` and map the dataset to the next step. For an AI agent (Claude, ChatGPT, Cursor or an n8n AI Agent node), add `https://mcp.apify.com/?tools=aurelix/recently-funded-companies` as an MCP server and ask for recently funded companies in plain words; setup for each client is in the section above. Runs bill your own Apify account at the same per-result price."}}, {"@type": "Question", "name": "How much does the Recently Funded Companies cost?", "acceptedAnswer": {"@type": "Answer", "text": "$5.00 per 1,000 filings ($3.50 on paid Apify plans), billed through your Apify account; you pay only for results. Apify's free plan includes $5 of credit a month, enough for about 1,000 filings."}}, {"@type": "Question", "name": "What is charged?", "acceptedAnswer": {"@type": "Answer", "text": "One filing-result ($5 per 1,000 on the free plan, $3.50 on paid plans) per Form D filing returned. With 'Add website contacts' on, also one contact-result ($15 per 1,000) per company whose website gave at least one email, phone, social link or named person, so an enriched lead costs $20 per 1,000 ($18.50 on paid plans). Plus a $0.006 start fee per run."}}, {"@type": "Question", "name": "What is a Form D?", "acceptedAnswer": {"@type": "Answer", "text": "A notice a company files with the SEC within 15 days of first selling securities in a private offering under Regulation D (Rule 504, 506(b) or 506(c)) or section 4(a)(5): startups raising seed or venture rounds, SAFEs and convertible notes, plus funds, SPVs and real-estate deals. It gives the issuer, its executives and directors, the industry, the offering size, the amount sold so far and the date of first sale. It does not list investors or the round's name (seed, Series A)."}}, {"@type": "Question", "name": "How fresh is it?", "acceptedAnswer": {"@type": "Answer", "text": "EDGAR publishes a Form D minutes after it is accepted, and the Actor reads EDGAR live. A company files within 15 days of its first sale, so a filing usually follows the raise by days to two weeks; date_of_first_sale gives the real date."}}, {"@type": "Question", "name": "Why do so few companies have a website?", "acceptedAnswer": {"@type": "Answer", "text": "Form D has no website field and many issuers are single-purpose LLCs with no site. A website is returned only when the company name works as a domain and the site confirms it with the issuer's city or phone, so it is right rather than plentiful: in a 150-filing cloud run, 15 got a website and 14 of those gave business contacts."}}, {"@type": "Question", "name": "How do I get a daily feed?", "acceptedAnswer": {"@type": "Answer", "text": "Turn on 'Only new filings since last run', keep 'Filed in the last N days' at 1 or 2 and schedule the Actor daily. Each run returns only filings not returned before with the same filters; add a Slack or webhook URL to get a digest."}}, {"@type": "Question", "name": "Is this legal?", "acceptedAnswer": {"@type": "Answer", "text": "It reads only public data any logged-out visitor can see: Form D filings on the SEC's EDGAR system, which are US government works in the public domain, through EDGAR's public search at the SEC's fair-access pace with a declared user-agent, and, when you turn it on, the public pages of the company's own website with robots.txt obeyed. It never logs in and never solves CAPTCHAs. Executives and directors are returned with name and role only, never their addresses. To have a record removed, open an issue on this Actor's Issues tab. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice."}}, {"@type": "Question", "name": "Can I use it from an AI assistant?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Every input is described for agents: days back, sector, states and amounts. It works through Apify's MCP server and API."}}, {"@type": "Question", "name": "What happens when a run finds nothing or stops early?", "acceptedAnswer": {"@type": "Answer", "text": "You pay only for filings returned, plus the start fee per run. If your filters match almost nothing, the run stops after reading 300 filings plus 50 per filing returned and says so in its status, so a narrow filter over 90 days does not read months of filings. If the SEC keeps answering HTTP 403 or 429 after back-off, the run stops, keeps every filing it saved and says so. The run fails only when EDGAR search fails for every day you asked for."}}, {"@type": "Question", "name": "How are duplicates handled?", "acceptedAnswer": {"@type": "Answer", "text": "Each row is one filing, keyed by accession_number, and each filing is read once per run. With 'Only new filings since last run' on, filings returned or already checked by an earlier run with the same filters are skipped and not charged; each is remembered for 400 days after it was last seen. An amendment (Form D/A) is a separate filing with its own accession number and previous_accession_number pointing to the one it amends; amendments are left out unless you turn them on."}}, {"@type": "Question", "name": "What happens when a run reaches Max filings?", "acceptedAnswer": {"@type": "Answer", "text": "Days are read from today backwards and, within a day, newest accession number first, so you get the newest filings. Filings the run never reached are not remembered, so with 'Only new filings since last run' on the next run picks them up. Raise 'Max filings' if your daily feed keeps hitting the limit."}}, {"@type": "Question", "name": "Can I change filters on a daily feed without getting repeats?", "acceptedAnswer": {"@type": "Answer", "text": "The 'new since last run' memory is named after the filters (sectors, states, funds, real estate, amounts, amendments), so changing one of them starts a fresh memory and already-seen filings come back. To keep one memory across filter changes, set 'Incremental state name'. Changing 'Filed in the last N days' or 'Max filings' keeps the same memory."}}, {"@type": "Question", "name": "What do the amount and date fields mean?", "acceptedAnswer": {"@type": "Answer", "text": "total_offering_amount is the size of the whole offering as filed; it is empty with offering_amount_indefinite true when the issuer wrote 'Indefinite'. total_amount_sold is what was sold by the time of the filing and total_remaining what is left. date_of_first_sale is empty with first_sale_yet_to_occur true when nothing was sold yet. Amounts are copied as filed in USD, so placeholder values such as 1 appear when the issuer entered them."}}, {"@type": "Question", "name": "How is the sector chosen?", "acceptedAnswer": {"@type": "Answer", "text": "From the filing's industry group, one of Form D's 35 groups, mapped to 12 sectors: for example Computers, Telecommunications and Other Technology are technology, and Pooled Investment Fund falls under financial services. industry_group keeps the original wording, so you can filter on it more finely in your own sheet."}}, {"@type": "Question", "name": "Does it use proxies?", "acceptedAnswer": {"@type": "Answer", "text": "No. Requests go straight to SEC EDGAR with a declared Aurelix user-agent, at most 5 per second, as the SEC's fair-access rules ask. Company websites are read directly with robots.txt obeyed. A run that shares an IP with heavy SEC users can be slowed; it backs off and, if refused, stops with what it has."}}, {"@type": "Question", "name": "Which companies and countries does it cover?", "acceptedAnswer": {"@type": "Answer", "text": "Every issuer that files a Form D or D/A with the SEC, including foreign issuers raising from US investors. 'Issuer states' matches the two-letter code of the principal place of business on the filing; leave it empty to include foreign issuers. Companies that raise without filing a Form D are not in EDGAR, so they are not here."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tools", "item": "https://aurelix-solutions.github.io/tools/"}, {"@type": "ListItem", "position": 2, "name": "Recently Funded Companies", "item": "https://aurelix-solutions.github.io/tools/recently-funded-companies/"}]}</script>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<header><a class="brand" href="/tools/"><img src="/tools/logo.png" alt="" width="34" height="34">Aurelix</a><nav class="nav"><a href="/tools/">Tools</a><a href="/tools/guides/">Guides</a></nav></header>
+<div class="hero"><p class="crumbs"><a href="/tools/">Tools</a> › Leads</p><div class="idrow"><img src="/tools/recently-funded-companies/icon.png" alt="" width="64" height="64"><h1>Recently Funded Companies</h1></div><p class="lede">Get a daily list of companies that just reported raising money in SEC Form D filings (amount, industry, state, executives) for $5.00 per 1,000 filings, no login.</p><p class="lede-sub">For B2B sellers, recruiters and investors. Funds, SPVs and co-invest vehicles are removed by default and websites are confirmed against the filing; optional emails and decision-makers are charged only when found.</p><p class="pill"><span class="dot"></span>$5.00 per 1,000 filings ($3.50 on paid Apify plans)</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/recently-funded-companies">Run it on Apify</a><a class="btn btn-ghost" href="https://github.com/Aurelix-Solutions/recently-funded-companies-example">Python example on GitHub</a></div></div>
+</div></div>
+<main class="wrap">
+<section><p class="kicker">At a glance</p><h2>What the Recently Funded Companies does</h2><div class="grid2"><div class="box"><dl class="glance"><div><dt>Source</dt><dd>SEC EDGAR Form D and D/A filings (official, public domain), about 150 to 250 a business day</dd></div><div><dt>Filters</dt><dd>Days back (up to 90), sector, issuer state, minimum amount sold, minimum offering size, funds and SPVs, real estate, amendments</dd></div><div><dt>Output</dt><dd>46 fields per filing incl. executives and roles; JSON, CSV, Excel, API</dd></div><div><dt>Automate</dt><dd>Only new filings since last run, Slack/webhook digest, schedules, Zapier, Make, n8n, MCP for AI agents</dd></div></dl></div><div class="box"><h3>Who it is for</h3><ul class="ticks"><li>Sales teams selling to newly funded startups: software, recruiting, banking, insurance, office space</li><li>Recruiters and staffing agencies reaching companies that just raised money and will hire</li><li>VCs, angels and analysts tracking private rounds by sector and state</li><li>Lenders, accountants and law firms finding companies at the moment they need advisers</li></ul></div></div></section>
+<section><p class="kicker">Output</p><h2>What you get</h2><div class="box"><ul class="ticks"><li>accession_number, form_type (D or D/A), filing_date, filing_url and xml_url on EDGAR</li><li>company_name, cik, entity_type, jurisdiction_of_incorporation, year_of_incorporation, incorporated_within_5_years</li><li>city, state, state_name, zip_code, phone; street only when it is not also a related person&#x27;s address</li><li>industry_group (Form D&#x27;s 35 groups), sector, is_pooled_fund, investment_fund_type, revenue_range, net_asset_value_range</li><li>total_offering_amount, total_amount_sold, total_remaining, minimum_investment, investors_count, has_non_accredited_investors, sales_commissions, finders_fees</li><li>date_of_first_sale, first_sale_yet_to_occur, federal_exemptions (e.g. 06b, 06c), securities_offered, more_than_one_year</li><li>related_persons: name, roles (Executive Officer, Director, Promoter) and clarification; signer_name, signer_title</li><li>website (matched and confirmed), and with contacts on: emails, phones, social_profiles and people (name, title, seniority, function, work email)</li></ul></div></section>
+<section><p class="kicker">Example</p><h2>Input and output</h2><div class="grid2"><div><h3>Input</h3><pre><code>{
+  &quot;daysBack&quot;: 7,
+  &quot;sectors&quot;: [
+    &quot;technology&quot;,
+    &quot;health-care&quot;
+  ],
+  &quot;states&quot;: [
+    &quot;CA&quot;,
+    &quot;NY&quot;,
+    &quot;MA&quot;
+  ],
+  &quot;minAmountSold&quot;: 500000,
+  &quot;incremental&quot;: true,
+  &quot;enrichContacts&quot;: true,
+  &quot;maxResults&quot;: 500
+}</code></pre></div><div><h3>One output record</h3><pre><code>{
+  &quot;accession_number&quot;: &quot;0002162347-26-000001&quot;,
+  &quot;form_type&quot;: &quot;D&quot;,
+  &quot;is_amendment&quot;: false,
+  &quot;previous_accession_number&quot;: null,
+  &quot;filing_date&quot;: &quot;2026-11-04&quot;,
+  &quot;company_name&quot;: &quot;Newcoda, Inc.&quot;,
+  &quot;cik&quot;: &quot;0002162347&quot;,
+  &quot;entity_type&quot;: &quot;Corporation&quot;,
+  &quot;jurisdiction_of_incorporation&quot;: &quot;Florida&quot;,
+  &quot;year_of_incorporation&quot;: 2026,
+  &quot;incorporated_within_5_years&quot;: true,
+  &quot;street&quot;: &quot;8600 NW 17th ST&quot;,
+  &quot;city&quot;: &quot;Miami&quot;,
+  &quot;state&quot;: &quot;FL&quot;,
+  &quot;state_name&quot;: &quot;Florida&quot;,
+  &quot;zip_code&quot;: &quot;33126&quot;,
+  &quot;phone&quot;: &quot;3054778700&quot;,
+  &quot;industry_group&quot;: &quot;Other Technology&quot;,
+  &quot;sector&quot;: &quot;technology&quot;,
+  &quot;investment_fund_type&quot;: null,
+  &quot;is_pooled_fund&quot;: false,
+  &quot;revenue_range&quot;: &quot;Decline to Disclose&quot;,
+  &quot;net_asset_value_range&quot;: null,
+  &quot;federal_exemptions&quot;: [
+    &quot;06b&quot;
+  ],
+  &quot;securities_offered&quot;: [
+    &quot;Other&quot;,
+    &quot;SAFE&quot;
+  ],
+  &quot;date_of_first_sale&quot;: &quot;2026-10-01&quot;,
+  &quot;first_sale_yet_to_occur&quot;: false,
+  &quot;more_than_one_year&quot;: false,
+  &quot;total_offering_amount&quot;: 1800000,
+  &quot;offering_amount_indefinite&quot;: false,
+  &quot;total_amount_sold&quot;: 1265000,
+  &quot;total_remaining&quot;: 535000,
+  &quot;minimum_investment&quot;: 25000,
+  &quot;investors_count&quot;: 14,
+  &quot;has_non_accredited_investors&quot;: false,
+  &quot;sales_commissions&quot;: 0,
+  &quot;finders_fees&quot;: 0,
+  &quot;related_persons&quot;: [
+    {
+      &quot;name&quot;: &quot;Betina Kitzler&quot;,
+      &quot;roles&quot;: [
+        &quot;Executive Officer&quot;,
+        &quot;Director&quot;
+      ],
+      &quot;clarification&quot;: null
+    },
+    {
+      &quot;name&quot;: &quot;Alberto Gross&quot;,
+      &quot;roles&quot;: [
+        &quot;Executive Officer&quot;,
+        &quot;Director&quot;
+      ],
+      &quot;clarification&quot;: null
+    },
+    {
+      &quot;name&quot;: &quot;Jose Ignacio Cordero Ehrenberg&quot;,
+      &quot;roles&quot;: [
+        &quot;Executive Officer&quot;,
+        &quot;Director&quot;
+      ],
+      &quot;clarification&quot;: null
+    },
+    &quot;… 1 more&quot;
+  ],
+  &quot;signer_name&quot;: &quot;Betina Kitzler&quot;,
+  &quot;signer_title&quot;: &quot;CEO&quot;,
+  &quot;website&quot;: &quot;https://newcoda.ai/&quot;,
+  &quot;contacts&quot;: {
+    &quot;emails&quot;: [
+      {
+        &quot;email&quot;: &quot;contact@newcoda.ai&quot;,
+        &quot;source_url&quot;: &quot;https://newcoda.ai/&quot;
+      }
+    ],
+    &quot;phones&quot;: [],
+    &quot;social_profiles&quot;: [
+      {
+        &quot;network&quot;: &quot;linkedin&quot;,
+        &quot;url&quot;: &quot;https://www.linkedin.com/company/newcoda-ai&quot;,
+        &quot;source_url&quot;: &quot;https://newcoda.ai/&quot;
+      }
+    ],
+    &quot;people&quot;: [
+      {
+        &quot;name&quot;: &quot;Pilar Savoldi&quot;,
+        &quot;title&quot;: &quot;Co-Founder&quot;,
+        &quot;seniority&quot;: &quot;founder_owner&quot;,
+        &quot;function&quot;: &quot;executive&quot;,
+        &quot;work_email&quot;: null,
+        &quot;work_phone&quot;: null,
+        &quot;source_url&quot;: &quot;https://newcoda.ai/company/&quot;
+      },
+      {
+        &quot;name&quot;: &quot;Luis Luna&quot;,
+        &quot;title&quot;: &quot;Co-Founder &amp; Head of Engineering&quot;,
+        &quot;seniority&quot;: &quot;founder_owner&quot;,
+        &quot;function&quot;: &quot;engineering&quot;,
+        &quot;work_email&quot;: null,
+        &quot;work_phone&quot;: null,
+        &quot;source_url&quot;: &quot;https://newcoda.ai/company/&quot;
+      }
+    ]
+  },
+  &quot;filing_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/2162347/000216234726000001/0002162347-26-000001-index.htm&quot;,
+  &quot;xml_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/2162347/000216234726000001/primary_doc.xml&quot;,
+  &quot;source_url&quot;: &quot;https://www.sec.gov/Archives/edgar/data/2162347/000216234726000001/0002162347-26-000001-index.htm&quot;,
+  &quot;scraped_at&quot;: &quot;2026-11-04T22:17:07Z&quot;
+}</code></pre><p class="note">From a real run of this tool; long text and lists shortened here.</p></div></div></section>
+<section><p class="kicker">How to use it</p><h2>Three steps</h2><ol class="steps"><li>Set &#x27;Filed in the last N days&#x27; (1 = today and yesterday) and &#x27;Max filings&#x27;; investment funds and SPVs are removed by default.</li><li>Optionally narrow it by sector, issuer state, minimum amount sold or offering size, turn on &#x27;Only new filings since last run&#x27; for a daily feed, and &#x27;Add website contacts&#x27; for emails and decision-makers.</li><li>Click Start, then download JSON, CSV or Excel, or schedule it daily and send new filings to Slack, Google Sheets, your CRM, Zapier, Make or n8n.</li></ol></section>
+<section><p class="kicker">API</p><h2>Call it from Python</h2><pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+run = client.actor(&quot;aurelix/recently-funded-companies&quot;).call(run_input={&#x27;daysBack&#x27;: 7,
+ &#x27;sectors&#x27;: [&#x27;technology&#x27;, &#x27;health-care&#x27;],
+ &#x27;states&#x27;: [&#x27;CA&#x27;, &#x27;NY&#x27;, &#x27;MA&#x27;],
+ &#x27;minAmountSold&#x27;: 500000,
+ &#x27;incremental&#x27;: True,
+ &#x27;enrichContacts&#x27;: True,
+ &#x27;maxResults&#x27;: 500})
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)</code></pre><p class="note"><code>pip install apify-client</code>. The same input works from the Apify console, a schedule, Make, n8n, Zapier or an AI agent through the Apify MCP server.</p></section>
+<section><p class="kicker">Pricing</p><h2>Pay per result</h2><div class="box"><table class="price"><tr><td>Per 1,000 filings, free plan</td><td>$5.00</td></tr><tr><td>Per 1,000 filings, paid plans</td><td>$3.50</td></tr><tr><td>Contact result, per 1,000, free plan</td><td>$15.00</td></tr><tr><td>Start fee per run</td><td>$0.006</td></tr></table><p class="note">Live prices from the Apify Store; no subscription and no platform usage billed on top. <a href="https://apify.com/aurelix/recently-funded-companies">See the Store page</a>.</p></div></section>
+<section><p class="kicker">Honest limits</p><h2>What it does not do</h2><div class="box"><ul class="ticks"><li>Form D covers only US private offerings under Regulation D and 4(a)(5): no investor names, no round name (seed, Series A), and companies that raise without filing are missing.</li><li>Amounts are as filed; &#x27;Indefinite&#x27; offering sizes come back as an empty total_offering_amount with offering_amount_indefinite true.</li><li>The fund filter uses the filing&#x27;s industry group, 3(c) exclusions and vehicle words in the name; a fund that files as an operating industry under a plain name is not caught, and an operating company named like a fund (e.g. &#x27;Fund&#x27; or &#x27;Aggregator&#x27; in its name) is dropped unless you switch the filter off.</li><li>The issuer street is left empty when it equals a related person&#x27;s address, which also happens when executives list the office as their address.</li><li>Website match: only when the company name works as a .com, .ai, .io or .co domain and the site shows the issuer&#x27;s city or phone; most small issuers get none.</li><li>Website contacts come only from what the company publishes on its own site (up to 5 pages); sites that block crawlers in robots.txt are skipped.</li><li>Days are EDGAR filing dates, counted back from today in UTC; &#x27;Filed in the last N days&#x27; is capped at 90, and EDGAR search returns at most 10,000 filings per day (far above the real volume). EDGAR&#x27;s daily form index lists filings by acceptance day, so it can differ by one or two: on one test day we returned 248 Form D and D/A filings, the index listed 247, and the extra one was dated that day but accepted the next.</li><li>Pace: up to 5 SEC requests per second, about one per filing, so 1,000 filings take a few minutes; the SEC may slow runs that share an IP with heavy users.</li></ul></div></section>
+<section><p class="kicker">FAQ</p><h2>Questions buyers ask</h2><details><summary>Is there a cheaper SEC Form D scraper on Apify?</summary><p>Yes, cheaper ones exist: pink_comic/sec-form-d-startup-funding-leads costs $2 per 1,000 filings and logiover/sec-edgar-form-d-scraper $3.50 on the free plan, against $5 and $3.50 here. This Actor costs more because it removes funds and SPVs by default, adds a company website confirmed against the filing, has a free only-new-filings mode, and can add website emails and decision-makers, charged only when found.</p></details><details><summary>How do I get recently funded startups into a CRM, Google Sheets or an AI agent?</summary><p>Two ways. For a fixed workflow, add Apify&#x27;s n8n or Make node, choose **Run Actor**, enter <code>aurelix/recently-funded-companies</code> and map the dataset to the next step. For an AI agent (Claude, ChatGPT, Cursor or an n8n AI Agent node), add <code>https://mcp.apify.com/?tools=aurelix/recently-funded-companies</code> as an MCP server and ask for recently funded companies in plain words; setup for each client is in the section above. Runs bill your own Apify account at the same per-result price.</p></details><details><summary>How much does the Recently Funded Companies cost?</summary><p>$5.00 per 1,000 filings ($3.50 on paid Apify plans), billed through your Apify account; you pay only for results. Apify&#x27;s free plan includes $5 of credit a month, enough for about 1,000 filings.</p></details><details><summary>What is charged?</summary><p>One filing-result ($5 per 1,000 on the free plan, $3.50 on paid plans) per Form D filing returned. With &#x27;Add website contacts&#x27; on, also one contact-result ($15 per 1,000) per company whose website gave at least one email, phone, social link or named person, so an enriched lead costs $20 per 1,000 ($18.50 on paid plans). Plus a $0.006 start fee per run.</p></details><details><summary>What is a Form D?</summary><p>A notice a company files with the SEC within 15 days of first selling securities in a private offering under Regulation D (Rule 504, 506(b) or 506(c)) or section 4(a)(5): startups raising seed or venture rounds, SAFEs and convertible notes, plus funds, SPVs and real-estate deals. It gives the issuer, its executives and directors, the industry, the offering size, the amount sold so far and the date of first sale. It does not list investors or the round&#x27;s name (seed, Series A).</p></details><details><summary>How fresh is it?</summary><p>EDGAR publishes a Form D minutes after it is accepted, and the Actor reads EDGAR live. A company files within 15 days of its first sale, so a filing usually follows the raise by days to two weeks; date_of_first_sale gives the real date.</p></details><details><summary>Why do so few companies have a website?</summary><p>Form D has no website field and many issuers are single-purpose LLCs with no site. A website is returned only when the company name works as a domain and the site confirms it with the issuer&#x27;s city or phone, so it is right rather than plentiful: in a 150-filing cloud run, 15 got a website and 14 of those gave business contacts.</p></details><details><summary>How do I get a daily feed?</summary><p>Turn on &#x27;Only new filings since last run&#x27;, keep &#x27;Filed in the last N days&#x27; at 1 or 2 and schedule the Actor daily. Each run returns only filings not returned before with the same filters; add a Slack or webhook URL to get a digest.</p></details><details><summary>Is this legal?</summary><p>It reads only public data any logged-out visitor can see: Form D filings on the SEC&#x27;s EDGAR system, which are US government works in the public domain, through EDGAR&#x27;s public search at the SEC&#x27;s fair-access pace with a declared user-agent, and, when you turn it on, the public pages of the company&#x27;s own website with robots.txt obeyed. It never logs in and never solves CAPTCHAs. Executives and directors are returned with name and role only, never their addresses. To have a record removed, open an issue on this Actor&#x27;s Issues tab. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice.</p></details><details><summary>Can I use it from an AI assistant?</summary><p>Yes. Every input is described for agents: days back, sector, states and amounts. It works through Apify&#x27;s MCP server and API.</p></details><details><summary>What happens when a run finds nothing or stops early?</summary><p>You pay only for filings returned, plus the start fee per run. If your filters match almost nothing, the run stops after reading 300 filings plus 50 per filing returned and says so in its status, so a narrow filter over 90 days does not read months of filings. If the SEC keeps answering HTTP 403 or 429 after back-off, the run stops, keeps every filing it saved and says so. The run fails only when EDGAR search fails for every day you asked for.</p></details><details><summary>How are duplicates handled?</summary><p>Each row is one filing, keyed by accession_number, and each filing is read once per run. With &#x27;Only new filings since last run&#x27; on, filings returned or already checked by an earlier run with the same filters are skipped and not charged; each is remembered for 400 days after it was last seen. An amendment (Form D/A) is a separate filing with its own accession number and previous_accession_number pointing to the one it amends; amendments are left out unless you turn them on.</p></details><details><summary>What happens when a run reaches Max filings?</summary><p>Days are read from today backwards and, within a day, newest accession number first, so you get the newest filings. Filings the run never reached are not remembered, so with &#x27;Only new filings since last run&#x27; on the next run picks them up. Raise &#x27;Max filings&#x27; if your daily feed keeps hitting the limit.</p></details><details><summary>Can I change filters on a daily feed without getting repeats?</summary><p>The &#x27;new since last run&#x27; memory is named after the filters (sectors, states, funds, real estate, amounts, amendments), so changing one of them starts a fresh memory and already-seen filings come back. To keep one memory across filter changes, set &#x27;Incremental state name&#x27;. Changing &#x27;Filed in the last N days&#x27; or &#x27;Max filings&#x27; keeps the same memory.</p></details><details><summary>What do the amount and date fields mean?</summary><p>total_offering_amount is the size of the whole offering as filed; it is empty with offering_amount_indefinite true when the issuer wrote &#x27;Indefinite&#x27;. total_amount_sold is what was sold by the time of the filing and total_remaining what is left. date_of_first_sale is empty with first_sale_yet_to_occur true when nothing was sold yet. Amounts are copied as filed in USD, so placeholder values such as 1 appear when the issuer entered them.</p></details><details><summary>How is the sector chosen?</summary><p>From the filing&#x27;s industry group, one of Form D&#x27;s 35 groups, mapped to 12 sectors: for example Computers, Telecommunications and Other Technology are technology, and Pooled Investment Fund falls under financial services. industry_group keeps the original wording, so you can filter on it more finely in your own sheet.</p></details><details><summary>Does it use proxies?</summary><p>No. Requests go straight to SEC EDGAR with a declared Aurelix user-agent, at most 5 per second, as the SEC&#x27;s fair-access rules ask. Company websites are read directly with robots.txt obeyed. A run that shares an IP with heavy SEC users can be slowed; it backs off and, if refused, stops with what it has.</p></details><details><summary>Which companies and countries does it cover?</summary><p>Every issuer that files a Form D or D/A with the SEC, including foreign issuers raising from US investors. &#x27;Issuer states&#x27; matches the two-letter code of the principal place of business on the filing; leave it empty to include foreign issuers. Companies that raise without filing a Form D are not in EDGAR, so they are not here.</p></details></section>
+<section><p class="kicker">Guides</p><h2>Tutorials using this tool</h2><div class="box"><ul class="links"><li><a href="https://aurelix-solutions.github.io/tools/guides/recently-funded-startups-google-sheets/">Get recently funded startups into a Google Sheet every day, from SEC Form D filings</a></li></ul></div></section>
+<section><p class="kicker">Related</p><h2>Related tools</h2><div class="cards"><a class="tcard" href="/tools/google-maps-scraper/" data-cat="Leads Business"><div class="row"><img src="/tools/google-maps-scraper/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Google Maps Phone Scraper</h3></div><p>Local business lists from Google Maps: phones, websites, ratings, hours, coordinates; optional website emails and socials.</p><div class="meta"><span class="tag">Leads</span><span class="price-s">$1.50 / 1,000 places</span></div></a></div></section>
+<section class="cta"><div><h2>Try the Recently Funded Companies</h2><p>Open it on the Apify Store, paste the example input above and click Start. Results download as CSV, Excel or JSON.</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/recently-funded-companies">Run it on Apify</a></div></div></section>
+</main>
+<footer class="wrap"><p>Aurelix builds and maintains these tools. They run on the <a href="https://apify.com/aurelix">Apify Store</a>, which handles accounts and billing; prices on this site are read from the Store each time the site is rebuilt. Tools read only public pages a logged-out visitor can see. <a href="/tools/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p></footer>
+</body>
+</html>

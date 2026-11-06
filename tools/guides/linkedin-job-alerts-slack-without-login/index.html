@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LinkedIn job alerts in Slack without logging in to LinkedIn | Aurelix</title>
+<meta name="description" content="Get a Slack message with only the new LinkedIn jobs for your keywords and country, every morning, without a LinkedIn account or cookies. Working input, real output and the Python version.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/tools/guides/linkedin-job-alerts-slack-without-login/">
+<meta property="og:title" content="LinkedIn job alerts in Slack without logging in to LinkedIn | Aurelix">
+<meta property="og:description" content="Get a Slack message with only the new LinkedIn jobs for your keywords and country, every morning, without a LinkedIn account or cookies. Working input, real output and the Python version.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/tools/guides/linkedin-job-alerts-slack-without-login/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aurelix">
+<meta property="og:image" content="https://aurelix-solutions.github.io/tools/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aurelix-solutions.github.io/tools/og.png">
+<link rel="icon" type="image/png" href="/tools/favicon.png">
+<link rel="apple-touch-icon" href="/tools/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1726;--navy-2:#16213a;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;--ink:#0f1726;--body:#3b4559;
+--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;--r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:#0d7f75}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:16px;font-size:14px;font-weight:600}.nav a{color:#c6cede;text-decoration:none}.nav a:hover{color:#fff}
+.hero{position:relative;z-index:1;padding:28px 0 56px}
+.crumbs{font-size:13px;color:#98a3b8;margin:0 0 18px}.crumbs a{color:#c6cede;text-decoration:none}
+.idrow{display:flex;align-items:center;gap:16px}
+.idrow img{width:64px;height:64px;border-radius:16px;background:#fff;flex:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+h1{color:#fff;font-size:clamp(30px,6.4vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:0}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:40em;margin:18px 0 8px}
+.lede-sub{font-size:16px;color:#98a3b8;max-width:42em;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;margin:0 0 22px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18);flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:520px){.btn{flex:1 1 100%}}
+main section{padding:56px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 8px}
+h2{font-size:clamp(24px,4vw,32px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;font-weight:800}
+h3{color:var(--ink);font-size:18px;margin:0 0 6px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;gap:16px}.grid2>*{min-width:0}@media (min-width:820px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.glance{display:grid;gap:0;margin:0}.glance div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.glance div:last-child{border:0}
+.glance dd,.glance dt{overflow-wrap:anywhere}.glance dt{font-weight:700;color:var(--ink);font-size:14px}.glance dd{margin:0;font-size:15px}
+@media (max-width:520px){.glance div{grid-template-columns:1fr;gap:2px}}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:28px}ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:10px;border-left:3px solid var(--teal);border-bottom:3px solid var(--teal);transform:rotate(-45deg) scale(.8)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 66px;box-shadow:var(--shadow)}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+pre{background:var(--navy);color:#e6ebf5;border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.5;margin:0;max-height:460px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code,td code{background:#eef1f6;color:var(--ink);padding:1px 5px;border-radius:5px;font-size:.9em}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+table.price{width:100%;border-collapse:collapse;font-size:15px}table.price td{padding:11px 0;border-bottom:1px solid var(--line)}table.price tr:last-child td{border:0}table.price td:last-child{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin:0 0 10px;box-shadow:0 1px 2px rgba(15,23,38,.05)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;position:relative;padding-right:28px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--muted)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px}
+.cards{display:grid;gap:14px}@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}@media (min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:var(--body);transition:transform .15s,box-shadow .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,38,.06),0 14px 32px rgba(15,23,38,.10)}
+.tcard .row{display:flex;align-items:center;gap:12px}.tcard img{width:44px;height:44px;border-radius:11px;flex:none;border:1px solid var(--line)}
+.tcard h3{margin:0;font-size:17px}.tcard p{margin:0;font-size:15px;flex:1}
+.tcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208}
+.price-s{font-weight:700;color:var(--ink);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.chips button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.links a{font-weight:600}
+.article{max-width:760px}.article h2{font-size:clamp(22px,3.4vw,28px);margin:40px 0 12px}.article h3{margin:28px 0 8px}
+.article pre{margin:16px 0}.article table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto;margin:16px 0}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}.article th{background:#fbfbfd}
+.article img{border-radius:12px}
+.cta{margin-top:56px;background:var(--navy);color:#c6cede;padding:36px 28px;border-radius:20px}.cta h2{color:#fff}.cta p{max-width:40em}
+footer{padding:36px 0 48px;font-size:14px;color:var(--muted)}footer a{color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "LinkedIn job alerts in Slack without logging in to LinkedIn", "description": "Get a Slack message with only the new LinkedIn jobs for your keywords and country, every morning, without a LinkedIn account or cookies. Working input, real output and the Python version.", "url": "https://aurelix-solutions.github.io/tools/guides/linkedin-job-alerts-slack-without-login/", "author": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "publisher": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "image": "https://aurelix-solutions.github.io/tools/og.png", "about": [{"@type": "SoftwareApplication", "name": "LinkedIn Jobs No Login Scraper", "url": "https://aurelix-solutions.github.io/tools/linkedin-jobs/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Guides", "item": "https://aurelix-solutions.github.io/tools/guides/"}, {"@type": "ListItem", "position": 2, "name": "LinkedIn job alerts in Slack without logging in to LinkedIn", "item": "https://aurelix-solutions.github.io/tools/guides/linkedin-job-alerts-slack-without-login/"}]}</script>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<header><a class="brand" href="/tools/"><img src="/tools/logo.png" alt="" width="34" height="34">Aurelix</a><nav class="nav"><a href="/tools/">Tools</a><a href="/tools/guides/" aria-current=page>Guides</a></nav></header>
+<div class="hero"><p class="crumbs"><a href="/tools/guides/">Guides</a></p><h1>LinkedIn job alerts in Slack without logging in to LinkedIn</h1><p class="lede">Get a Slack message with only the new LinkedIn jobs for your keywords and country, every morning, without a LinkedIn account or cookies. Working input, real output and the Python version.</p><a class="btn btn-gold" href="/tools/linkedin-jobs/">LinkedIn Jobs No Login Scraper: price and examples</a></div>
+</div></div>
+<main class="wrap">
+<section><article class="article"><p>LinkedIn's own job alerts live in your LinkedIn inbox, need an account, and are hard to share with a team. If you want new postings for a few searches dropped into a Slack channel (a recruiting team, a job-board newsletter, a sales team watching who hires), you need three things: the public job search, a memory of what you already saw, and a Slack webhook.</p>
+<p>This guide sets that up with no LinkedIn login at all, first with no code, then in Python.</p>
+<p><strong>Disclosure:</strong> I'm Aurelix, and I built the <a href="https://apify.com/aurelix/linkedin-jobs">LinkedIn Jobs Scraper</a> used below. It is a paid tool, priced per job returned; the current price is on its <a href="/tools/linkedin-jobs/">tool page</a>.</p>
+<h2>What you need</h2>
+<ol>
+<li>A Slack <strong>incoming webhook</strong> URL: in Slack, create an app (or use an existing one), turn on <em>Incoming Webhooks</em> and add one for your channel. It looks like <code>https://hooks.slack.com/services/T000/B000/XXXX</code>.</li>
+<li>An Apify account (the free plan works) to run the scraper on a schedule.</li>
+</ol>
+<p>The scraper reads LinkedIn's public job search, the pages any logged-out visitor sees. It never logs in and never uses cookies, so there is no account to get blocked.</p>
+<h2>Option 1: no code</h2>
+<p>Open the tool on the Apify Store and use this input:</p>
+<pre><code class="language-json">{
+  &quot;keywords&quot;: [&quot;data engineer&quot;, &quot;analytics engineer&quot;],
+  &quot;country&quot;: &quot;CA&quot;,
+  &quot;datePosted&quot;: &quot;past24h&quot;,
+  &quot;maxResultsPerSearch&quot;: 100,
+  &quot;incremental&quot;: true,
+  &quot;stateKey&quot;: &quot;ca-data-jobs&quot;,
+  &quot;slackWebhookUrl&quot;: &quot;https://hooks.slack.com/services/T000/B000/XXXX&quot;
+}
+</code></pre>
+<p>What each part does:</p>
+<ul>
+<li><code>country</code> uses LinkedIn's exact country id, and results whose location names another country are dropped.</li>
+<li><code>incremental</code> turns on <em>Only new jobs since last run</em>: the run remembers every job it returned under <code>stateKey</code> and returns (and charges) only jobs it has not seen before.</li>
+<li><code>slackWebhookUrl</code> posts a short digest after each run: how many new jobs were saved and the top 10 with links.</li>
+</ul>
+<p>Then add a schedule (Apify Console &gt; Schedules, for example every weekday at 8:00) that runs this saved input. The first run returns everything that matches; later runs post only what is new.</p>
+<h2>Option 2: Python, with your own message format</h2>
+<p>If you want a different message (grouped by company, with the salary when LinkedIn shows one), run the scraper from Python and post to the webhook yourself:</p>
+<pre><code class="language-bash">pip install apify-client requests
+</code></pre>
+<pre><code class="language-python">import os
+from collections import defaultdict
+
+import requests
+from apify_client import ApifyClient
+
+client = ApifyClient(os.environ[&quot;APIFY_TOKEN&quot;])
+run = client.actor(&quot;aurelix/linkedin-jobs&quot;).call(run_input={
+    &quot;keywords&quot;: [&quot;data engineer&quot;],
+    &quot;country&quot;: &quot;CA&quot;,
+    &quot;datePosted&quot;: &quot;past24h&quot;,
+    &quot;maxResultsPerSearch&quot;: 100,
+    &quot;incremental&quot;: True,
+    &quot;stateKey&quot;: &quot;ca-data-jobs-python&quot;,
+})
+jobs = list(client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items())
+
+by_company = defaultdict(list)
+for j in jobs:
+    by_company[j[&quot;company&quot;]].append(j)
+
+lines = [f&quot;*{len(jobs)} new data engineer jobs in Canada*&quot;]
+for company, items in sorted(by_company.items(), key=lambda x: -len(x[1])):
+    for j in items:
+        pay = f&quot; · {j['salary_text']}&quot; if j.get(&quot;salary_text&quot;) else &quot;&quot;
+        lines.append(f&quot;• &lt;{j['job_url']}|{j['title']}&gt; at {company}, {j['location']}{pay}&quot;)
+
+if jobs:
+    requests.post(os.environ[&quot;SLACK_WEBHOOK_URL&quot;], json={&quot;text&quot;: &quot;\n&quot;.join(lines[:40])}, timeout=30)
+</code></pre>
+<p>Run it from cron, GitHub Actions or an Apify schedule. Because <code>incremental</code> keeps its memory on Apify under the <code>stateKey</code>, the script itself stores nothing.</p>
+<h2>What the rows look like</h2>
+<p>Real rows from a run searching "data engineer" in Canada, trimmed to the fields used above:</p>
+<table>
+<thead>
+<tr>
+<th>title</th>
+<th>company</th>
+<th>location</th>
+<th>seniority</th>
+<th>job type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data Engineer</td>
+<td>Samsara</td>
+<td>Toronto, Ontario, Canada</td>
+<td>Mid-Senior level</td>
+<td>Full-time</td>
+</tr>
+<tr>
+<td>Ingénieur principal de données</td>
+<td>LGS, an IBM Company</td>
+<td>Montreal, Quebec, Canada</td>
+<td>Mid-Senior level</td>
+<td>Full-time</td>
+</tr>
+<tr>
+<td>Data Engineer (Snowflake, Azure Data Factory, Python &amp; SQL)</td>
+<td>Cognizant</td>
+<td>Halifax, Nova Scotia, Canada</td>
+<td>Mid-Senior level</td>
+<td>Full-time</td>
+</tr>
+</tbody>
+</table>
+<p>Each row also has <code>job_url</code>, <code>posted_date</code>, <code>company_url</code>, <code>applicants</code>, <code>industries</code>, <code>salary_text</code> (where LinkedIn shows one) and the full description.</p>
+<h2>Tips</h2>
+<ul>
+<li><strong>One search per keyword.</strong> <code>keywords</code> runs one search each; to separate alerts per team, give each schedule its own <code>stateKey</code> and webhook.</li>
+<li><strong>Paste your own search.</strong> If you already filter on linkedin.com, copy the URL from the address bar into <code>searchUrls</code>; its filters are kept.</li>
+<li><strong>Cheaper list mode.</strong> Set <code>includeDetails</code> to false for title, company, location and link only, without opening each job page.</li>
+</ul>
+<h2>Limits</h2>
+<ul>
+<li>LinkedIn shows at most about 1,000 jobs per search; split broad searches by keyword or location.</li>
+<li>The scraper uses Apify's datacenter proxy only. LinkedIn rate-limits those addresses, so very large runs can stop early; the run's status message says which searches did.</li>
+<li>Salary appears only when LinkedIn shows it on the posting.</li>
+</ul>
+<p>To send the same jobs to a spreadsheet instead of Slack, see <a href="https://dev.to/aurelix_solutions/export-new-linkedin-jobs-to-google-sheets-every-day-with-python-15ki">Export new LinkedIn jobs to Google Sheets every day</a>.</p>
+<h2>Links</h2>
+<ul>
+<li><a href="/tools/linkedin-jobs/">LinkedIn Jobs Scraper: price, example input and output, FAQ</a></li>
+<li><a href="https://apify.com/aurelix/linkedin-jobs">LinkedIn Jobs Scraper on the Apify Store</a></li>
+<li><a href="https://github.com/Aurelix-Solutions/linkedin-jobs-example">Runnable Python example on GitHub</a></li>
+</ul></article></section><section><p class="kicker">Tools used</p><div class="cards"><a class="tcard" href="/tools/linkedin-jobs/" data-cat="Jobs Leads"><div class="row"><img src="/tools/linkedin-jobs/icon.png" alt="" width="44" height="44" loading="lazy"><h3>LinkedIn Jobs No Login Scraper</h3></div><p>Public LinkedIn job postings by keyword and country: title, company, location, seniority, job type, salary text, description.</p><div class="meta"><span class="tag">Jobs</span><span class="price-s">$1.50 / 1,000 jobs</span></div></a></div></section>
+</main>
+<footer class="wrap"><p>Aurelix builds and maintains these tools. They run on the <a href="https://apify.com/aurelix">Apify Store</a>, which handles accounts and billing; prices on this site are read from the Store each time the site is rebuilt. Tools read only public pages a logged-out visitor can see. <a href="/tools/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p></footer>
+</body>
+</html>

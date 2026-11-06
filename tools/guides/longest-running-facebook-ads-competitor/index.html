@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Find a competitor&#x27;s longest-running Facebook and Instagram ads with the Meta Ad Library | Aurelix</title>
+<meta name="description" content="Pull every active ad a brand runs from the Meta Ad Library, sort by how long each has been running, and export the copy, landing pages and formats of the ones they keep paying for. No Facebook login or API token.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/tools/guides/longest-running-facebook-ads-competitor/">
+<meta property="og:title" content="Find a competitor&#x27;s longest-running Facebook and Instagram ads with the Meta Ad Library | Aurelix">
+<meta property="og:description" content="Pull every active ad a brand runs from the Meta Ad Library, sort by how long each has been running, and export the copy, landing pages and formats of the ones they keep paying for. No Facebook login or API token.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/tools/guides/longest-running-facebook-ads-competitor/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aurelix">
+<meta property="og:image" content="https://aurelix-solutions.github.io/tools/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aurelix-solutions.github.io/tools/og.png">
+<link rel="icon" type="image/png" href="/tools/favicon.png">
+<link rel="apple-touch-icon" href="/tools/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1726;--navy-2:#16213a;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;--ink:#0f1726;--body:#3b4559;
+--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;--r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:#0d7f75}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:16px;font-size:14px;font-weight:600}.nav a{color:#c6cede;text-decoration:none}.nav a:hover{color:#fff}
+.hero{position:relative;z-index:1;padding:28px 0 56px}
+.crumbs{font-size:13px;color:#98a3b8;margin:0 0 18px}.crumbs a{color:#c6cede;text-decoration:none}
+.idrow{display:flex;align-items:center;gap:16px}
+.idrow img{width:64px;height:64px;border-radius:16px;background:#fff;flex:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+h1{color:#fff;font-size:clamp(30px,6.4vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:0}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:40em;margin:18px 0 8px}
+.lede-sub{font-size:16px;color:#98a3b8;max-width:42em;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;margin:0 0 22px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18);flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:520px){.btn{flex:1 1 100%}}
+main section{padding:56px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 8px}
+h2{font-size:clamp(24px,4vw,32px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;font-weight:800}
+h3{color:var(--ink);font-size:18px;margin:0 0 6px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;gap:16px}.grid2>*{min-width:0}@media (min-width:820px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.glance{display:grid;gap:0;margin:0}.glance div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.glance div:last-child{border:0}
+.glance dd,.glance dt{overflow-wrap:anywhere}.glance dt{font-weight:700;color:var(--ink);font-size:14px}.glance dd{margin:0;font-size:15px}
+@media (max-width:520px){.glance div{grid-template-columns:1fr;gap:2px}}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:28px}ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:10px;border-left:3px solid var(--teal);border-bottom:3px solid var(--teal);transform:rotate(-45deg) scale(.8)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 66px;box-shadow:var(--shadow)}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+pre{background:var(--navy);color:#e6ebf5;border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.5;margin:0;max-height:460px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code,td code{background:#eef1f6;color:var(--ink);padding:1px 5px;border-radius:5px;font-size:.9em}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+table.price{width:100%;border-collapse:collapse;font-size:15px}table.price td{padding:11px 0;border-bottom:1px solid var(--line)}table.price tr:last-child td{border:0}table.price td:last-child{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin:0 0 10px;box-shadow:0 1px 2px rgba(15,23,38,.05)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;position:relative;padding-right:28px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--muted)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px}
+.cards{display:grid;gap:14px}@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}@media (min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:var(--body);transition:transform .15s,box-shadow .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,38,.06),0 14px 32px rgba(15,23,38,.10)}
+.tcard .row{display:flex;align-items:center;gap:12px}.tcard img{width:44px;height:44px;border-radius:11px;flex:none;border:1px solid var(--line)}
+.tcard h3{margin:0;font-size:17px}.tcard p{margin:0;font-size:15px;flex:1}
+.tcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208}
+.price-s{font-weight:700;color:var(--ink);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.chips button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.links a{font-weight:600}
+.article{max-width:760px}.article h2{font-size:clamp(22px,3.4vw,28px);margin:40px 0 12px}.article h3{margin:28px 0 8px}
+.article pre{margin:16px 0}.article table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto;margin:16px 0}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}.article th{background:#fbfbfd}
+.article img{border-radius:12px}
+.cta{margin-top:56px;background:var(--navy);color:#c6cede;padding:36px 28px;border-radius:20px}.cta h2{color:#fff}.cta p{max-width:40em}
+footer{padding:36px 0 48px;font-size:14px;color:var(--muted)}footer a{color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Find a competitor's longest-running Facebook and Instagram ads with the Meta Ad Library", "description": "Pull every active ad a brand runs from the Meta Ad Library, sort by how long each has been running, and export the copy, landing pages and formats of the ones they keep paying for. No Facebook login or API token.", "url": "https://aurelix-solutions.github.io/tools/guides/longest-running-facebook-ads-competitor/", "author": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "publisher": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "image": "https://aurelix-solutions.github.io/tools/og.png", "about": [{"@type": "SoftwareApplication", "name": "Facebook Ad Library Search & API", "url": "https://aurelix-solutions.github.io/tools/facebook-ad-library-scraper/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Guides", "item": "https://aurelix-solutions.github.io/tools/guides/"}, {"@type": "ListItem", "position": 2, "name": "Find a competitor's longest-running Facebook and Instagram ads with the Meta Ad Library", "item": "https://aurelix-solutions.github.io/tools/guides/longest-running-facebook-ads-competitor/"}]}</script>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<header><a class="brand" href="/tools/"><img src="/tools/logo.png" alt="" width="34" height="34">Aurelix</a><nav class="nav"><a href="/tools/">Tools</a><a href="/tools/guides/" aria-current=page>Guides</a></nav></header>
+<div class="hero"><p class="crumbs"><a href="/tools/guides/">Guides</a></p><h1>Find a competitor&#x27;s longest-running Facebook and Instagram ads with the Meta Ad Library</h1><p class="lede">Pull every active ad a brand runs from the Meta Ad Library, sort by how long each has been running, and export the copy, landing pages and formats of the ones they keep paying for. No Facebook login or API token.</p><a class="btn btn-gold" href="/tools/facebook-ad-library-scraper/">Facebook Ad Library Search &amp; API: price and examples</a></div>
+</div></div>
+<main class="wrap">
+<section><article class="article"><p>Advertisers turn off ads that lose money. So an ad that a brand has kept running for months is, more often than not, one that works for them. Media buyers and creative strategists use this as a quick read on a competitor: their longest-running active ads show the offers, hooks, formats and landing pages that survived testing.</p>
+<p>The Meta Ad Library shows every active ad, with the date each one started, but it has no sort by run time and no export. This guide pulls one advertiser's ads and sorts them.</p>
+<p><strong>Disclosure:</strong> I'm Aurelix, and I built the <a href="https://apify.com/aurelix/facebook-ad-library-scraper">Facebook Ad Library Scraper</a> used below. It is a paid tool, priced per ad returned; the current price is on its <a href="/tools/facebook-ad-library-scraper/">tool page</a>.</p>
+<h2>1. Find the advertiser's page id</h2>
+<p>Open the <a href="https://www.facebook.com/ads/library/">Meta Ad Library</a>, search the brand, and click its page. The URL now contains <code>view_all_page_id=...</code>. Either copy that number, or paste the whole URL into the tool: a normal <code>facebook.com/brand</code> link is treated as a keyword search, not as the page.</p>
+<h2>2. The input</h2>
+<pre><code class="language-json">{
+  &quot;queries&quot;: [&quot;page:20409006880&quot;],
+  &quot;country&quot;: &quot;ALL&quot;,
+  &quot;activeStatus&quot;: &quot;active&quot;,
+  &quot;maxResultsPerQuery&quot;: 500
+}
+</code></pre>
+<ul>
+<li><code>page:&lt;id&gt;</code> (or just the digits) returns that advertiser's ads only.</li>
+<li><code>activeStatus: "active"</code> keeps ads running now; use <code>"all"</code> to include stopped ones and see how long past ads ran.</li>
+<li><code>country</code> is where the ads ran; <code>ALL</code> covers every country.</li>
+</ul>
+<p>No Facebook account, cookies or developer token are used; the tool reads the public Ad Library pages.</p>
+<h2>3. Sort by run time in Python</h2>
+<pre><code class="language-bash">pip install apify-client
+</code></pre>
+<pre><code class="language-python">import csv
+import os
+from datetime import datetime, timezone
+
+from apify_client import ApifyClient
+
+client = ApifyClient(os.environ[&quot;APIFY_TOKEN&quot;])
+run = client.actor(&quot;aurelix/facebook-ad-library-scraper&quot;).call(run_input={
+    &quot;queries&quot;: [&quot;page:20409006880&quot;],
+    &quot;country&quot;: &quot;ALL&quot;,
+    &quot;activeStatus&quot;: &quot;active&quot;,
+    &quot;maxResultsPerQuery&quot;: 500,
+})
+ads = list(client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items())
+
+now = datetime.now(timezone.utc)
+for a in ads:
+    start = datetime.fromisoformat(a[&quot;start_date&quot;].replace(&quot;Z&quot;, &quot;+00:00&quot;))
+    a[&quot;days_running&quot;] = (now - start).days
+
+ads.sort(key=lambda a: a[&quot;days_running&quot;], reverse=True)
+with open(&quot;longest-running-ads.csv&quot;, &quot;w&quot;, newline=&quot;&quot;, encoding=&quot;utf-8&quot;) as f:
+    w = csv.DictWriter(f, fieldnames=[&quot;days_running&quot;, &quot;page_name&quot;, &quot;display_format&quot;, &quot;title&quot;, &quot;ad_text&quot;,
+                                      &quot;cta_text&quot;, &quot;link_url&quot;, &quot;platforms&quot;, &quot;ad_library_url&quot;],
+                       extrasaction=&quot;ignore&quot;)
+    w.writeheader()
+    for a in ads:
+        w.writerow({**a, &quot;platforms&quot;: &quot;, &quot;.join(a.get(&quot;platforms&quot;) or [])})
+
+for a in ads[:10]:
+    print(f&quot;{a['days_running']:&gt;5} days  {a['display_format']:&lt;8} {(a.get('ad_text') or '')[:70]}&quot;)
+</code></pre>
+<p>Read the top of <code>longest-running-ads.csv</code> for:</p>
+<ul>
+<li><strong>Offers and hooks</strong> that keep coming back in <code>ad_text</code> and <code>title</code>.</li>
+<li><strong>Formats</strong> in <code>display_format</code> (for example IMAGE, VIDEO, or DCO for dynamic creative) and the creative files in <code>image_urls</code> and <code>video_urls</code>.</li>
+<li><strong>Landing pages</strong> in <code>link_url</code>: the URL's path and UTM tags often name the campaign.</li>
+</ul>
+<p>Meta groups near-identical versions of an ad; each version comes back as its own row with <code>variants_count</code>.</p>
+<h2>Real output</h2>
+<p>Active ads from a run of the tool's example input (a keyword search and a pasted Ad Library search for "shopify"), with the fields used above:</p>
+<table>
+<thead>
+<tr>
+<th>advertiser</th>
+<th>format</th>
+<th>platforms</th>
+<th>ad text (start)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shopify</td>
+<td>DCO</td>
+<td>facebook, instagram, audience_network, messenger</td>
+<td>The Summer'24 Edition is here. Explore 150+ new product updates...</td>
+</tr>
+<tr>
+<td>Intuit Mailchimp</td>
+<td>DCO</td>
+<td>facebook, instagram, threads</td>
+<td>Run an ecomm store? Our integrations help automate emails and texts...</td>
+</tr>
+<tr>
+<td>Perplexity AI</td>
+<td>DCO</td>
+<td>facebook, instagram, threads</td>
+<td>20+ AI models run your Shopify store...</td>
+</tr>
+<tr>
+<td>wetracked.io</td>
+<td>IMAGE</td>
+<td>facebook, instagram, messenger, threads</td>
+<td>Stop losing 60% of valuable ad conversion data...</td>
+</tr>
+</tbody>
+</table>
+<p>At the time of that run, the Shopify ad had been active for more than two years, the others for weeks to a few months. Each row also has <code>ad_id</code>, <code>page_id</code>, <code>start_date</code>, <code>end_date</code>, <code>cta_text</code>, <code>link_url</code>, image and video URLs and the Ad Library link.</p>
+<h2>Make it a weekly check</h2>
+<p>Add <code>"incremental": true</code> with a <code>stateKey</code> per competitor and schedule it weekly: each run then returns only ads you have not seen, so you see what they launched. Add <code>slackWebhookUrl</code> for a digest in Slack. For a ready-made weekly digest across ads, pages, prices and jobs, see <a href="https://dev.to/aurelix_solutions/monitor-your-competitors-facebook-and-instagram-ads-with-python-18do">Monitor your competitors' Facebook and Instagram ads with Python</a>.</p>
+<h2>Limits</h2>
+<ul>
+<li>Spend and impressions are empty for most ads: Meta publishes them only for political and issue ads (excluded here) and some EU-delivered ads.</li>
+<li><code>start_date</code> is the start date the Ad Library shows for the ad.</li>
+<li>The data comes from the public Ad Library web pages, not Meta's official API. Meta rate-limits the Ad Library from time to time; a query that stops early is marked PARTIAL in the run's status and you pay only for the ads returned.</li>
+</ul>
+<h2>Links</h2>
+<ul>
+<li><a href="/tools/facebook-ad-library-scraper/">Facebook Ad Library Scraper: price, example input and output, FAQ</a></li>
+<li><a href="https://apify.com/aurelix/facebook-ad-library-scraper">Facebook Ad Library Scraper on the Apify Store</a></li>
+<li><a href="https://github.com/Aurelix-Solutions/facebook-ad-library-example">Runnable Python example on GitHub</a></li>
+</ul></article></section><section><p class="kicker">Tools used</p><div class="cards"><a class="tcard" href="/tools/facebook-ad-library-scraper/" data-cat="Marketing Leads"><div class="row"><img src="/tools/facebook-ad-library-scraper/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Facebook Ad Library Search &amp; API</h3></div><p>Facebook and Instagram business ads from the Meta Ad Library: copy, creatives, landing pages, dates, optional EU reach.</p><div class="meta"><span class="tag">Marketing</span><span class="price-s">$0.70 / 1,000 ads</span></div></a></div></section>
+</main>
+<footer class="wrap"><p>Aurelix builds and maintains these tools. They run on the <a href="https://apify.com/aurelix">Apify Store</a>, which handles accounts and billing; prices on this site are read from the Store each time the site is rebuilt. Tools read only public pages a logged-out visitor can see. <a href="/tools/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p></footer>
+</body>
+</html>
