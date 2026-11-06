@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDF Table Extraction - PDF to Markdown OCR API | Aurelix</title>
+<meta name="description" content="Turns linked PDF and Word files into Markdown per page, with tables as JSON rows, RAG chunks and OCR.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/tools/pdf-to-markdown/">
+<meta property="og:title" content="PDF Table Extraction - PDF to Markdown OCR API | Aurelix">
+<meta property="og:description" content="Turns linked PDF and Word files into Markdown per page, with tables as JSON rows, RAG chunks and OCR.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/tools/pdf-to-markdown/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aurelix">
+<meta property="og:image" content="https://aurelix-solutions.github.io/tools/pdf-to-markdown/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aurelix-solutions.github.io/tools/pdf-to-markdown/og.png">
+<link rel="icon" type="image/png" href="/tools/favicon.png">
+<link rel="apple-touch-icon" href="/tools/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1726;--navy-2:#16213a;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;--ink:#0f1726;--body:#3b4559;
+--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;--r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:#0d7f75}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:16px;font-size:14px;font-weight:600}.nav a{color:#c6cede;text-decoration:none}.nav a:hover{color:#fff}
+.hero{position:relative;z-index:1;padding:28px 0 56px}
+.crumbs{font-size:13px;color:#98a3b8;margin:0 0 18px}.crumbs a{color:#c6cede;text-decoration:none}
+.idrow{display:flex;align-items:center;gap:16px}
+.idrow img{width:64px;height:64px;border-radius:16px;background:#fff;flex:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+h1{color:#fff;font-size:clamp(30px,6.4vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:0}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:40em;margin:18px 0 8px}
+.lede-sub{font-size:16px;color:#98a3b8;max-width:42em;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;margin:0 0 22px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18);flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:520px){.btn{flex:1 1 100%}}
+main section{padding:56px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 8px}
+h2{font-size:clamp(24px,4vw,32px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;font-weight:800}
+h3{color:var(--ink);font-size:18px;margin:0 0 6px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;gap:16px}.grid2>*{min-width:0}@media (min-width:820px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.glance{display:grid;gap:0;margin:0}.glance div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.glance div:last-child{border:0}
+.glance dd,.glance dt{overflow-wrap:anywhere}.glance dt{font-weight:700;color:var(--ink);font-size:14px}.glance dd{margin:0;font-size:15px}
+@media (max-width:520px){.glance div{grid-template-columns:1fr;gap:2px}}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:28px}ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:10px;border-left:3px solid var(--teal);border-bottom:3px solid var(--teal);transform:rotate(-45deg) scale(.8)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 66px;box-shadow:var(--shadow)}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+pre{background:var(--navy);color:#e6ebf5;border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.5;margin:0;max-height:460px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code,td code{background:#eef1f6;color:var(--ink);padding:1px 5px;border-radius:5px;font-size:.9em}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+table.price{width:100%;border-collapse:collapse;font-size:15px}table.price td{padding:11px 0;border-bottom:1px solid var(--line)}table.price tr:last-child td{border:0}table.price td:last-child{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin:0 0 10px;box-shadow:0 1px 2px rgba(15,23,38,.05)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;position:relative;padding-right:28px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--muted)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px}
+.cards{display:grid;gap:14px}@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}@media (min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:var(--body);transition:transform .15s,box-shadow .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,38,.06),0 14px 32px rgba(15,23,38,.10)}
+.tcard .row{display:flex;align-items:center;gap:12px}.tcard img{width:44px;height:44px;border-radius:11px;flex:none;border:1px solid var(--line)}
+.tcard h3{margin:0;font-size:17px}.tcard p{margin:0;font-size:15px;flex:1}
+.tcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208}
+.price-s{font-weight:700;color:var(--ink);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.chips button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.links a{font-weight:600}
+.article{max-width:760px}.article h2{font-size:clamp(22px,3.4vw,28px);margin:40px 0 12px}.article h3{margin:28px 0 8px}
+.article pre{margin:16px 0}.article table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto;margin:16px 0}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}.article th{background:#fbfbfd}
+.article img{border-radius:12px}
+.cta{margin-top:56px;background:var(--navy);color:#c6cede;padding:36px 28px;border-radius:20px}.cta h2{color:#fff}.cta p{max-width:40em}
+footer{padding:36px 0 48px;font-size:14px;color:var(--muted)}footer a{color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "PDF to Markdown OCR & Table Extraction", "url": "https://aurelix-solutions.github.io/tools/pdf-to-markdown/", "description": "Turns linked PDF and Word files into Markdown per page, with tables as JSON rows, RAG chunks and OCR.", "applicationCategory": "BusinessApplication", "applicationSubCategory": "AI and RAG", "operatingSystem": "Web (Apify platform)", "image": "https://aurelix-solutions.github.io/tools/pdf-to-markdown/og.png", "sameAs": ["https://apify.com/aurelix/pdf-to-markdown"], "publisher": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "offers": {"@type": "Offer", "price": "0.30", "priceCurrency": "USD", "url": "https://apify.com/aurelix/pdf-to-markdown", "description": "$0.30 per 1,000 pages ($0.25 on paid Apify plans)"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does the PDF to Markdown OCR & Table Extraction cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.30 per 1,000 pages ($0.25 on paid Apify plans), billed through your Apify account; you pay only for results. Apify's free plan includes $5 of credit a month, enough for about 16,666 pages."}}, {"@type": "Question", "name": "How does per-page pricing compare with per-PDF pricing?", "acceptedAnswer": {"@type": "Answer", "text": "You pay $0.30 per 1,000 pages ($0.25 on paid plans) plus $0.001 per run, so a 10-page PDF costs $0.003. Scanned pages cost $8 per 1,000 OCR pages instead."}}, {"@type": "Question", "name": "Which files are supported?", "acceptedAnswer": {"@type": "Answer", "text": "PDF (any version, text or scanned) and Word DOCX. The type is detected from the file's content, so download links without a .pdf ending work. Legacy .doc, PowerPoint and Excel files are not supported."}}, {"@type": "Question", "name": "How are scanned PDFs handled?", "acceptedAnswer": {"@type": "Answer", "text": "Each page is checked for a text layer. A page with almost no text and an image is rendered at 200 dpi and read by Tesseract OCR in the language you choose. Scans that already carry a hidden OCR text layer (common for library scans) use that layer as is."}}, {"@type": "Question", "name": "How good is table extraction?", "acceptedAnswer": {"@type": "Answer", "text": "Tables drawn with lines are returned as Markdown tables and JSON rows. Tables laid out with spaces only, common in statistical releases, are kept as one row per line in the Markdown but are not split into cells."}}, {"@type": "Question", "name": "What is a page for a DOCX file?", "acceptedAnswer": {"@type": "Answer", "text": "Word files have no fixed pages, so they are split on paragraph boundaries into page-equivalents of about 3,000 characters, each charged as one page."}}, {"@type": "Question", "name": "Does it respect robots.txt?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Each download, including every redirect hop, is checked against the site's robots.txt; a robots.txt that answers with a server error counts as disallowed."}}, {"@type": "Question", "name": "Can I use it from an AI assistant?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Give 'urls' and optionally 'maxPagesPerDocument'. It works through Apify's MCP server and API."}}, {"@type": "Question", "name": "Is this legal?", "acceptedAnswer": {"@type": "Answer", "text": "It reads only public data any logged-out visitor can see: the documents you link (convert only documents you have the right to use). It goes at a polite pace, respects robots.txt, never logs in and never solves CAPTCHAs. It returns each page's text and tables as the document published them; copyright stays with the owner, and any personal data inside a document is your responsibility. To have a record removed, open an issue on this Actor's Issues tab; if a site owner formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice."}}, {"@type": "Question", "name": "What am I charged when a link fails?", "acceptedAnswer": {"@type": "Answer", "text": "Nothing for that link. URLs that return an HTTP error, are blocked by robots.txt, are over 50 MB or are not a PDF or DOCX produce no row and no charge. A run where every link fails costs only the $0.001 start fee, and its status message names up to 3 failed URLs with the reason."}}, {"@type": "Question", "name": "Are blank pages charged?", "acceptedAnswer": {"@type": "Answer", "text": "No. A page with no text, even after OCR, is skipped for free and counted as an empty page in the status message. A document stops after 5 blank scanned pages in a row, so a long blank scan does not keep the run busy."}}, {"@type": "Question", "name": "Does it retry a failed download?", "acceptedAnswer": {"@type": "Answer", "text": "No. A link that answers with an error such as HTTP 429 or 500 is reported as failed and not charged; run it again later. A host that does not answer at all is given up on after 5 seconds."}}, {"@type": "Question", "name": "Can I convert only pages 10 to 20?", "acceptedAnswer": {"@type": "Answer", "text": "Not directly. Max pages per document reads from the first page, so set it to 20 and keep the rows where page is 10 or more. You pay for every page returned."}}, {"@type": "Question", "name": "How are the chunks made?", "acceptedAnswer": {"@type": "Answer", "text": "Each page's Markdown is split on paragraph and then sentence boundaries into chunks of at most chunkSize characters (2,000 by default, up to 20,000), with 200 characters of overlap between chunks. Set chunkSize to 0 to get the whole page as one chunk."}}, {"@type": "Question", "name": "In what order are documents processed?", "acceptedAnswer": {"@type": "Answer", "text": "One at a time, in the order of the urls list, and each document from its first page. The same URL listed twice is downloaded once. If the run approaches its timeout, it stops cleanly and keeps the pages already returned."}}, {"@type": "Question", "name": "How do I know which pages were read by OCR?", "acceptedAnswer": {"@type": "Answer", "text": "The ocr field is true on those pages, and the status message gives the count. OCR pages are charged as OCR pages at $8 per 1,000 instead of the text-page price, never both."}}, {"@type": "Question", "name": "How do I export pages to Google Sheets?", "acceptedAnswer": {"@type": "Answer", "text": "Download the run's results as CSV or Excel and open them in Google Sheets, or add Apify's Google Sheets integration to the run or a schedule so every run's results land in a sheet."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tools", "item": "https://aurelix-solutions.github.io/tools/"}, {"@type": "ListItem", "position": 2, "name": "PDF to Markdown OCR & Table Extraction", "item": "https://aurelix-solutions.github.io/tools/pdf-to-markdown/"}]}</script>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<header><a class="brand" href="/tools/"><img src="/tools/logo.png" alt="" width="34" height="34">Aurelix</a><nav class="nav"><a href="/tools/">Tools</a><a href="/tools/guides/">Guides</a></nav></header>
+<div class="hero"><p class="crumbs"><a href="/tools/">Tools</a> › AI and RAG</p><div class="idrow"><img src="/tools/pdf-to-markdown/icon.png" alt="" width="64" height="64"><h1>PDF to Markdown OCR &amp; Table Extraction</h1></div><p class="lede">Convert PDF and DOCX links into clean Markdown, tables as JSON rows and RAG-ready chunks for $0.30 per 1,000 pages, no login, with OCR for scans.</p><p class="lede-sub">For RAG pipelines and document workflows. Priced per page, so a 10-page PDF costs $0.003; scanned pages are read with OCR automatically at $8 per 1,000 OCR pages.</p><p class="pill"><span class="dot"></span>$0.30 per 1,000 pages ($0.25 on paid Apify plans)</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/pdf-to-markdown">Run it on Apify</a><a class="btn btn-ghost" href="https://github.com/Aurelix-Solutions/pdf-to-markdown-example">Python example on GitHub</a></div></div>
+</div></div>
+<main class="wrap">
+<section><p class="kicker">At a glance</p><h2>What the PDF to Markdown OCR &amp; Table Extraction does</h2><div class="grid2"><div class="box"><dl class="glance"><div><dt>Input</dt><dd>PDF or DOCX links (up to 50 MB each)</dd></div><div><dt>Per page</dt><dd>Markdown, tables as JSON rows, text chunks, word count, OCR flag</dd></div><div><dt>OCR</dt><dd>Tesseract for scanned pages: English, French, Spanish, German</dd></div><div><dt>Output</dt><dd>13 fields per page; JSON, CSV, Excel, API</dd></div><div><dt>Automate</dt><dd>Schedules, webhooks, Zapier, Make, n8n, Google Sheets, MCP for AI agents</dd></div></dl></div><div class="box"><h3>Who it is for</h3><ul class="ticks"><li>AI developers loading reports, manuals and papers into a RAG pipeline</li><li>Analysts pulling tables out of statistical releases and annual reports</li><li>Teams digitising scanned letters and forms with OCR</li><li>AI agents that need a document&#x27;s text and tables through MCP</li></ul></div></div></section>
+<section><p class="kicker">Output</p><h2>What you get</h2><div class="box"><ul class="ticks"><li>url, file_name, file_type (pdf or docx), title, page, pages_total</li><li>markdown: the page as Markdown</li><li>tables: [{index, rows}] with each table as rows of cells</li><li>chunks: the page split for embeddings; word_count</li><li>ocr: true when the page was read by OCR; source_url and scraped_at</li></ul></div></section>
+<section><p class="kicker">Example</p><h2>Input and output</h2><div class="grid2"><div><h3>Input</h3><pre><code>{
+  &quot;urls&quot;: [
+    &quot;https://arxiv.org/pdf/1706.03762&quot;,
+    &quot;https://www.bls.gov/news.release/pdf/empsit.pdf&quot;
+  ],
+  &quot;maxPagesPerDocument&quot;: 50,
+  &quot;chunkSize&quot;: 1500
+}</code></pre></div><div><h3>One output record</h3><pre><code>{
+  &quot;url&quot;: &quot;https://calibre-ebook.com/downloads/demos/demo.docx&quot;,
+  &quot;file_name&quot;: &quot;demo.docx&quot;,
+  &quot;file_type&quot;: &quot;docx&quot;,
+  &quot;title&quot;: &quot;DOCX Demo&quot;,
+  &quot;page&quot;: 1,
+  &quot;pages_total&quot;: 4,
+  &quot;markdown&quot;: &quot;# Demonstration of DOCX support in calibre\n\nThis document demonstrates the ability of the calibre DOCX Input plugin to convert the various typographic…&quot;,
+  &quot;tables&quot;: [
+    {
+      &quot;index&quot;: 0,
+      &quot;rows&quot;: [
+        [
+          &quot;ITEM&quot;,
+          &quot;NEEDED&quot;
+        ],
+        [
+          &quot;Books&quot;,
+          &quot;1&quot;
+        ],
+        [
+          &quot;Pens&quot;,
+          &quot;3&quot;
+        ],
+        &quot;… 3 more&quot;
+      ]
+    }
+  ],
+  &quot;chunks&quot;: [
+    &quot;# Demonstration of DOCX support in calibre\n\nThis document demonstrates the ability of the calibre DOCX Input plugin to convert the various typographic…&quot;,
+    &quot;formatting\n\nYou can do crazy things with paragraphs, if the urge strikes you. For instance this paragraph is right aligned and has a right border. It has…&quot;
+  ],
+  &quot;word_count&quot;: 513,
+  &quot;ocr&quot;: false,
+  &quot;source_url&quot;: &quot;https://calibre-ebook.com/downloads/demos/demo.docx&quot;,
+  &quot;scraped_at&quot;: &quot;2026-11-04T19:25:43Z&quot;
+}</code></pre><p class="note">From a real run of this tool; long text and lists shortened here.</p></div></div></section>
+<section><p class="kicker">How to use it</p><h2>Three steps</h2><ol class="steps"><li>Paste one or more PDF or DOCX links, e.g. https://arxiv.org/pdf/1706.03762.</li><li>Optionally limit the pages per document, choose the OCR language for scans and set the chunk size.</li><li>Click Start, then download JSON, CSV or Excel, or send the pages to your vector database, LangChain, LlamaIndex, Zapier, Make or n8n through the API.</li></ol></section>
+<section><p class="kicker">API</p><h2>Call it from Python</h2><pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+run = client.actor(&quot;aurelix/pdf-to-markdown&quot;).call(run_input={&#x27;urls&#x27;: [&#x27;https://arxiv.org/pdf/1706.03762&#x27;,
+          &#x27;https://www.bls.gov/news.release/pdf/empsit.pdf&#x27;],
+ &#x27;maxPagesPerDocument&#x27;: 50,
+ &#x27;chunkSize&#x27;: 1500})
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)</code></pre><p class="note"><code>pip install apify-client</code>. The same input works from the Apify console, a schedule, Make, n8n, Zapier or an AI agent through the Apify MCP server.</p></section>
+<section><p class="kicker">Pricing</p><h2>Pay per result</h2><div class="box"><table class="price"><tr><td>Per 1,000 pages, free plan</td><td>$0.30</td></tr><tr><td>Per 1,000 pages, paid plans</td><td>$0.25</td></tr><tr><td>Ocr page result, per 1,000, free plan</td><td>$8.00</td></tr><tr><td>Ocr page result, per 1,000, paid plans</td><td>$5.60</td></tr><tr><td>Start fee per run</td><td>$0.001</td></tr></table><p class="note">Live prices from the Apify Store; no subscription and no platform usage billed on top. <a href="https://apify.com/aurelix/pdf-to-markdown">See the Store page</a>.</p></div></section>
+<section><p class="kicker">Honest limits</p><h2>What it does not do</h2><div class="box"><ul class="ticks"><li>Multi-column layouts (papers, forms) are read line by line across the page, so columns can interleave.</li><li>Tables without ruling lines are kept as text rows, not split into cells; merged cells come back as repeated or empty cells.</li><li>OCR quality depends on the scan; handwriting is not supported, and OCR runs at about 3 to 10 seconds a page.</li><li>Images, charts and formulas are not described; only their horizontal text labels come through (rotated or vertical text is skipped).</li><li>Files over 50 MB, password-protected PDFs, legacy .doc and other formats are skipped without charge.</li><li>Documents are read from the first page up to &#x27;Max pages per document&#x27; (300 by default).</li><li>A document stops after 5 blank scanned pages in a row (blank pages are never charged), so scans with long blank runs end early.</li></ul></div></section>
+<section><p class="kicker">FAQ</p><h2>Questions buyers ask</h2><details><summary>How much does the PDF to Markdown OCR &amp; Table Extraction cost?</summary><p>$0.30 per 1,000 pages ($0.25 on paid Apify plans), billed through your Apify account; you pay only for results. Apify&#x27;s free plan includes $5 of credit a month, enough for about 16,666 pages.</p></details><details><summary>How does per-page pricing compare with per-PDF pricing?</summary><p>You pay $0.30 per 1,000 pages ($0.25 on paid plans) plus $0.001 per run, so a 10-page PDF costs $0.003. Scanned pages cost $8 per 1,000 OCR pages instead.</p></details><details><summary>Which files are supported?</summary><p>PDF (any version, text or scanned) and Word DOCX. The type is detected from the file&#x27;s content, so download links without a .pdf ending work. Legacy .doc, PowerPoint and Excel files are not supported.</p></details><details><summary>How are scanned PDFs handled?</summary><p>Each page is checked for a text layer. A page with almost no text and an image is rendered at 200 dpi and read by Tesseract OCR in the language you choose. Scans that already carry a hidden OCR text layer (common for library scans) use that layer as is.</p></details><details><summary>How good is table extraction?</summary><p>Tables drawn with lines are returned as Markdown tables and JSON rows. Tables laid out with spaces only, common in statistical releases, are kept as one row per line in the Markdown but are not split into cells.</p></details><details><summary>What is a page for a DOCX file?</summary><p>Word files have no fixed pages, so they are split on paragraph boundaries into page-equivalents of about 3,000 characters, each charged as one page.</p></details><details><summary>Does it respect robots.txt?</summary><p>Yes. Each download, including every redirect hop, is checked against the site&#x27;s robots.txt; a robots.txt that answers with a server error counts as disallowed.</p></details><details><summary>Can I use it from an AI assistant?</summary><p>Yes. Give &#x27;urls&#x27; and optionally &#x27;maxPagesPerDocument&#x27;. It works through Apify&#x27;s MCP server and API.</p></details><details><summary>Is this legal?</summary><p>It reads only public data any logged-out visitor can see: the documents you link (convert only documents you have the right to use). It goes at a polite pace, respects robots.txt, never logs in and never solves CAPTCHAs. It returns each page&#x27;s text and tables as the document published them; copyright stays with the owner, and any personal data inside a document is your responsibility. To have a record removed, open an issue on this Actor&#x27;s Issues tab; if a site owner formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice.</p></details><details><summary>What am I charged when a link fails?</summary><p>Nothing for that link. URLs that return an HTTP error, are blocked by robots.txt, are over 50 MB or are not a PDF or DOCX produce no row and no charge. A run where every link fails costs only the $0.001 start fee, and its status message names up to 3 failed URLs with the reason.</p></details><details><summary>Are blank pages charged?</summary><p>No. A page with no text, even after OCR, is skipped for free and counted as an empty page in the status message. A document stops after 5 blank scanned pages in a row, so a long blank scan does not keep the run busy.</p></details><details><summary>Does it retry a failed download?</summary><p>No. A link that answers with an error such as HTTP 429 or 500 is reported as failed and not charged; run it again later. A host that does not answer at all is given up on after 5 seconds.</p></details><details><summary>Can I convert only pages 10 to 20?</summary><p>Not directly. Max pages per document reads from the first page, so set it to 20 and keep the rows where page is 10 or more. You pay for every page returned.</p></details><details><summary>How are the chunks made?</summary><p>Each page&#x27;s Markdown is split on paragraph and then sentence boundaries into chunks of at most chunkSize characters (2,000 by default, up to 20,000), with 200 characters of overlap between chunks. Set chunkSize to 0 to get the whole page as one chunk.</p></details><details><summary>In what order are documents processed?</summary><p>One at a time, in the order of the urls list, and each document from its first page. The same URL listed twice is downloaded once. If the run approaches its timeout, it stops cleanly and keeps the pages already returned.</p></details><details><summary>How do I know which pages were read by OCR?</summary><p>The ocr field is true on those pages, and the status message gives the count. OCR pages are charged as OCR pages at $8 per 1,000 instead of the text-page price, never both.</p></details><details><summary>How do I export pages to Google Sheets?</summary><p>Download the run&#x27;s results as CSV or Excel and open them in Google Sheets, or add Apify&#x27;s Google Sheets integration to the run or a schedule so every run&#x27;s results land in a sheet.</p></details></section>
+<section><p class="kicker">Guides</p><h2>Tutorials using this tool</h2><div class="box"><ul class="links"><li><a href="https://dev.to/aurelix_solutions/turn-pdfs-and-word-files-into-markdown-table-rows-and-rag-chunks-priced-per-page-2gc">Turn PDFs and Word files into Markdown, table rows and RAG chunks, priced per page</a></li></ul></div></section>
+<section><p class="kicker">Related</p><h2>Related tools</h2><div class="cards"><a class="tcard" href="/tools/google-trends-scraper/" data-cat="SEO Marketing"><div class="row"><img src="/tools/google-trends-scraper/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Google Trends by Region</h3></div><p>Google Trends interest over time, by region and rising queries for any number of keywords, plus trending searches.</p><div class="meta"><span class="tag">SEO</span><span class="price-s">$1.50 / 1,000 results</span></div></a><a class="tcard" href="/tools/website-to-markdown/" data-cat="AI and RAG Developer tools AI agents (MCP)"><div class="row"><img src="/tools/website-to-markdown/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Website to Markdown API</h3></div><p>Crawls a site and returns one row of clean main-content Markdown per page, with title, headings and links.</p><div class="meta"><span class="tag">AI and RAG</span><span class="price-s">$0.65 / 1,000 pages</span></div></a></div></section>
+<section class="cta"><div><h2>Try the PDF to Markdown OCR &amp; Table Extraction</h2><p>Open it on the Apify Store, paste the example input above and click Start. Results download as CSV, Excel or JSON.</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/pdf-to-markdown">Run it on Apify</a></div></div></section>
+</main>
+<footer class="wrap"><p>Aurelix builds and maintains these tools. They run on the <a href="https://apify.com/aurelix">Apify Store</a>, which handles accounts and billing; prices on this site are read from the Store each time the site is rebuilt. Tools read only public pages a logged-out visitor can see. <a href="/tools/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p></footer>
+</body>
+</html>
