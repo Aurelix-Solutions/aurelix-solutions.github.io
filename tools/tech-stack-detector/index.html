@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tech Stack Detector API - Email Provider Lookup | Aurelix</title>
+<meta name="description" content="Tech stack detector 25% under BuiltWith&#x27;s Actor ($1.50 per 1,000 domains), live checks plus email provider (MX/SPF/DMARC): CMS, Shopify, pixels.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/tools/tech-stack-detector/">
+<meta property="og:title" content="Tech Stack Detector API - Email Provider Lookup | Aurelix">
+<meta property="og:description" content="Tech stack detector 25% under BuiltWith&#x27;s Actor ($1.50 per 1,000 domains), live checks plus email provider (MX/SPF/DMARC): CMS, Shopify, pixels.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/tools/tech-stack-detector/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aurelix">
+<meta property="og:image" content="https://aurelix-solutions.github.io/tools/tech-stack-detector/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aurelix-solutions.github.io/tools/tech-stack-detector/og.png">
+<link rel="icon" type="image/png" href="/tools/favicon.png">
+<link rel="apple-touch-icon" href="/tools/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1726;--navy-2:#16213a;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;--ink:#0f1726;--body:#3b4559;
+--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;--r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:#0d7f75}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:16px;font-size:14px;font-weight:600}.nav a{color:#c6cede;text-decoration:none}.nav a:hover{color:#fff}
+.hero{position:relative;z-index:1;padding:28px 0 56px}
+.crumbs{font-size:13px;color:#98a3b8;margin:0 0 18px}.crumbs a{color:#c6cede;text-decoration:none}
+.idrow{display:flex;align-items:center;gap:16px}
+.idrow img{width:64px;height:64px;border-radius:16px;background:#fff;flex:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+h1{color:#fff;font-size:clamp(30px,6.4vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:0}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:40em;margin:18px 0 8px}
+.lede-sub{font-size:16px;color:#98a3b8;max-width:42em;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;margin:0 0 22px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18);flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:520px){.btn{flex:1 1 100%}}
+main section{padding:56px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 8px}
+h2{font-size:clamp(24px,4vw,32px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;font-weight:800}
+h3{color:var(--ink);font-size:18px;margin:0 0 6px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;gap:16px}.grid2>*{min-width:0}@media (min-width:820px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.glance{display:grid;gap:0;margin:0}.glance div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.glance div:last-child{border:0}
+.glance dd,.glance dt{overflow-wrap:anywhere}.glance dt{font-weight:700;color:var(--ink);font-size:14px}.glance dd{margin:0;font-size:15px}
+@media (max-width:520px){.glance div{grid-template-columns:1fr;gap:2px}}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:28px}ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:10px;border-left:3px solid var(--teal);border-bottom:3px solid var(--teal);transform:rotate(-45deg) scale(.8)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 66px;box-shadow:var(--shadow)}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+pre{background:var(--navy);color:#e6ebf5;border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.5;margin:0;max-height:460px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code,td code{background:#eef1f6;color:var(--ink);padding:1px 5px;border-radius:5px;font-size:.9em}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+table.price{width:100%;border-collapse:collapse;font-size:15px}table.price td{padding:11px 0;border-bottom:1px solid var(--line)}table.price tr:last-child td{border:0}table.price td:last-child{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin:0 0 10px;box-shadow:0 1px 2px rgba(15,23,38,.05)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;position:relative;padding-right:28px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--muted)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px}
+.cards{display:grid;gap:14px}@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}@media (min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:var(--body);transition:transform .15s,box-shadow .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,38,.06),0 14px 32px rgba(15,23,38,.10)}
+.tcard .row{display:flex;align-items:center;gap:12px}.tcard img{width:44px;height:44px;border-radius:11px;flex:none;border:1px solid var(--line)}
+.tcard h3{margin:0;font-size:17px}.tcard p{margin:0;font-size:15px;flex:1}
+.tcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208}
+.price-s{font-weight:700;color:var(--ink);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.chips button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.links a{font-weight:600}
+.article{max-width:760px}.article h2{font-size:clamp(22px,3.4vw,28px);margin:40px 0 12px}.article h3{margin:28px 0 8px}
+.article pre{margin:16px 0}.article table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto;margin:16px 0}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}.article th{background:#fbfbfd}
+.article img{border-radius:12px}
+.cta{margin-top:56px;background:var(--navy);color:#c6cede;padding:36px 28px;border-radius:20px}.cta h2{color:#fff}.cta p{max-width:40em}
+footer{padding:36px 0 48px;font-size:14px;color:var(--muted)}footer a{color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Tech Stack API", "url": "https://aurelix-solutions.github.io/tools/tech-stack-detector/", "description": "Tech stack detector 25% under BuiltWith's Actor ($1.50 per 1,000 domains), live checks plus email provider (MX/SPF/DMARC): CMS, Shopify, pixels.", "applicationCategory": "BusinessApplication", "applicationSubCategory": "Leads", "operatingSystem": "Web (Apify platform)", "image": "https://aurelix-solutions.github.io/tools/tech-stack-detector/og.png", "sameAs": ["https://apify.com/aurelix/tech-stack-detector"], "publisher": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "offers": {"@type": "Offer", "price": "1.50", "priceCurrency": "USD", "url": "https://apify.com/aurelix/tech-stack-detector", "description": "$1.50 per 1,000 domains ($1.05 on paid Apify plans)"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does the Tech Stack API cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.50 per 1,000 domains ($1.05 on paid Apify plans), billed through your Apify account; you pay only for results. Apify's free plan includes $5 of credit a month, enough for about 3,333 domains."}}, {"@type": "Question", "name": "How does detection work?", "acceptedAnswer": {"@type": "Answer", "text": "By matching our own rules against the homepage HTML (script URLs, page markers, the meta generator tag), the HTTP response headers and cookie names, and against the domain's MX, SPF (TXT) and NS records. A technology is listed when at least one of its rules matches."}}, {"@type": "Question", "name": "Do you use Wappalyzer or BuiltWith data?", "acceptedAnswer": {"@type": "Answer", "text": "No. The fingerprint rules are written by us for this Actor. Wappalyzer's data is no longer open and its community forks are GPL-licensed, so none of it is copied."}}, {"@type": "Question", "name": "Why is a technology missing?", "acceptedAnswer": {"@type": "Answer", "text": "Only the homepage is read, without running JavaScript: tools loaded later by a tag manager, only on inner pages or only after cookie consent may not appear. Tag managers themselves are detected."}}, {"@type": "Question", "name": "How is the email provider found?", "acceptedAnswer": {"@type": "Answer", "text": "From the MX records (Google Workspace, Microsoft 365, Zoho, Proton...). When the MX points to a security gateway such as Mimecast or Proofpoint, the SPF record is used to name the provider behind it. SPF also lists email-sending services."}}, {"@type": "Question", "name": "Does it respect robots.txt?", "acceptedAnswer": {"@type": "Answer", "text": "Always. The homepage is fetched only where robots.txt allows it, checked on every redirect hop; a robots.txt that answers a server error counts as disallowed. DNS records are public and are still read."}}, {"@type": "Question", "name": "Can I use it from an AI assistant?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Give 'domains'. It works through Apify's MCP server and API."}}, {"@type": "Question", "name": "Is this legal?", "acceptedAnswer": {"@type": "Answer", "text": "It reads only public data any logged-out visitor can see: the homepage of each domain you enter and its public DNS records (analyse only sites you have a legitimate reason to look at). It goes at a polite pace, respects robots.txt, never logs in and never solves CAPTCHAs. It returns the technologies a site uses and its mail and DNS providers; no personal data is extracted. To have a record removed, open an issue on this Actor's Issues tab; if a site owner formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice."}}, {"@type": "Question", "name": "How are duplicates and www versions handled?", "acceptedAnswer": {"@type": "Answer", "text": "Only the host is used, lowercased, so apify.com, https://apify.com/store and APIFY.COM are one domain, analysed and charged once. www.example.com and example.com are different hosts and give two rows; for both, the MX, SPF, DMARC and NS records are read from the name without www."}}, {"@type": "Question", "name": "Am I charged when a homepage is blocked or down?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, one charge, because the row still carries the DNS fields: email provider, MX, SPF, DMARC and DNS provider. Only domains that neither resolve in DNS nor answer over HTTP, and domains with no answer within 45 s, are free. The status message counts both groups."}}, {"@type": "Question", "name": "What do homepage_checked and note mean?", "acceptedAnswer": {"@type": "Answer", "text": "`homepage_checked` is true when the homepage HTML was read. When it is false, `note` says why, for example robots.txt disallows the page, the homepage is unreachable, or it answered HTTP 403 or 429. The technology lists then hold only what DNS shows."}}, {"@type": "Question", "name": "Why is email_provider empty when mx is filled?", "acceptedAnswer": {"@type": "Answer", "text": "The MX hosts did not match a provider in our rules (for example a self-hosted or less common mail service), and SPF named none either. The raw `mx` and `spf` values are always returned, so you can classify them yourself."}}, {"@type": "Question", "name": "What does dmarc_policy mean?", "acceptedAnswer": {"@type": "Answer", "text": "It is the p= value of the domain's DMARC record: none (monitor only), quarantine or reject. It is null when the domain publishes no DMARC record."}}, {"@type": "Question", "name": "How many domains can one run take, and how fast is it?", "acceptedAnswer": {"@type": "Answer", "text": "Ten domains are analysed at a time; in our test run 49 domains took 68 s. The default run timeout is 1 hour, so for lists above about 2,500 domains raise it. Near the timeout the Actor starts no new domains and keeps the rows it has, and the status message says it stopped early."}}, {"@type": "Question", "name": "Does it use proxies or a browser?", "acceptedAnswer": {"@type": "Answer", "text": "No. It sends plain HTTPS requests, falling back to http when https fails, with an honest bot user agent, no proxy and no browser, so JavaScript is not run. Sites that block bots still get their DNS-based fields."}}, {"@type": "Question", "name": "Can I re-check the same list on a schedule?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, with an Apify schedule or the API. Each run reads the sites live and returns a full row for every domain, so every domain is charged again. There is no change-only mode; compare the `technologies` column between runs to spot changes."}}, {"@type": "Question", "name": "How do I export domains to Google Sheets?", "acceptedAnswer": {"@type": "Answer", "text": "Download the run's results as CSV or Excel and open them in Google Sheets, or add Apify's Google Sheets integration to the run or a schedule so every run's results land in a sheet."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tools", "item": "https://aurelix-solutions.github.io/tools/"}, {"@type": "ListItem", "position": 2, "name": "Tech Stack API", "item": "https://aurelix-solutions.github.io/tools/tech-stack-detector/"}]}</script>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<header><a class="brand" href="/tools/"><img src="/tools/logo.png" alt="" width="34" height="34">Aurelix</a><nav class="nav"><a href="/tools/">Tools</a><a href="/tools/guides/">Guides</a></nav></header>
+<div class="hero"><p class="crumbs"><a href="/tools/">Tools</a> › Leads</p><div class="idrow"><img src="/tools/tech-stack-detector/icon.png" alt="" width="64" height="64"><h1>Tech Stack API</h1></div><p class="lede">Find out what a website runs on (CMS, e-commerce platform, analytics, ad pixels, chat, CRM, email provider) for $1.50 per 1,000 domains, no login.</p><p class="lede-sub">For B2B sales and agencies qualifying leads. Each site is read live, not from a stored database, and the email provider, SPF senders and DMARC come from DNS even when the homepage blocks bots.</p><p class="pill"><span class="dot"></span>$1.50 per 1,000 domains ($1.05 on paid Apify plans)</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/tech-stack-detector">Run it on Apify</a><a class="btn btn-ghost" href="https://github.com/Aurelix-Solutions/tech-stack-detector-example">Python example on GitHub</a></div></div>
+</div></div>
+<main class="wrap">
+<section><p class="kicker">At a glance</p><h2>What the Tech Stack API does</h2><div class="grid2"><div class="box"><dl class="glance"><div><dt>Input</dt><dd>A list of domains or URLs (up to 10,000 per run, extra ones skipped and counted in the status message; above about 2,500 raise the run timeout from 1 hour)</dd></div><div><dt>Detects</dt><dd>200+ technologies in 17 categories, from our own fingerprint rules</dd></div><div><dt>Email</dt><dd>Mailbox provider (MX), security gateway, SPF senders, DMARC policy</dd></div><div><dt>Output</dt><dd>30 fields per domain; JSON, CSV, Excel, API</dd></div><div><dt>Automate</dt><dd>Schedules, webhooks, Zapier, Make, n8n, Google Sheets, MCP for AI agents</dd></div></dl></div><div class="box"><h3>Who it is for</h3><ul class="ticks"><li>Sales teams finding Shopify, WooCommerce or HubSpot users to prospect</li><li>Agencies qualifying leads by CMS, ad pixels and analytics before a pitch</li><li>SaaS and email vendors segmenting accounts by Google Workspace or Microsoft 365</li><li>Market researchers measuring technology adoption across a list of sites</li></ul></div></div></section>
+<section><p class="kicker">Output</p><h2>What you get</h2><div class="box"><ul class="ticks"><li>domain, final homepage url, http_status, title</li><li>technologies: every detection as {name, category}</li><li>cms, ecommerce, analytics, tag_manager, advertising, chat, crm_marketing, payments, consent, framework, backend, web_server, cdn_hosting: lists of names</li><li>email_provider (from MX, or SPF behind a gateway), email_security, email_sender, mx, spf, dmarc_policy</li><li>dns_provider and nameservers; homepage_checked and a note when the homepage was skipped</li></ul></div></section>
+<section><p class="kicker">Example</p><h2>Input and output</h2><div class="grid2"><div><h3>Input</h3><pre><code>{
+  &quot;domains&quot;: [
+    &quot;allbirds.com&quot;,
+    &quot;apify.com&quot;,
+    &quot;hubspot.com&quot;
+  ]
+}</code></pre></div><div><h3>One output record</h3><pre><code>{
+  &quot;domain&quot;: &quot;allbirds.com&quot;,
+  &quot;url&quot;: &quot;https://www.allbirds.com/&quot;,
+  &quot;http_status&quot;: 200,
+  &quot;title&quot;: &quot;Allbirds: Comfortable, Sustainable Shoes &amp; Apparel&quot;,
+  &quot;technologies&quot;: [
+    {
+      &quot;name&quot;: &quot;Cloudflare&quot;,
+      &quot;category&quot;: &quot;CDN / hosting&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Google Tag Manager&quot;,
+      &quot;category&quot;: &quot;Tag manager&quot;
+    },
+    {
+      &quot;name&quot;: &quot;MarkMonitor DNS&quot;,
+      &quot;category&quot;: &quot;DNS provider (NS)&quot;
+    },
+    &quot;… 4 more&quot;
+  ],
+  &quot;cms&quot;: [],
+  &quot;ecommerce&quot;: [
+    &quot;Shopify&quot;
+  ],
+  &quot;analytics&quot;: [
+    &quot;Microsoft Clarity&quot;
+  ],
+  &quot;advertising&quot;: [],
+  &quot;tag_manager&quot;: [
+    &quot;Google Tag Manager&quot;
+  ],
+  &quot;chat&quot;: [],
+  &quot;crm_marketing&quot;: [],
+  &quot;payments&quot;: [],
+  &quot;consent&quot;: [
+    &quot;OneTrust&quot;
+  ],
+  &quot;framework&quot;: [],
+  &quot;backend&quot;: [],
+  &quot;web_server&quot;: [],
+  &quot;cdn_hosting&quot;: [
+    &quot;Cloudflare&quot;
+  ],
+  &quot;email_security&quot;: [],
+  &quot;email_sender&quot;: [],
+  &quot;dns_provider&quot;: [
+    &quot;MarkMonitor DNS&quot;
+  ],
+  &quot;email_provider&quot;: &quot;Microsoft 365&quot;,
+  &quot;mx&quot;: [
+    &quot;allbirds-com.mail.protection.outlook.com&quot;
+  ],
+  &quot;spf&quot;: &quot;v=spf1 include:allbirds_com._es.easydmarc.com include:spf.protection.outlook.com ~all&quot;,
+  &quot;dmarc_policy&quot;: &quot;quarantine&quot;,
+  &quot;nameservers&quot;: [
+    &quot;ns1.markmonitor.com&quot;,
+    &quot;ns2.markmonitor.com&quot;,
+    &quot;ns3.markmonitor.com&quot;,
+    &quot;… 2 more&quot;
+  ],
+  &quot;homepage_checked&quot;: true,
+  &quot;note&quot;: null,
+  &quot;source_url&quot;: &quot;https://www.allbirds.com/&quot;,
+  &quot;scraped_at&quot;: &quot;2026-11-04T19:15:59Z&quot;
+}</code></pre><p class="note">From a real run of this tool; long text and lists shortened here.</p></div></div></section>
+<section><p class="kicker">How to use it</p><h2>Three steps</h2><ol class="steps"><li>Paste your domains or website URLs, one per line, e.g. allbirds.com.</li><li>Click Start; each domain takes a few seconds, ten at a time (about 40 to 60 domains a minute).</li><li>Download JSON, CSV or Excel, filter by a column such as ecommerce = Shopify, or send the rows to your CRM, Google Sheets, Zapier, Make or n8n.</li></ol></section>
+<section><p class="kicker">API</p><h2>Call it from Python</h2><pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+run = client.actor(&quot;aurelix/tech-stack-detector&quot;).call(run_input={&#x27;domains&#x27;: [&#x27;allbirds.com&#x27;, &#x27;apify.com&#x27;, &#x27;hubspot.com&#x27;]})
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)</code></pre><p class="note"><code>pip install apify-client</code>. The same input works from the Apify console, a schedule, Make, n8n, Zapier or an AI agent through the Apify MCP server.</p></section>
+<section><p class="kicker">Pricing</p><h2>Pay per result</h2><div class="box"><table class="price"><tr><td>Per 1,000 domains, free plan</td><td>$1.50</td></tr><tr><td>Per 1,000 domains, paid plans</td><td>$1.05</td></tr><tr><td>Start fee per run</td><td>$0.001</td></tr></table><p class="note">Live prices from the Apify Store; no subscription and no platform usage billed on top. <a href="https://apify.com/aurelix/tech-stack-detector">See the Store page</a>.</p></div></section>
+<section><p class="kicker">Honest limits</p><h2>What it does not do</h2><div class="box"><ul class="ticks"><li>Homepage only, no JavaScript rendering: technologies loaded only by JavaScript, only on inner pages or only after cookie consent can be missed.</li><li>No history or first-seen dates and no technology spend estimates (BuiltWith-style history is not available).</li><li>SPF is read one level deep: includes are matched by name, redirects and nested includes are not followed.</li><li>Sites that block bots or answer with a challenge page get DNS fields only (homepage_checked is false and the note says why).</li><li>Detection is rule-based; a rare false match or miss is possible, and versions are not reported.</li><li>At most ten domains are analysed at a time, about 40 to 60 domains a minute; a homepage over 2 MB is read up to 2 MB, and a domain that takes over 45 s is skipped without charge.</li></ul></div></section>
+<section><p class="kicker">FAQ</p><h2>Questions buyers ask</h2><details><summary>How much does the Tech Stack API cost?</summary><p>$1.50 per 1,000 domains ($1.05 on paid Apify plans), billed through your Apify account; you pay only for results. Apify&#x27;s free plan includes $5 of credit a month, enough for about 3,333 domains.</p></details><details><summary>How does detection work?</summary><p>By matching our own rules against the homepage HTML (script URLs, page markers, the meta generator tag), the HTTP response headers and cookie names, and against the domain&#x27;s MX, SPF (TXT) and NS records. A technology is listed when at least one of its rules matches.</p></details><details><summary>Do you use Wappalyzer or BuiltWith data?</summary><p>No. The fingerprint rules are written by us for this Actor. Wappalyzer&#x27;s data is no longer open and its community forks are GPL-licensed, so none of it is copied.</p></details><details><summary>Why is a technology missing?</summary><p>Only the homepage is read, without running JavaScript: tools loaded later by a tag manager, only on inner pages or only after cookie consent may not appear. Tag managers themselves are detected.</p></details><details><summary>How is the email provider found?</summary><p>From the MX records (Google Workspace, Microsoft 365, Zoho, Proton...). When the MX points to a security gateway such as Mimecast or Proofpoint, the SPF record is used to name the provider behind it. SPF also lists email-sending services.</p></details><details><summary>Does it respect robots.txt?</summary><p>Always. The homepage is fetched only where robots.txt allows it, checked on every redirect hop; a robots.txt that answers a server error counts as disallowed. DNS records are public and are still read.</p></details><details><summary>Can I use it from an AI assistant?</summary><p>Yes. Give &#x27;domains&#x27;. It works through Apify&#x27;s MCP server and API.</p></details><details><summary>Is this legal?</summary><p>It reads only public data any logged-out visitor can see: the homepage of each domain you enter and its public DNS records (analyse only sites you have a legitimate reason to look at). It goes at a polite pace, respects robots.txt, never logs in and never solves CAPTCHAs. It returns the technologies a site uses and its mail and DNS providers; no personal data is extracted. To have a record removed, open an issue on this Actor&#x27;s Issues tab; if a site owner formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice.</p></details><details><summary>How are duplicates and www versions handled?</summary><p>Only the host is used, lowercased, so apify.com, https://apify.com/store and APIFY.COM are one domain, analysed and charged once. www.example.com and example.com are different hosts and give two rows; for both, the MX, SPF, DMARC and NS records are read from the name without www.</p></details><details><summary>Am I charged when a homepage is blocked or down?</summary><p>Yes, one charge, because the row still carries the DNS fields: email provider, MX, SPF, DMARC and DNS provider. Only domains that neither resolve in DNS nor answer over HTTP, and domains with no answer within 45 s, are free. The status message counts both groups.</p></details><details><summary>What do homepage_checked and note mean?</summary><p><code>homepage_checked</code> is true when the homepage HTML was read. When it is false, <code>note</code> says why, for example robots.txt disallows the page, the homepage is unreachable, or it answered HTTP 403 or 429. The technology lists then hold only what DNS shows.</p></details><details><summary>Why is email_provider empty when mx is filled?</summary><p>The MX hosts did not match a provider in our rules (for example a self-hosted or less common mail service), and SPF named none either. The raw <code>mx</code> and <code>spf</code> values are always returned, so you can classify them yourself.</p></details><details><summary>What does dmarc_policy mean?</summary><p>It is the p= value of the domain&#x27;s DMARC record: none (monitor only), quarantine or reject. It is null when the domain publishes no DMARC record.</p></details><details><summary>How many domains can one run take, and how fast is it?</summary><p>Ten domains are analysed at a time; in our test run 49 domains took 68 s. The default run timeout is 1 hour, so for lists above about 2,500 domains raise it. Near the timeout the Actor starts no new domains and keeps the rows it has, and the status message says it stopped early.</p></details><details><summary>Does it use proxies or a browser?</summary><p>No. It sends plain HTTPS requests, falling back to http when https fails, with an honest bot user agent, no proxy and no browser, so JavaScript is not run. Sites that block bots still get their DNS-based fields.</p></details><details><summary>Can I re-check the same list on a schedule?</summary><p>Yes, with an Apify schedule or the API. Each run reads the sites live and returns a full row for every domain, so every domain is charged again. There is no change-only mode; compare the <code>technologies</code> column between runs to spot changes.</p></details><details><summary>How do I export domains to Google Sheets?</summary><p>Download the run&#x27;s results as CSV or Excel and open them in Google Sheets, or add Apify&#x27;s Google Sheets integration to the run or a schedule so every run&#x27;s results land in a sheet.</p></details></section>
+<section><p class="kicker">Related</p><h2>Related tools</h2><div class="cards"><a class="tcard" href="/tools/google-maps-scraper/" data-cat="Leads Business"><div class="row"><img src="/tools/google-maps-scraper/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Google Maps Phone Scraper</h3></div><p>Local business lists from Google Maps: phones, websites, ratings, hours, coordinates; optional website emails and socials.</p><div class="meta"><span class="tag">Leads</span><span class="price-s">$0.85 / 1,000 places</span></div></a><a class="tcard" href="/tools/recently-funded-companies/" data-cat="Leads Business AI and RAG"><div class="row"><img src="/tools/recently-funded-companies/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Recently Funded Companies</h3></div><p>US companies that just filed an SEC Form D: amount raised, industry, state, executives, confirmed website.</p><div class="meta"><span class="tag">Leads</span><span class="price-s">$5.00 / 1,000 filings</span></div></a><a class="tcard" href="/tools/funded-companies-hiring/" data-cat="Leads Jobs Business"><div class="row"><img src="/tools/funded-companies-hiring/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Funded Companies Hiring</h3></div><p>Companies that just raised money (SEC Form D), with their open roles and business contacts, as a new-only monitor.</p><div class="meta"><span class="tag">Leads</span><span class="price-s">$20.00 / 1,000 hiring companies</span></div></a></div></section>
+<section class="cta"><div><h2>Try the Tech Stack API</h2><p>Open it on the Apify Store, paste the example input above and click Start. Results download as CSV, Excel or JSON.</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/tech-stack-detector">Run it on Apify</a></div></div></section>
+</main>
+<footer class="wrap"><p>Aurelix builds and maintains these tools. They run on the <a href="https://apify.com/aurelix">Apify Store</a>, which handles accounts and billing; prices on this site are read from the Store each time the site is rebuilt. Tools read only public pages a logged-out visitor can see. <a href="/tools/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p></footer>
+</body>
+</html>
