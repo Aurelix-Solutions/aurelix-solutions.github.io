@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken Link Crawler - Meta Description Checker, SEO | Aurelix</title>
+<meta name="description" content="SEO audit crawler at 1/16 the top rival&#x27;s price ($2.50 vs $40 per 1,000 pages), broken links and sitemap gaps free: titles, meta, H1, redirects.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/tools/seo-audit-crawler/">
+<meta property="og:title" content="Broken Link Crawler - Meta Description Checker, SEO | Aurelix">
+<meta property="og:description" content="SEO audit crawler at 1/16 the top rival&#x27;s price ($2.50 vs $40 per 1,000 pages), broken links and sitemap gaps free: titles, meta, H1, redirects.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/tools/seo-audit-crawler/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aurelix">
+<meta property="og:image" content="https://aurelix-solutions.github.io/tools/seo-audit-crawler/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aurelix-solutions.github.io/tools/seo-audit-crawler/og.png">
+<link rel="icon" type="image/png" href="/tools/favicon.png">
+<link rel="apple-touch-icon" href="/tools/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1726;--navy-2:#16213a;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;--ink:#0f1726;--body:#3b4559;
+--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;--r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:#0d7f75}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:16px;font-size:14px;font-weight:600}.nav a{color:#c6cede;text-decoration:none}.nav a:hover{color:#fff}
+.hero{position:relative;z-index:1;padding:28px 0 56px}
+.crumbs{font-size:13px;color:#98a3b8;margin:0 0 18px}.crumbs a{color:#c6cede;text-decoration:none}
+.idrow{display:flex;align-items:center;gap:16px}
+.idrow img{width:64px;height:64px;border-radius:16px;background:#fff;flex:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+h1{color:#fff;font-size:clamp(30px,6.4vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:0}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:40em;margin:18px 0 8px}
+.lede-sub{font-size:16px;color:#98a3b8;max-width:42em;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;margin:0 0 22px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18);flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:520px){.btn{flex:1 1 100%}}
+main section{padding:56px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 8px}
+h2{font-size:clamp(24px,4vw,32px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;font-weight:800}
+h3{color:var(--ink);font-size:18px;margin:0 0 6px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;gap:16px}.grid2>*{min-width:0}@media (min-width:820px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.glance{display:grid;gap:0;margin:0}.glance div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.glance div:last-child{border:0}
+.glance dd,.glance dt{overflow-wrap:anywhere}.glance dt{font-weight:700;color:var(--ink);font-size:14px}.glance dd{margin:0;font-size:15px}
+@media (max-width:520px){.glance div{grid-template-columns:1fr;gap:2px}}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:28px}ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:10px;border-left:3px solid var(--teal);border-bottom:3px solid var(--teal);transform:rotate(-45deg) scale(.8)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 66px;box-shadow:var(--shadow)}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+pre{background:var(--navy);color:#e6ebf5;border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.5;margin:0;max-height:460px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code,td code{background:#eef1f6;color:var(--ink);padding:1px 5px;border-radius:5px;font-size:.9em}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+table.price{width:100%;border-collapse:collapse;font-size:15px}table.price td{padding:11px 0;border-bottom:1px solid var(--line)}table.price tr:last-child td{border:0}table.price td:last-child{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin:0 0 10px;box-shadow:0 1px 2px rgba(15,23,38,.05)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;position:relative;padding-right:28px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--muted)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px}
+.cards{display:grid;gap:14px}@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}@media (min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:var(--body);transition:transform .15s,box-shadow .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,38,.06),0 14px 32px rgba(15,23,38,.10)}
+.tcard .row{display:flex;align-items:center;gap:12px}.tcard img{width:44px;height:44px;border-radius:11px;flex:none;border:1px solid var(--line)}
+.tcard h3{margin:0;font-size:17px}.tcard p{margin:0;font-size:15px;flex:1}
+.tcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208}
+.price-s{font-weight:700;color:var(--ink);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.chips button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.links a{font-weight:600}
+.article{max-width:760px}.article h2{font-size:clamp(22px,3.4vw,28px);margin:40px 0 12px}.article h3{margin:28px 0 8px}
+.article pre{margin:16px 0}.article table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto;margin:16px 0}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}.article th{background:#fbfbfd}
+.article img{border-radius:12px}
+.cta{margin-top:56px;background:var(--navy);color:#c6cede;padding:36px 28px;border-radius:20px}.cta h2{color:#fff}.cta p{max-width:40em}
+footer{padding:36px 0 48px;font-size:14px;color:var(--muted)}footer a{color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Broken Link Crawler & SEO Audit", "url": "https://aurelix-solutions.github.io/tools/seo-audit-crawler/", "description": "SEO audit crawler at 1/16 the top rival's price ($2.50 vs $40 per 1,000 pages), broken links and sitemap gaps free: titles, meta, H1, redirects.", "applicationCategory": "BusinessApplication", "applicationSubCategory": "SEO", "operatingSystem": "Web (Apify platform)", "image": "https://aurelix-solutions.github.io/tools/seo-audit-crawler/og.png", "sameAs": ["https://apify.com/aurelix/seo-audit-crawler"], "publisher": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "offers": {"@type": "Offer", "price": "2.50", "priceCurrency": "USD", "url": "https://apify.com/aurelix/seo-audit-crawler", "description": "$2.50 per 1,000 pages ($1.75 on paid Apify plans)"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does the Broken Link Crawler & SEO Audit cost?", "acceptedAnswer": {"@type": "Answer", "text": "$2.50 per 1,000 pages ($1.75 on paid Apify plans), billed through your Apify account; you pay only for results. Apify's free plan includes $5 of credit a month, enough for about 2,000 pages."}}, {"@type": "Question", "name": "What counts as an audited page?", "acceptedAnswer": {"@type": "Answer", "text": "Each crawled HTML page on the site that returned an HTTP status, including redirects and 404s, because those are findings too. Free: URLs blocked by robots.txt, URLs that could not be loaded at all (timeout, dead connection), non-page files such as PDF, image or JSON (listed in the summary), pages the site throttles with HTTP 429 even after retries with backoff (listed in the summary and named in the status message) and pages over 2 MB (skipped with a log line)."}}, {"@type": "Question", "name": "Which issues are checked?", "acceptedAnswer": {"@type": "Answer", "text": "High: 5xx, 4xx, unreachable pages, broken links, missing title. Medium: noindex, bad sitemap URLs, missing H1, missing meta description, duplicate titles, redirect chains, responses over 1 s, images without alt. Low: canonical to another URL, duplicate descriptions, title over 60 or under 30 characters, description over 160 or under 70, multiple H1s, missing canonical, under 200 words, HTML over 1 MB, single redirects, indexable pages missing from the sitemap."}}, {"@type": "Question", "name": "Does it respect robots.txt?", "acceptedAnswer": {"@type": "Answer", "text": "Always, and it cannot be switched off. Disallowed pages are not requested and are counted in the summary; external links are checked only where that site's robots.txt allows it."}}, {"@type": "Question", "name": "Why is a link 'unverified' rather than broken?", "acceptedAnswer": {"@type": "Answer", "text": "Many sites answer automated checks with 401, 403 or 429 even when the page works in a browser. Those are counted as unverified so the broken list holds only real 404/410, 5xx and dead-host links."}}, {"@type": "Question", "name": "Does it render JavaScript?", "acceptedAnswer": {"@type": "Answer", "text": "No. It audits the HTML the server sends, which is what search engines index first. Links injected only by JavaScript are not discovered."}}, {"@type": "Question", "name": "Can I use it from an AI assistant?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Give 'siteUrl' and optionally 'maxPages'. It works through Apify's MCP server and API."}}, {"@type": "Question", "name": "Is this legal?", "acceptedAnswer": {"@type": "Answer", "text": "It reads only public data any logged-out visitor can see: the website you choose (crawl only sites you have the right to crawl, such as your own or a client's). It goes at a polite pace, respects robots.txt, never logs in and never solves CAPTCHAs. It returns technical SEO fields per page (status, titles, headings, links, issues); no personal data is extracted. To have a record removed, open an issue on this Actor's Issues tab; if a site owner formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice."}}, {"@type": "Question", "name": "What is the health score?", "acceptedAnswer": {"@type": "Answer", "text": "The share of audited pages, from 0 to 100, that have no high or medium issue. Low issues, such as a title a little too long, do not lower it. It is in the summary row and in the run's status message."}}, {"@type": "Question", "name": "What am I charged when the site is down or blocks the crawl?", "acceptedAnswer": {"@type": "Answer", "text": "Only the $0.001 start fee. URLs blocked by robots.txt are counted in the summary, pages that could not be loaded come back as free rows with an error, and the summary row is always free. Only page rows with an HTTP status are charged."}}, {"@type": "Question", "name": "How are pages found?", "acceptedAnswer": {"@type": "Answer", "text": "From the site URL and, with Read the XML sitemap on, from the sitemaps named in robots.txt or at /sitemap.xml (sitemap indexes and .gz files included, up to 25 sitemap files). Links on crawled pages are then followed within the same host until Max pages is reached."}}, {"@type": "Question", "name": "What exactly is response_time_ms?", "acceptedAnswer": {"@type": "Answer", "text": "The time to download the page, headers and body, from Apify's servers. Requests are timed one at a time, and up to 100 rows over 80 ms are re-timed alone after the crawl, so the crawler's own load does not show up as a slow server. A page over 1 second gets the slow_response issue."}}, {"@type": "Question", "name": "What does Max extra link checks cover?", "acceptedAnswer": {"@type": "Answer", "text": "Requests for links that were not crawled as pages: external links, files and internal pages beyond Max pages. Internal links are checked first. Links over the cap are counted in unchecked_links_count, not reported as fine or broken. Set it to 0 to rely only on the status of crawled pages."}}, {"@type": "Question", "name": "How long does an audit take?", "acceptedAnswer": {"@type": "Answer", "text": "About 1,100 pages an hour at two requests a second. If the run timeout comes near, the run stops crawling early, still checks links, saves every page row and the summary, ends SUCCEEDED and says it stopped early."}}, {"@type": "Question", "name": "Can I track progress after fixing issues?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Save the input as a task, schedule it weekly or monthly, and compare the summary rows: health_score and the pages count of each issue. There is no built-in diff between runs."}}, {"@type": "Question", "name": "How do I export pages to Google Sheets?", "acceptedAnswer": {"@type": "Answer", "text": "Download the run's results as CSV or Excel and open them in Google Sheets, or add Apify's Google Sheets integration to the run or a schedule so every run's results land in a sheet."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tools", "item": "https://aurelix-solutions.github.io/tools/"}, {"@type": "ListItem", "position": 2, "name": "Broken Link Crawler & SEO Audit", "item": "https://aurelix-solutions.github.io/tools/seo-audit-crawler/"}]}</script>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<header><a class="brand" href="/tools/"><img src="/tools/logo.png" alt="" width="34" height="34">Aurelix</a><nav class="nav"><a href="/tools/">Tools</a><a href="/tools/guides/">Guides</a></nav></header>
+<div class="hero"><p class="crumbs"><a href="/tools/">Tools</a> › SEO</p><div class="idrow"><img src="/tools/seo-audit-crawler/icon.png" alt="" width="64" height="64"><h1>Broken Link Crawler &amp; SEO Audit</h1></div><p class="lede">Audit every page of a website for SEO (status, redirects, titles, meta, H1, canonical, broken links, alt text) for $2.50 per 1,000 pages, no login.</p><p class="lede-sub">For SEO consultants, agencies and site owners. Broken-link checks and an XML sitemap gap check are included free, and a summary row ranks issues by severity with a health score.</p><p class="pill"><span class="dot"></span>$2.50 per 1,000 pages ($1.75 on paid Apify plans)</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/seo-audit-crawler">Run it on Apify</a><a class="btn btn-ghost" href="https://github.com/Aurelix-Solutions/seo-audit-crawler-example">Python example on GitHub</a></div></div>
+</div></div>
+<main class="wrap">
+<section><p class="kicker">At a glance</p><h2>What the Broken Link Crawler &amp; SEO Audit does</h2><div class="grid2"><div class="box"><dl class="glance"><div><dt>Audit</dt><dd>One site per run, up to 2,000 pages, plus its XML sitemap</dd></div><div><dt>Checks</dt><dd>Status, redirects, title and meta length, H1, canonical, noindex, broken links, alt text, size, response time</dd></div><div><dt>Output</dt><dd>33 fields per page row plus a ranked summary row; JSON, CSV, Excel, API</dd></div><div><dt>Automate</dt><dd>Schedules, webhooks, Zapier, Make, n8n, Google Sheets, MCP for AI agents</dd></div></dl></div><div class="box"><h3>Who it is for</h3><ul class="ticks"><li>SEO agencies running a technical audit before a client pitch</li><li>Site owners scheduling a weekly check for broken links and new 404s</li><li>Developers checking redirects, canonicals and noindex after a migration</li><li>Content teams finding missing titles, meta descriptions and H1s</li></ul></div></div></section>
+<section><p class="kicker">Output</p><h2>What you get</h2><div class="box"><ul class="ticks"><li>One &#x27;page&#x27; row per audited URL with 30+ fields, including the issue codes on that page, most severe first</li><li>broken_links: [{url, status_code, error}] per page, plus counts of broken and unverified links</li><li>in_sitemap per page and sitemap problems</li><li>One &#x27;summary&#x27; row: pages audited, health score, status code counts, average response time, sitemap stats and issues ranked [{issue, severity, description, pages, examples}]</li></ul></div></section>
+<section><p class="kicker">Example</p><h2>Input and output</h2><div class="grid2"><div><h3>Input</h3><pre><code>{
+  &quot;siteUrl&quot;: &quot;https://books.toscrape.com&quot;,
+  &quot;maxPages&quot;: 200,
+  &quot;useSitemap&quot;: true,
+  &quot;checkExternalLinks&quot;: true,
+  &quot;maxLinkChecks&quot;: 500
+}</code></pre></div><div><h3>One output record</h3><pre><code>{
+  &quot;record_type&quot;: &quot;page&quot;,
+  &quot;url&quot;: &quot;https://docs.python.org/3/&quot;,
+  &quot;final_url&quot;: &quot;https://docs.python.org/3/&quot;,
+  &quot;status_code&quot;: 200,
+  &quot;redirect_count&quot;: 0,
+  &quot;redirects&quot;: [],
+  &quot;error&quot;: null,
+  &quot;content_type&quot;: &quot;text/html&quot;,
+  &quot;response_time_ms&quot;: 4,
+  &quot;page_size_bytes&quot;: 19632,
+  &quot;crawl_depth&quot;: 0,
+  &quot;in_sitemap&quot;: true,
+  &quot;title&quot;: &quot;Python 3.15.2 documentation&quot;,
+  &quot;title_length&quot;: 27,
+  &quot;meta_description&quot;: &quot;The official Python documentation.&quot;,
+  &quot;meta_description_length&quot;: 34,
+  &quot;h1_count&quot;: 1,
+  &quot;h1&quot;: &quot;Python 3.15.2 documentation&quot;,
+  &quot;canonical_url&quot;: &quot;https://docs.python.org/3/index.html&quot;,
+  &quot;noindex&quot;: false,
+  &quot;nofollow&quot;: false,
+  &quot;language&quot;: &quot;en&quot;,
+  &quot;word_count&quot;: 526,
+  &quot;internal_links_count&quot;: 44,
+  &quot;external_links_count&quot;: 12,
+  &quot;images_count&quot;: 3,
+  &quot;images_missing_alt_count&quot;: 0,
+  &quot;broken_links_count&quot;: 0,
+  &quot;broken_links&quot;: [],
+  &quot;unchecked_links_count&quot;: 25,
+  &quot;issues&quot;: [
+    &quot;duplicate_title&quot;,
+    &quot;canonical_to_other_url&quot;,
+    &quot;duplicate_meta_description&quot;,
+    &quot;… 2 more&quot;
+  ],
+  &quot;source_url&quot;: &quot;https://docs.python.org/3/&quot;,
+  &quot;scraped_at&quot;: &quot;2026-11-04T07:48:53Z&quot;
+}</code></pre><p class="note">From a real run of this tool; long text and lists shortened here.</p></div></div></section>
+<section><p class="kicker">How to use it</p><h2>Three steps</h2><ol class="steps"><li>Enter the site URL, e.g. https://www.example.com, and set Max pages.</li><li>Keep &#x27;Read the XML sitemap&#x27; and &#x27;Check external links&#x27; on for a full audit, or turn them off for a quick on-page check.</li><li>Click Start, open the summary row for the ranked issues, then filter the page rows by issue code. Download JSON, CSV or Excel, or schedule it weekly.</li></ol></section>
+<section><p class="kicker">API</p><h2>Call it from Python</h2><pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+run = client.actor(&quot;aurelix/seo-audit-crawler&quot;).call(run_input={&#x27;siteUrl&#x27;: &#x27;https://books.toscrape.com&#x27;,
+ &#x27;maxPages&#x27;: 200,
+ &#x27;useSitemap&#x27;: True,
+ &#x27;checkExternalLinks&#x27;: True,
+ &#x27;maxLinkChecks&#x27;: 500})
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)</code></pre><p class="note"><code>pip install apify-client</code>. The same input works from the Apify console, a schedule, Make, n8n, Zapier or an AI agent through the Apify MCP server.</p></section>
+<section><p class="kicker">Pricing</p><h2>Pay per result</h2><div class="box"><table class="price"><tr><td>Per 1,000 pages, free plan</td><td>$2.50</td></tr><tr><td>Per 1,000 pages, paid plans</td><td>$1.75</td></tr><tr><td>Start fee per run</td><td>$0.001</td></tr></table><p class="note">Live prices from the Apify Store; no subscription and no platform usage billed on top. <a href="https://apify.com/aurelix/seo-audit-crawler">See the Store page</a>.</p></div></section>
+<section><p class="kicker">Honest limits</p><h2>What it does not do</h2><div class="box"><ul class="ticks"><li>One host per run: www. and the bare domain count as one site; other subdomains are not crawled (their links are checked as external).</li><li>At most two requests per second per site, slower with a robots.txt Crawl-delay; up to 2,000 pages per run (about 1,100 pages an hour, so a full 2,000-page audit takes nearly 2 hours; raise the run timeout accordingly).</li><li>No JavaScript rendering and no Core Web Vitals or Lighthouse scores; response time is the time to download the page (headers and body) from Apify&#x27;s servers, and any page over 80 ms is re-timed alone at the end so the crawler&#x27;s own load never counts as a slow server.</li><li>Link checks are capped by &#x27;Max extra link checks&#x27; (internal links first); links over the cap are counted as not checked.</li><li>Duplicate titles and descriptions are compared only across the pages audited in the run, ignoring noindex pages.</li><li>HTML pages over 2 MB are skipped (not charged) to keep memory low; they are listed in the summary.</li></ul></div></section>
+<section><p class="kicker">FAQ</p><h2>Questions buyers ask</h2><details><summary>How much does the Broken Link Crawler &amp; SEO Audit cost?</summary><p>$2.50 per 1,000 pages ($1.75 on paid Apify plans), billed through your Apify account; you pay only for results. Apify&#x27;s free plan includes $5 of credit a month, enough for about 2,000 pages.</p></details><details><summary>What counts as an audited page?</summary><p>Each crawled HTML page on the site that returned an HTTP status, including redirects and 404s, because those are findings too. Free: URLs blocked by robots.txt, URLs that could not be loaded at all (timeout, dead connection), non-page files such as PDF, image or JSON (listed in the summary), pages the site throttles with HTTP 429 even after retries with backoff (listed in the summary and named in the status message) and pages over 2 MB (skipped with a log line).</p></details><details><summary>Which issues are checked?</summary><p>High: 5xx, 4xx, unreachable pages, broken links, missing title. Medium: noindex, bad sitemap URLs, missing H1, missing meta description, duplicate titles, redirect chains, responses over 1 s, images without alt. Low: canonical to another URL, duplicate descriptions, title over 60 or under 30 characters, description over 160 or under 70, multiple H1s, missing canonical, under 200 words, HTML over 1 MB, single redirects, indexable pages missing from the sitemap.</p></details><details><summary>Does it respect robots.txt?</summary><p>Always, and it cannot be switched off. Disallowed pages are not requested and are counted in the summary; external links are checked only where that site&#x27;s robots.txt allows it.</p></details><details><summary>Why is a link &#x27;unverified&#x27; rather than broken?</summary><p>Many sites answer automated checks with 401, 403 or 429 even when the page works in a browser. Those are counted as unverified so the broken list holds only real 404/410, 5xx and dead-host links.</p></details><details><summary>Does it render JavaScript?</summary><p>No. It audits the HTML the server sends, which is what search engines index first. Links injected only by JavaScript are not discovered.</p></details><details><summary>Can I use it from an AI assistant?</summary><p>Yes. Give &#x27;siteUrl&#x27; and optionally &#x27;maxPages&#x27;. It works through Apify&#x27;s MCP server and API.</p></details><details><summary>Is this legal?</summary><p>It reads only public data any logged-out visitor can see: the website you choose (crawl only sites you have the right to crawl, such as your own or a client&#x27;s). It goes at a polite pace, respects robots.txt, never logs in and never solves CAPTCHAs. It returns technical SEO fields per page (status, titles, headings, links, issues); no personal data is extracted. To have a record removed, open an issue on this Actor&#x27;s Issues tab; if a site owner formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice.</p></details><details><summary>What is the health score?</summary><p>The share of audited pages, from 0 to 100, that have no high or medium issue. Low issues, such as a title a little too long, do not lower it. It is in the summary row and in the run&#x27;s status message.</p></details><details><summary>What am I charged when the site is down or blocks the crawl?</summary><p>Only the $0.001 start fee. URLs blocked by robots.txt are counted in the summary, pages that could not be loaded come back as free rows with an error, and the summary row is always free. Only page rows with an HTTP status are charged.</p></details><details><summary>How are pages found?</summary><p>From the site URL and, with Read the XML sitemap on, from the sitemaps named in robots.txt or at /sitemap.xml (sitemap indexes and .gz files included, up to 25 sitemap files). Links on crawled pages are then followed within the same host until Max pages is reached.</p></details><details><summary>What exactly is response_time_ms?</summary><p>The time to download the page, headers and body, from Apify&#x27;s servers. Requests are timed one at a time, and up to 100 rows over 80 ms are re-timed alone after the crawl, so the crawler&#x27;s own load does not show up as a slow server. A page over 1 second gets the slow_response issue.</p></details><details><summary>What does Max extra link checks cover?</summary><p>Requests for links that were not crawled as pages: external links, files and internal pages beyond Max pages. Internal links are checked first. Links over the cap are counted in unchecked_links_count, not reported as fine or broken. Set it to 0 to rely only on the status of crawled pages.</p></details><details><summary>How long does an audit take?</summary><p>About 1,100 pages an hour at two requests a second. If the run timeout comes near, the run stops crawling early, still checks links, saves every page row and the summary, ends SUCCEEDED and says it stopped early.</p></details><details><summary>Can I track progress after fixing issues?</summary><p>Yes. Save the input as a task, schedule it weekly or monthly, and compare the summary rows: health_score and the pages count of each issue. There is no built-in diff between runs.</p></details><details><summary>How do I export pages to Google Sheets?</summary><p>Download the run&#x27;s results as CSV or Excel and open them in Google Sheets, or add Apify&#x27;s Google Sheets integration to the run or a schedule so every run&#x27;s results land in a sheet.</p></details></section>
+<section><p class="kicker">Guides</p><h2>Tutorials using this tool</h2><div class="box"><ul class="links"><li><a href="https://dev.to/aurelix_solutions/a-broken-link-and-seo-audit-of-your-whole-site-with-a-ranked-fix-list-for-your-developer-47om">A broken-link and SEO audit of your whole site, with a ranked fix list for your developer</a></li></ul></div></section>
+<section><p class="kicker">Related</p><h2>Related tools</h2><div class="cards"><a class="tcard" href="/tools/google-trends-scraper/" data-cat="SEO Marketing"><div class="row"><img src="/tools/google-trends-scraper/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Google Trends by Region</h3></div><p>Google Trends interest over time, by region and rising queries for any number of keywords, plus trending searches.</p><div class="meta"><span class="tag">SEO</span><span class="price-s">$1.50 / 1,000 results</span></div></a><a class="tcard" href="/tools/website-to-markdown/" data-cat="AI and RAG Developer tools AI agents (MCP)"><div class="row"><img src="/tools/website-to-markdown/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Website to Markdown API</h3></div><p>Crawls a site and returns one row of clean main-content Markdown per page, with title, headings and links.</p><div class="meta"><span class="tag">AI and RAG</span><span class="price-s">$0.65 / 1,000 pages</span></div></a><a class="tcard" href="/tools/pdf-to-markdown/" data-cat="AI and RAG Developer tools AI agents (MCP)"><div class="row"><img src="/tools/pdf-to-markdown/icon.png" alt="" width="44" height="44" loading="lazy"><h3>PDF to Markdown OCR &amp; Table Extraction</h3></div><p>Turns linked PDF and Word files into Markdown per page, with tables as JSON rows, RAG chunks and OCR.</p><div class="meta"><span class="tag">AI and RAG</span><span class="price-s">$0.30 / 1,000 pages</span></div></a></div></section>
+<section class="cta"><div><h2>Try the Broken Link Crawler &amp; SEO Audit</h2><p>Open it on the Apify Store, paste the example input above and click Start. Results download as CSV, Excel or JSON.</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/seo-audit-crawler">Run it on Apify</a></div></div></section>
+</main>
+<footer class="wrap"><p>Aurelix builds and maintains these tools. They run on the <a href="https://apify.com/aurelix">Apify Store</a>, which handles accounts and billing; prices on this site are read from the Store each time the site is rebuilt. Tools read only public pages a logged-out visitor can see. <a href="/tools/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p></footer>
+</body>
+</html>
