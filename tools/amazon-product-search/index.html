@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amazon Product Search Scraper: Prices, Sponsored | Aurelix</title>
+<meta name="description" content="Amazon search scraper: every product on the results pages with position, price, list price, rating, reviews, Prime, sponsored flag, badges. $0.10/1,000.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/tools/amazon-product-search/">
+<meta property="og:title" content="Amazon Product Search Scraper: Prices, Sponsored | Aurelix">
+<meta property="og:description" content="Amazon search scraper: every product on the results pages with position, price, list price, rating, reviews, Prime, sponsored flag, badges. $0.10/1,000.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/tools/amazon-product-search/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aurelix">
+<meta property="og:image" content="https://aurelix-solutions.github.io/tools/amazon-product-search/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aurelix-solutions.github.io/tools/amazon-product-search/og.png">
+<link rel="icon" type="image/png" href="/tools/favicon.png">
+<link rel="apple-touch-icon" href="/tools/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1726;--navy-2:#16213a;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;--ink:#0f1726;--body:#3b4559;
+--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;--r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:#0d7f75}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:16px;font-size:14px;font-weight:600}.nav a{color:#c6cede;text-decoration:none}.nav a:hover{color:#fff}
+.hero{position:relative;z-index:1;padding:28px 0 56px}
+.crumbs{font-size:13px;color:#98a3b8;margin:0 0 18px}.crumbs a{color:#c6cede;text-decoration:none}
+.idrow{display:flex;align-items:center;gap:16px}
+.idrow img{width:64px;height:64px;border-radius:16px;background:#fff;flex:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+h1{color:#fff;font-size:clamp(30px,6.4vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:0}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:40em;margin:18px 0 8px}
+.lede-sub{font-size:16px;color:#98a3b8;max-width:42em;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;margin:0 0 22px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18);flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:520px){.btn{flex:1 1 100%}}
+main section{padding:56px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 8px}
+h2{font-size:clamp(24px,4vw,32px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;font-weight:800}
+h3{color:var(--ink);font-size:18px;margin:0 0 6px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;gap:16px}.grid2>*{min-width:0}@media (min-width:820px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.glance{display:grid;gap:0;margin:0}.glance div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.glance div:last-child{border:0}
+.glance dd,.glance dt{overflow-wrap:anywhere}.glance dt{font-weight:700;color:var(--ink);font-size:14px}.glance dd{margin:0;font-size:15px}
+@media (max-width:520px){.glance div{grid-template-columns:1fr;gap:2px}}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:28px}ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:10px;border-left:3px solid var(--teal);border-bottom:3px solid var(--teal);transform:rotate(-45deg) scale(.8)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 66px;box-shadow:var(--shadow)}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+pre{background:var(--navy);color:#e6ebf5;border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.5;margin:0;max-height:460px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code,td code{background:#eef1f6;color:var(--ink);padding:1px 5px;border-radius:5px;font-size:.9em}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+table.price{width:100%;border-collapse:collapse;font-size:15px}table.price td{padding:11px 0;border-bottom:1px solid var(--line)}table.price tr:last-child td{border:0}table.price td:last-child{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin:0 0 10px;box-shadow:0 1px 2px rgba(15,23,38,.05)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;position:relative;padding-right:28px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--muted)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px}
+.cards{display:grid;gap:14px}@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}@media (min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:var(--body);transition:transform .15s,box-shadow .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,38,.06),0 14px 32px rgba(15,23,38,.10)}
+.tcard .row{display:flex;align-items:center;gap:12px}.tcard img{width:44px;height:44px;border-radius:11px;flex:none;border:1px solid var(--line)}
+.tcard h3{margin:0;font-size:17px}.tcard p{margin:0;font-size:15px;flex:1}
+.tcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208}
+.price-s{font-weight:700;color:var(--ink);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.chips button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.links a{font-weight:600}
+.article{max-width:760px}.article h2{font-size:clamp(22px,3.4vw,28px);margin:40px 0 12px}.article h3{margin:28px 0 8px}
+.article pre{margin:16px 0}.article table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto;margin:16px 0}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}.article th{background:#fbfbfd}
+.article img{border-radius:12px}
+.cta{margin-top:56px;background:var(--navy);color:#c6cede;padding:36px 28px;border-radius:20px}.cta h2{color:#fff}.cta p{max-width:40em}
+footer{padding:36px 0 48px;font-size:14px;color:var(--muted)}footer a{color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Amazon Sponsored Products & Search Results Scraper", "url": "https://aurelix-solutions.github.io/tools/amazon-product-search/", "description": "Amazon search scraper: every product on the results pages with position, price, list price, rating, reviews, Prime, sponsored flag, badges. $0.10/1,000.", "applicationCategory": "BusinessApplication", "applicationSubCategory": "E-commerce", "operatingSystem": "Web (Apify platform)", "image": "https://aurelix-solutions.github.io/tools/amazon-product-search/og.png", "sameAs": ["https://apify.com/aurelix/amazon-product-search"], "publisher": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "offers": {"@type": "Offer", "price": "0.10", "priceCurrency": "USD", "url": "https://apify.com/aurelix/amazon-product-search", "description": "$0.10 per 1,000 products ($0.08 on paid Apify plans)"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does the Amazon Sponsored Products & Search Results Scraper cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.10 per 1,000 products ($0.08 on paid Apify plans), billed through your Apify account; you pay only for results. Apify's free plan includes $5 of credit a month, enough for about 50,000 products."}}, {"@type": "Question", "name": "What is the difference from Amazon Best Sellers Scraper?", "acceptedAnswer": {"@type": "Answer", "text": "This Actor reads search results: what a shopper sees after typing a keyword, sponsored listings included, in page order. Amazon Best Sellers Scraper reads Amazon's ranked Best Sellers and New Releases lists by category, with rank changes. Use this one for keyword rank and ads, that one for category best-seller rank."}}, {"@type": "Question", "name": "How many results can I get per keyword?", "acceptedAnswer": {"@type": "Answer", "text": "Every page Amazon shows for the search, up to 20, and at most 1,000 products per search. How many pages Amazon shows depends on the keyword: 'coffee grinder' had 7 pages of about 48 organic products plus ads, 'usb c cable' 20 pages of 16. Set 'Results per search' to stop earlier."}}, {"@type": "Question", "name": "What do position and organic_position mean?", "acceptedAnswer": {"@type": "Answer", "text": "position counts every product card from the top of page 1, sponsored included, the way a shopper scrolls. organic_position counts only organic results. A product shown both as an ad and organically appears once, with sponsored = true and its organic position filled in."}}, {"@type": "Question", "name": "Is prime_eligible reliable?", "acceptedAnswer": {"@type": "Answer", "text": "It is true when the search card carried a Prime delivery offer, and empty otherwise (never guessed). What Amazon shows depends on the visitor: in our test runs of version 0.1.6 a US residential session saw the Prime line on 97 of 100 'coffee grinder' cards, while datacenter sessions saw it on 8 of 600 cards. If Prime matters to you, turn on 'Residential fallback' and choose the RESIDENTIAL proxy group (paid add-on)."}}, {"@type": "Question", "name": "Why do some runs show no sponsored results?", "acceptedAnswer": {"@type": "Answer", "text": "Amazon decides per visitor whether to show ads. Datacenter sessions (the default) do see some ads, but fewer than residential ones: in our test runs of version 0.1.6, a datacenter run saw 11 ads, all on 2 of its 22 result pages, while a US residential session saw 12 ads on page 1 of 'coffee grinder' alone. The sponsored flag reports what the page showed; it never guesses. For ad research, choose the RESIDENTIAL proxy group (paid add-on, $0.012 per residential request)."}}, {"@type": "Question", "name": "Which marketplaces work?", "acceptedAnswer": {"@type": "Answer", "text": "amazon.com and amazon.ca. amazon.co.uk and amazon.de refused logged-out search requests from Apify's datacenter proxies in our tests, so other marketplaces are not offered; if you need them, ask on the Issues tab."}}, {"@type": "Question", "name": "Does it solve CAPTCHAs or bot challenges?", "acceptedAnswer": {"@type": "Answer", "text": "No. When Amazon answers with a robot check, a challenge page or its 'Continue shopping' page, nothing is solved or clicked: that proxy session is dropped and the page is retried on up to 5 fresh datacenter sessions. If you turn on 'Residential fallback' (a paid add-on), up to 3 residential sessions are tried next; the residential fee ($0.012) applies to every request sent over residential, even if Amazon returns no matches or refuses the request. Each search starts on datacenter; within a search, once a page needed residential, that search's later pages try residential first. If Amazon refuses 2 searches in a row on every session, the run stops early ('Amazon is refusing this run') so it does not keep spending. If every session is refused, the products already read are kept and the run status says 'Partial'."}}, {"@type": "Question", "name": "Is it legal to scrape Amazon search results?", "acceptedAnswer": {"@type": "Answer", "text": "It reads only public data any logged-out visitor can see: Amazon search result pages, which Amazon's robots.txt does not disallow. It goes at a polite pace, never logs in and never solves CAPTCHAs or bot challenges. It returns product listing fields only (title, price, rating, rating count, badges, links); no reviews, reviewer or seller personal data. To have a record removed, open an issue on this Actor's Issues tab; if Amazon formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tools", "item": "https://aurelix-solutions.github.io/tools/"}, {"@type": "ListItem", "position": 2, "name": "Amazon Sponsored Products & Search Results Scraper", "item": "https://aurelix-solutions.github.io/tools/amazon-product-search/"}]}</script>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<header><a class="brand" href="/tools/"><img src="/tools/logo.png" alt="" width="34" height="34">Aurelix</a><nav class="nav"><a href="/tools/">Tools</a><a href="/tools/guides/">Guides</a></nav></header>
+<div class="hero"><p class="crumbs"><a href="/tools/">Tools</a> › E-commerce</p><div class="idrow"><img src="/tools/amazon-product-search/icon.png" alt="" width="64" height="64"><h1>Amazon Sponsored Products &amp; Search Results Scraper</h1></div><p class="lede">Every product on Amazon&#x27;s search results for your keywords (position, sponsored flag, ASIN, price, rating, badges) for $0.10 per 1,000 products, no login.</p><p class="lede-sub">For sellers, PPC managers and product researchers. Paid Apify plans pay $0.08 per 1,000. Sister to our Amazon Best Sellers Scraper.</p><p class="pill"><span class="dot"></span>$0.10 per 1,000 products ($0.08 on paid Apify plans)</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/amazon-product-search">Run it on Apify</a><a class="btn btn-ghost" href="https://github.com/Aurelix-Solutions/amazon-product-search-example">Python example on GitHub</a></div></div>
+</div></div>
+<main class="wrap">
+<section><p class="kicker">At a glance</p><h2>What the Amazon Sponsored Products &amp; Search Results Scraper does</h2><div class="grid2"><div class="box"><dl class="glance"><div><dt>Search by</dt><dd>Keywords or Amazon search URLs (filters kept), optional department and sort</dd></div><div><dt>Marketplaces</dt><dd>amazon.com and amazon.ca</dd></div><div><dt>Depth</dt><dd>Every result page Amazon shows for a search (up to 20), sponsored results included or not</dd></div><div><dt>Output</dt><dd>24 fields per product incl. position and sponsored flag; JSON, CSV, Excel, API</dd></div><div><dt>Automate</dt><dd>Only-new-products mode, schedules, Slack/webhook digest, Zapier, Make, n8n, MCP</dd></div></dl></div><div class="box"><h3>Who it is for</h3><ul class="ticks"><li>Sellers and brands tracking where their products rank for their main keywords, organic and sponsored</li><li>PPC managers seeing which competitors buy ads on a keyword and at what price</li><li>Product researchers sizing a niche: prices, ratings and review counts of every result page</li><li>Price monitoring of a keyword&#x27;s top results, with list prices and deal badges</li><li>Catalog and ASIN discovery for later detail scraping</li></ul></div></div></section>
+<section><p class="kicker">Output</p><h2>What you get</h2><div class="box"><ul class="ticks"><li>search_keyword, search_url, marketplace, total_results_text (Amazon&#x27;s &#x27;1-48 of over 10,000 results&#x27; line), page</li><li>position (every card, sponsored included), organic_position, sponsored</li><li>asin, title, product_url, image_url</li><li>price, price_text, list_price (struck-through List or Typical price), currency</li><li>rating, reviews_count, prime_eligible, badges, bought_past_month</li><li>new_entry (&#x27;Only new products&#x27; mode), source_url, scraped_at in ISO 8601 UTC</li></ul></div></section>
+<section><p class="kicker">Example</p><h2>Input and output</h2><div class="grid2"><div><h3>Input</h3><pre><code>{
+  &quot;searches&quot;: [
+    &quot;coffee grinder&quot;,
+    &quot;https://www.amazon.com/s?k=yoga+mat&amp;i=sporting&quot;
+  ],
+  &quot;maxResultsPerSearch&quot;: 100
+}</code></pre></div><div><h3>One output record</h3><pre><code>{
+  &quot;search_keyword&quot;: &quot;coffee grinder&quot;,
+  &quot;search_url&quot;: &quot;https://www.amazon.com/s?k=coffee+grinder&quot;,
+  &quot;marketplace&quot;: &quot;amazon.com&quot;,
+  &quot;total_results_text&quot;: &quot;1-48 of over 10,000 results&quot;,
+  &quot;asin&quot;: &quot;B005EPRFKO&quot;,
+  &quot;title&quot;: &quot;Hamilton Beach Fresh Grind Electric Coffee Grinder For Up To 12 Cups&quot;,
+  &quot;product_url&quot;: &quot;https://www.amazon.com/dp/B005EPRFKO&quot;,
+  &quot;image_url&quot;: &quot;https://m.media-amazon.com/images/I/61EJRxaGwvL._AC_UL320_.jpg&quot;,
+  &quot;price&quot;: 20.83,
+  &quot;price_text&quot;: &quot;$20.83&quot;,
+  &quot;list_price&quot;: 21.95,
+  &quot;currency&quot;: &quot;USD&quot;,
+  &quot;rating&quot;: 4.5,
+  &quot;reviews_count&quot;: 64332,
+  &quot;prime_eligible&quot;: null,
+  &quot;sponsored&quot;: false,
+  &quot;badges&quot;: [
+    &quot;Amazon&#x27;s Choice: Overall Pick&quot;
+  ],
+  &quot;bought_past_month&quot;: &quot;10K+ bought in past month&quot;,
+  &quot;page&quot;: 1,
+  &quot;position&quot;: 1,
+  &quot;organic_position&quot;: 1,
+  &quot;new_entry&quot;: null,
+  &quot;source_url&quot;: &quot;https://www.amazon.com/s?k=coffee+grinder&quot;,
+  &quot;scraped_at&quot;: &quot;2026-11-05T08:23:38Z&quot;
+}</code></pre><p class="note">From a real run of this tool; long text and lists shortened here.</p></div></div></section>
+<section><p class="kicker">How to use it</p><h2>Three steps</h2><ol class="steps"><li>Type keywords into &#x27;Searches&#x27;, e.g. &#x27;coffee grinder&#x27;, or paste an Amazon search URL with your filters.</li><li>Optionally pick the marketplace, department, sort order and how many results per search (Amazon shows up to 20 pages); switch sponsored results off if you only want organic ones.</li><li>Click Start, or schedule it daily to track rank moves. Download JSON, CSV or Excel, or send results to Google Sheets, Zapier, Make or n8n.</li></ol></section>
+<section><p class="kicker">API</p><h2>Call it from Python</h2><pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+run = client.actor(&quot;aurelix/amazon-product-search&quot;).call(run_input={&#x27;searches&#x27;: [&#x27;coffee grinder&#x27;,
+              &#x27;https://www.amazon.com/s?k=yoga+mat&amp;i=sporting&#x27;],
+ &#x27;maxResultsPerSearch&#x27;: 100})
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)</code></pre><p class="note"><code>pip install apify-client</code>. The same input works from the Apify console, a schedule, Make, n8n, Zapier or an AI agent through the Apify MCP server.</p></section>
+<section><p class="kicker">Pricing</p><h2>Pay per result</h2><div class="box"><table class="price"><tr><td>Per 1,000 products, free plan</td><td>$0.10</td></tr><tr><td>Per 1,000 products, paid plans</td><td>$0.08</td></tr><tr><td>Residential page, per 1,000, free plan</td><td>$12.00</td></tr><tr><td>Only new page, per 1,000, free plan</td><td>$0.30</td></tr><tr><td>Start fee per run</td><td>$0.005</td></tr></table><p class="note">Live prices from the Apify Store; no subscription and no platform usage billed on top. <a href="https://apify.com/aurelix/amazon-product-search">See the Store page</a>.</p></div></section>
+<section><p class="kicker">Honest limits</p><h2>What it does not do</h2><div class="box"><ul class="ticks"><li>amazon.com and amazon.ca only (amazon.co.uk and amazon.de refused logged-out search pages from Apify&#x27;s datacenter proxies in our tests); rivals cover 20 or more marketplaces.</li><li>Up to 20 result pages and 1,000 products per search; Amazon shows fewer pages for many keywords.</li><li>Search results are personalised by location and change through the day; a run is a snapshot from a US (or Canadian) visitor&#x27;s view at that moment.</li><li>Some cards show no price (e.g. only other sellers&#x27; offers); price is then empty, never guessed. Rating counts shown only in thousands (&#x27;1.4K&#x27;) stay empty rather than rounded.</li><li>prime_eligible and sponsored follow what Amazon served: some sessions get pages without Prime lines or ads, and then no product is marked Prime or sponsored.</li><li>If Amazon keeps refusing every proxy session, results already read are kept and the run status says &#x27;Partial&#x27;.</li></ul></div></section>
+<section><p class="kicker">FAQ</p><h2>Questions buyers ask</h2><details><summary>How much does the Amazon Sponsored Products &amp; Search Results Scraper cost?</summary><p>$0.10 per 1,000 products ($0.08 on paid Apify plans), billed through your Apify account; you pay only for results. Apify&#x27;s free plan includes $5 of credit a month, enough for about 50,000 products.</p></details><details><summary>What is the difference from Amazon Best Sellers Scraper?</summary><p>This Actor reads search results: what a shopper sees after typing a keyword, sponsored listings included, in page order. Amazon Best Sellers Scraper reads Amazon&#x27;s ranked Best Sellers and New Releases lists by category, with rank changes. Use this one for keyword rank and ads, that one for category best-seller rank.</p></details><details><summary>How many results can I get per keyword?</summary><p>Every page Amazon shows for the search, up to 20, and at most 1,000 products per search. How many pages Amazon shows depends on the keyword: &#x27;coffee grinder&#x27; had 7 pages of about 48 organic products plus ads, &#x27;usb c cable&#x27; 20 pages of 16. Set &#x27;Results per search&#x27; to stop earlier.</p></details><details><summary>What do position and organic_position mean?</summary><p>position counts every product card from the top of page 1, sponsored included, the way a shopper scrolls. organic_position counts only organic results. A product shown both as an ad and organically appears once, with sponsored = true and its organic position filled in.</p></details><details><summary>Is prime_eligible reliable?</summary><p>It is true when the search card carried a Prime delivery offer, and empty otherwise (never guessed). What Amazon shows depends on the visitor: in our test runs of version 0.1.6 a US residential session saw the Prime line on 97 of 100 &#x27;coffee grinder&#x27; cards, while datacenter sessions saw it on 8 of 600 cards. If Prime matters to you, turn on &#x27;Residential fallback&#x27; and choose the RESIDENTIAL proxy group (paid add-on).</p></details><details><summary>Why do some runs show no sponsored results?</summary><p>Amazon decides per visitor whether to show ads. Datacenter sessions (the default) do see some ads, but fewer than residential ones: in our test runs of version 0.1.6, a datacenter run saw 11 ads, all on 2 of its 22 result pages, while a US residential session saw 12 ads on page 1 of &#x27;coffee grinder&#x27; alone. The sponsored flag reports what the page showed; it never guesses. For ad research, choose the RESIDENTIAL proxy group (paid add-on, $0.012 per residential request).</p></details><details><summary>Which marketplaces work?</summary><p>amazon.com and amazon.ca. amazon.co.uk and amazon.de refused logged-out search requests from Apify&#x27;s datacenter proxies in our tests, so other marketplaces are not offered; if you need them, ask on the Issues tab.</p></details><details><summary>Does it solve CAPTCHAs or bot challenges?</summary><p>No. When Amazon answers with a robot check, a challenge page or its &#x27;Continue shopping&#x27; page, nothing is solved or clicked: that proxy session is dropped and the page is retried on up to 5 fresh datacenter sessions. If you turn on &#x27;Residential fallback&#x27; (a paid add-on), up to 3 residential sessions are tried next; the residential fee ($0.012) applies to every request sent over residential, even if Amazon returns no matches or refuses the request. Each search starts on datacenter; within a search, once a page needed residential, that search&#x27;s later pages try residential first. If Amazon refuses 2 searches in a row on every session, the run stops early (&#x27;Amazon is refusing this run&#x27;) so it does not keep spending. If every session is refused, the products already read are kept and the run status says &#x27;Partial&#x27;.</p></details><details><summary>Is it legal to scrape Amazon search results?</summary><p>It reads only public data any logged-out visitor can see: Amazon search result pages, which Amazon&#x27;s robots.txt does not disallow. It goes at a polite pace, never logs in and never solves CAPTCHAs or bot challenges. It returns product listing fields only (title, price, rating, rating count, badges, links); no reviews, reviewer or seller personal data. To have a record removed, open an issue on this Actor&#x27;s Issues tab; if Amazon formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice.</p></details></section>
+<section><p class="kicker">Guides</p><h2>Tutorials using this tool</h2><div class="box"><ul class="links"><li><a href="https://dev.to/aurelix_solutions/track-where-your-products-rank-on-amazon-search-organic-and-sponsored-for-every-keyword-3pm3">Track where your products rank on Amazon search, organic and sponsored, for every keyword</a></li></ul></div></section>
+<section><p class="kicker">Related</p><h2>Related tools</h2><div class="cards"><a class="tcard" href="/tools/amazon-best-sellers/" data-cat="E-commerce"><div class="row"><img src="/tools/amazon-best-sellers/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Amazon New Releases &amp; Best Sellers</h3></div><p>Amazon Best Sellers and New Releases top 100 on 10 marketplaces: rank, ASIN, price, rating, rank change.</p><div class="meta"><span class="tag">E-commerce</span><span class="price-s">$0.55 / 1,000 products</span></div></a><a class="tcard" href="/tools/aliexpress-product-search/" data-cat="E-commerce"><div class="row"><img src="/tools/aliexpress-product-search/icon.png" alt="" width="44" height="44" loading="lazy"><h3>AliExpress Scraper</h3></div><p>AliExpress search results by keyword: price, discount, rating, units sold, ship-from country and sponsored flag.</p><div class="meta"><span class="tag">E-commerce</span><span class="price-s">$1.80 / 1,000 products</span></div></a></div></section>
+<section class="cta"><div><h2>Try the Amazon Sponsored Products &amp; Search Results Scraper</h2><p>Open it on the Apify Store, paste the example input above and click Start. Results download as CSV, Excel or JSON.</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/amazon-product-search">Run it on Apify</a></div></div></section>
+</main>
+<footer class="wrap"><p>Aurelix builds and maintains these tools. They run on the <a href="https://apify.com/aurelix">Apify Store</a>, which handles accounts and billing; prices on this site are read from the Store each time the site is rebuilt. Tools read only public pages a logged-out visitor can see. <a href="/tools/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p></footer>
+</body>
+</html>
