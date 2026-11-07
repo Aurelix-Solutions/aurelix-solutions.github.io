@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shopify Products Scraper - Export Any Store to CSV | Aurelix</title>
+<meta name="description" content="Shopify products scraper at $0.90 per 1,000 with barcodes and stock counts included (rivals: $1 + ~$1 add-on). Variants, SKU, prices, collections.">
+<meta name="theme-color" content="#0f1726">
+<link rel="canonical" href="https://aurelix-solutions.github.io/tools/shopify-products-scraper/">
+<meta property="og:title" content="Shopify Products Scraper - Export Any Store to CSV | Aurelix">
+<meta property="og:description" content="Shopify products scraper at $0.90 per 1,000 with barcodes and stock counts included (rivals: $1 + ~$1 add-on). Variants, SKU, prices, collections.">
+<meta property="og:url" content="https://aurelix-solutions.github.io/tools/shopify-products-scraper/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aurelix">
+<meta property="og:image" content="https://aurelix-solutions.github.io/tools/shopify-products-scraper/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aurelix-solutions.github.io/tools/shopify-products-scraper/og.png">
+<link rel="icon" type="image/png" href="/tools/favicon.png">
+<link rel="apple-touch-icon" href="/tools/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1726;--navy-2:#16213a;--gold:#f0a93c;--gold-2:#f5bd63;--teal:#2ec4b6;--ink:#0f1726;--body:#3b4559;
+--muted:#667085;--line:#e4e7ee;--bg:#f6f7fa;--card:#fff;--r:16px;--shadow:0 1px 2px rgba(15,23,38,.06),0 8px 24px rgba(15,23,38,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--body);background:var(--bg);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:#0d7f75}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.top{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 360px at 88% -10%,rgba(240,169,60,.20),transparent 70%),radial-gradient(520px 320px at -5% 105%,rgba(46,196,182,.14),transparent 70%);pointer-events:none}
+.top::after{content:"";position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:16px;font-size:14px;font-weight:600}.nav a{color:#c6cede;text-decoration:none}.nav a:hover{color:#fff}
+.hero{position:relative;z-index:1;padding:28px 0 56px}
+.crumbs{font-size:13px;color:#98a3b8;margin:0 0 18px}.crumbs a{color:#c6cede;text-decoration:none}
+.idrow{display:flex;align-items:center;gap:16px}
+.idrow img{width:64px;height:64px;border-radius:16px;background:#fff;flex:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+h1{color:#fff;font-size:clamp(30px,6.4vw,50px);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:0}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,2.2vw,20px);color:#c6cede;max-width:40em;margin:18px 0 8px}
+.lede-sub{font-size:16px;color:#98a3b8;max-width:42em;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:7px 14px;border-radius:999px;margin:0 0 22px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(46,196,182,.18);flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(240,169,60,.28)}.btn-gold:hover{background:var(--gold-2);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04)}.btn-ghost:hover{background:rgba(255,255,255,.1)}
+@media (max-width:520px){.btn{flex:1 1 100%}}
+main section{padding:56px 0 0}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b9741a;margin:0 0 8px}
+h2{font-size:clamp(24px,4vw,32px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;font-weight:800}
+h3{color:var(--ink);font-size:18px;margin:0 0 6px}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.grid2{display:grid;gap:16px}.grid2>*{min-width:0}@media (min-width:820px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.glance{display:grid;gap:0;margin:0}.glance div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.glance div:last-child{border:0}
+.glance dd,.glance dt{overflow-wrap:anywhere}.glance dt{font-weight:700;color:var(--ink);font-size:14px}.glance dd{margin:0;font-size:15px}
+@media (max-width:520px){.glance div{grid-template-columns:1fr;gap:2px}}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+ul.ticks li{position:relative;padding-left:28px}ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:10px;border-left:3px solid var(--teal);border-bottom:3px solid var(--teal);transform:rotate(-45deg) scale(.8)}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps li{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 66px;box-shadow:var(--shadow)}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;display:grid;place-items:center}
+pre{background:var(--navy);color:#e6ebf5;border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.5;margin:0;max-height:460px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+p code,li code,td code{background:#eef1f6;color:var(--ink);padding:1px 5px;border-radius:5px;font-size:.9em}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+table.price{width:100%;border-collapse:collapse;font-size:15px}table.price td{padding:11px 0;border-bottom:1px solid var(--line)}table.price tr:last-child td{border:0}table.price td:last-child{text-align:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:12px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 18px;margin:0 0 10px;box-shadow:0 1px 2px rgba(15,23,38,.05)}
+summary{cursor:pointer;font-weight:700;color:var(--ink);padding:15px 0;list-style:none;position:relative;padding-right:28px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--muted)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px}
+.cards{display:grid;gap:14px}@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}@media (min-width:960px){.cards{grid-template-columns:1fr 1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:var(--body);transition:transform .15s,box-shadow .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,38,.06),0 14px 32px rgba(15,23,38,.10)}
+.tcard .row{display:flex;align-items:center;gap:12px}.tcard img{width:44px;height:44px;border-radius:11px;flex:none;border:1px solid var(--line)}
+.tcard h3{margin:0;font-size:17px}.tcard p{margin:0;font-size:15px;flex:1}
+.tcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between;font-size:13px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff4e2;color:#8a5208}
+.price-s{font-weight:700;color:var(--ink);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.chips button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--body);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.links a{font-weight:600}
+.article{max-width:760px}.article h2{font-size:clamp(22px,3.4vw,28px);margin:40px 0 12px}.article h3{margin:28px 0 8px}
+.article pre{margin:16px 0}.article table{width:100%;border-collapse:collapse;font-size:14px;display:block;overflow-x:auto;margin:16px 0}
+.article th,.article td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}.article th{background:#fbfbfd}
+.article img{border-radius:12px}
+.cta{margin-top:56px;background:var(--navy);color:#c6cede;padding:36px 28px;border-radius:20px}.cta h2{color:#fff}.cta p{max-width:40em}
+footer{padding:36px 0 48px;font-size:14px;color:var(--muted)}footer a{color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Shopify Product Export Scraper", "url": "https://aurelix-solutions.github.io/tools/shopify-products-scraper/", "description": "Shopify products scraper at $0.90 per 1,000 with barcodes and stock counts included (rivals: $1 + ~$1 add-on). Variants, SKU, prices, collections.", "applicationCategory": "BusinessApplication", "applicationSubCategory": "E-commerce", "operatingSystem": "Web (Apify platform)", "image": "https://aurelix-solutions.github.io/tools/shopify-products-scraper/og.png", "sameAs": ["https://apify.com/aurelix/shopify-products-scraper"], "publisher": {"@type": "Organization", "name": "Aurelix", "url": "https://aurelix-solutions.github.io/tools/", "logo": "https://aurelix-solutions.github.io/tools/logo.png", "sameAs": ["https://apify.com/aurelix", "https://github.com/Aurelix-Solutions", "https://dev.to/aurelix_solutions"]}, "offers": {"@type": "Offer", "price": "0.90", "priceCurrency": "USD", "url": "https://apify.com/aurelix/shopify-products-scraper", "description": "$0.90 per 1,000 products ($0.63 on paid Apify plans)"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does the Shopify Product Export Scraper cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.90 per 1,000 products ($0.63 on paid Apify plans), billed through your Apify account; you pay only for results. Apify's free plan includes $5 of credit a month, enough for about 5,555 products."}}, {"@type": "Question", "name": "How do I know if a store runs on Shopify?", "acceptedAnswer": {"@type": "Answer", "text": "Open https://<store>/products.json in a browser. If you see product data, this Actor can read it. Most Shopify stores leave it on; some large brands turn it off."}}, {"@type": "Question", "name": "What happens with stores that block the feed?", "acceptedAnswer": {"@type": "Answer", "text": "They are skipped with a clear reason in the run status (not found, blocked, password-protected or rate-limited) and you pay nothing per product for them (only the small run start fee). Other stores in the same run are still read."}}, {"@type": "Question", "name": "How does the price-change flag work?", "acceptedAnswer": {"@type": "Answer", "text": "The Actor remembers each product's variant prices per store. On the next run, any variant whose price moved gets previous_price set and the product gets price_changed = true. The memory is shared across your runs on that store unless you set a change-tracking name."}}, {"@type": "Question", "name": "What does 'Only new or changed products' return on the first run?", "acceptedAnswer": {"@type": "Answer", "text": "Everything, because nothing has been seen yet. From the second run on, only products that are new, repriced, went in or out of stock, or had variants, title or tags changed. Routine inventory syncs that only bump the update time do not count."}}, {"@type": "Question", "name": "Does it show stock quantities?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, where the store publishes them: turn on 'Barcodes and stock counts' and each variant gets inventory_quantity (and the product inventory_total). Many stores hide quantities; then those fields stay empty and you still get the in-stock flag (available). We never guess quantities."}}, {"@type": "Question", "name": "Does it return barcodes (GTIN/UPC/EAN)?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, with 'Barcodes and stock counts' on: every variant's barcode as the store entered it. It costs nothing extra per product."}}, {"@type": "Question", "name": "Is this legal?", "acceptedAnswer": {"@type": "Answer", "text": "It reads only public data any logged-out visitor can see: the product feed each Shopify store serves to every visitor. It goes at a polite pace, respects robots.txt, never logs in and never solves CAPTCHAs. It returns product fields (title, price, variants, images, collections, links); no customer or order data. To have a record removed, open an issue on this Actor's Issues tab; if a store formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice."}}, {"@type": "Question", "name": "Can I use it from an AI assistant?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The input is described for agents: give 'storeUrls' and optional limits. It works through Apify's MCP server and API."}}, {"@type": "Question", "name": "Is there a limit on products or stores per run?", "acceptedAnswer": {"@type": "Answer", "text": "Shopify's public feed serves at most 100 pages of 250 products, so a run reads up to 25,000 products per store; a larger store returns its first 25,000. 'Max products per store' sets a lower cap. There is no fixed limit on the number of stores; the Actor reads 3 stores at a time."}}, {"@type": "Question", "name": "What am I charged when a store returns nothing or only part of its catalogue?", "acceptedAnswer": {"@type": "Answer", "text": "You pay per product returned, plus the start fee once per run. A store that is blocked, not on Shopify or not reachable returns nothing and costs nothing per product. If a store stops answering midway, the products already read are kept and charged, and the run status starts with 'Partial' and names the store. With 'Only new or changed products' on, unchanged products are not returned and not charged."}}, {"@type": "Question", "name": "How are duplicates handled?", "acceptedAnswer": {"@type": "Answer", "text": "Store URLs are reduced to their domain, so kith.com and https://kith.com/collections/sale in the same run read the store once. A product in several collections is one row with all its collection names. Use `product_key` (store domain plus product id) as the key when you merge runs."}}, {"@type": "Question", "name": "How long does a run take?", "acceptedAnswer": {"@type": "Answer", "text": "Each request returns 250 products, with a short pause between pages. In our test runs a 352-product catalogue took 3.8 s and 852 products from two stores with collection names took 48.6 s. Collection names add requests per collection, and 'Barcodes and stock counts' adds one request per product (4 at a time)."}}, {"@type": "Question", "name": "How long does the change memory last?", "acceptedAnswer": {"@type": "Answer", "text": "It is kept per store and per change-tracking name. A product not seen for 90 days is forgotten and counts as new when it comes back. If the run's Max total charge stops output, products that were not returned are not remembered, so they come back on the next run."}}, {"@type": "Question", "name": "Do I need a proxy?", "acceptedAnswer": {"@type": "Answer", "text": "Usually not: the feed is public and the Actor runs without one by default. Each request is retried up to 5 times with growing waits (it follows the store's Retry-After header, up to 30 s). If a store keeps answering HTTP 429, turn on Apify Proxy in the Proxy field."}}, {"@type": "Question", "name": "What do price_min, on_sale, available and inventory_total mean?", "acceptedAnswer": {"@type": "Answer", "text": "price_min and price_max are the lowest and highest variant prices; compare_at_price_max is the highest compare-at (was) price. on_sale is true when any variant's compare-at price is above its price. available is true when any variant is in stock. inventory_total adds up the published stock counts, counting negative stock as 0."}}, {"@type": "Question", "name": "Why is the currency empty?", "acceptedAnswer": {"@type": "Answer", "text": "The currency comes from the store's public meta.json, or from its cart file when meta.json has none. A store that hides both returns currency = null; prices are still filled in."}}, {"@type": "Question", "name": "How do I export products to Google Sheets?", "acceptedAnswer": {"@type": "Answer", "text": "Download the run's results as CSV or Excel and open them in Google Sheets, or add Apify's Google Sheets integration to the run or a schedule so every run's results land in a sheet."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tools", "item": "https://aurelix-solutions.github.io/tools/"}, {"@type": "ListItem", "position": 2, "name": "Shopify Product Export Scraper", "item": "https://aurelix-solutions.github.io/tools/shopify-products-scraper/"}]}</script>
+</head>
+<body>
+<div class="top"><div class="wrap">
+<header><a class="brand" href="/tools/"><img src="/tools/logo.png" alt="" width="34" height="34">Aurelix</a><nav class="nav"><a href="/tools/">Tools</a><a href="/tools/guides/">Guides</a></nav></header>
+<div class="hero"><p class="crumbs"><a href="/tools/">Tools</a> › E-commerce</p><div class="idrow"><img src="/tools/shopify-products-scraper/icon.png" alt="" width="64" height="64"><h1>Shopify Product Export Scraper</h1></div><p class="lede">Export a Shopify store&#x27;s products with variants, SKUs, prices, barcodes and stock counts for $0.90 per 1,000 products, no login, with price changes flagged.</p><p class="lede-sub">For retailers, brands and resellers tracking competitors. Barcodes (GTIN/UPC/EAN) and public stock counts cost nothing extra, and a change mode returns only new, repriced or updated products.</p><p class="pill"><span class="dot"></span>$0.90 per 1,000 products ($0.63 on paid Apify plans)</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/shopify-products-scraper">Run it on Apify</a><a class="btn btn-ghost" href="https://github.com/Aurelix-Solutions/shopify-store-products-example">Python example on GitHub</a></div></div>
+</div></div>
+<main class="wrap">
+<section><p class="kicker">At a glance</p><h2>What the Shopify Product Export Scraper does</h2><div class="grid2"><div class="box"><dl class="glance"><div><dt>Search by</dt><dd>Shopify store domains or any URL on the store</dd></div><div><dt>Options</dt><dd>Max products per store, barcodes and stock counts, collection tags, descriptions, new-or-changed only</dd></div><div><dt>Output</dt><dd>34 fields per product, variants nested; JSON, CSV, Excel, API</dd></div><div><dt>Automate</dt><dd>Schedules, webhooks, Zapier, Make, n8n, Google Sheets, MCP for AI agents</dd></div></dl></div><div class="box"><h3>Who it is for</h3><ul class="ticks"><li>E-commerce brands monitoring competitors&#x27; prices and discounts</li><li>Dropshippers and resellers exporting a supplier&#x27;s full catalogue</li><li>Price-comparison sites refreshing product data daily</li><li>Market researchers comparing product ranges, vendors and price points across stores</li></ul></div></div></section>
+<section><p class="kicker">Output</p><h2>What you get</h2><div class="box"><ul class="ticks"><li>Product id, title, handle, vendor, product type, tags, options</li><li>Variants: variant id, title, SKU, price, compare-at price, available, options, weight (grams), barcode, stock count where published, variant URL, previous price</li><li>Price min/max, highest compare-at price, on-sale and in-stock flags</li><li>inventory_total: units in stock across variants, where the store publishes stock counts</li><li>Images (URL, alt text, size), main image, product URL</li><li>Collection names per product</li><li>Created, updated and published dates in ISO 8601 UTC</li><li>Store name, domain and currency</li><li>change_type (new/changed/unchanged, based on prices, stock, SKUs, variants, title and tags), price_changed and previous lowest price versus the last run</li></ul></div></section>
+<section><p class="kicker">Example</p><h2>Input and output</h2><div class="grid2"><div><h3>Input</h3><pre><code>{
+  &quot;storeUrls&quot;: [
+    &quot;kith.com&quot;,
+    &quot;https://www.allbirds.com&quot;
+  ],
+  &quot;maxProductsPerStore&quot;: 500,
+  &quot;incremental&quot;: true
+}</code></pre></div><div><h3>One output record</h3><pre><code>{
+  &quot;product_key&quot;: &quot;allbirds.com:7366895894608&quot;,
+  &quot;product_id&quot;: 7366895894608,
+  &quot;store_domain&quot;: &quot;allbirds.com&quot;,
+  &quot;store_name&quot;: &quot;Allbirds&quot;,
+  &quot;store_url&quot;: &quot;https://allbirds.com&quot;,
+  &quot;title&quot;: &quot;Women&#x27;s Wool Runner - Natural Grey (Light Grey Sole)&quot;,
+  &quot;handle&quot;: &quot;womens-wool-runners-natural-grey&quot;,
+  &quot;vendor&quot;: &quot;Allbirds&quot;,
+  &quot;product_type&quot;: &quot;Shoes&quot;,
+  &quot;tags&quot;: [
+    &quot;allbirds::carbon-score =&gt; 7.07&quot;,
+    &quot;allbirds::cfId =&gt; color-womens-wool-runners&quot;,
+    &quot;allbirds::complete =&gt; true&quot;,
+    &quot;… 17 more&quot;
+  ],
+  &quot;options&quot;: [
+    {
+      &quot;name&quot;: &quot;Size&quot;,
+      &quot;values&quot;: [
+        &quot;5&quot;,
+        &quot;6&quot;,
+        &quot;7&quot;,
+        &quot;… 4 more&quot;
+      ]
+    }
+  ],
+  &quot;currency&quot;: &quot;USD&quot;,
+  &quot;price_min&quot;: 49,
+  &quot;price_max&quot;: 49,
+  &quot;compare_at_price_max&quot;: 110,
+  &quot;on_sale&quot;: true,
+  &quot;available&quot;: true,
+  &quot;variants_count&quot;: 7,
+  &quot;variants&quot;: [
+    {
+      &quot;variant_id&quot;: 42424464900176,
+      &quot;title&quot;: &quot;5&quot;,
+      &quot;sku&quot;: &quot;WR3WNCW050&quot;,
+      &quot;price&quot;: 49,
+      &quot;compare_at_price&quot;: 110,
+      &quot;available&quot;: true,
+      &quot;options&quot;: [
+        &quot;5&quot;
+      ],
+      &quot;grams&quot;: 698,
+      &quot;requires_shipping&quot;: true,
+      &quot;taxable&quot;: true,
+      &quot;url&quot;: &quot;https://allbirds.com/products/womens-wool-runners-natural-grey?variant=42424464900176&quot;,
+      &quot;created_at&quot;: &quot;2026-05-26T18:10:22Z&quot;,
+      &quot;updated_at&quot;: &quot;2026-11-04T06:12:06Z&quot;,
+      &quot;previous_price&quot;: null,
+      &quot;barcode&quot;: null,
+      &quot;inventory_quantity&quot;: null
+    },
+    {
+      &quot;variant_id&quot;: 42424464932944,
+      &quot;title&quot;: &quot;6&quot;,
+      &quot;sku&quot;: &quot;WR3WNCW060&quot;,
+      &quot;price&quot;: 49,
+      &quot;compare_at_price&quot;: 110,
+      &quot;available&quot;: false,
+      &quot;options&quot;: [
+        &quot;6&quot;
+      ],
+      &quot;grams&quot;: 714,
+      &quot;requires_shipping&quot;: true,
+      &quot;taxable&quot;: true,
+      &quot;url&quot;: &quot;https://allbirds.com/products/womens-wool-runners-natural-grey?variant=42424464932944&quot;,
+      &quot;created_at&quot;: &quot;2026-05-26T18:10:22Z&quot;,
+      &quot;updated_at&quot;: &quot;2026-11-04T06:12:06Z&quot;,
+      &quot;previous_price&quot;: null,
+      &quot;barcode&quot;: null,
+      &quot;inventory_quantity&quot;: null
+    },
+    {
+      &quot;variant_id&quot;: 42424464965712,
+      &quot;title&quot;: &quot;7&quot;,
+      &quot;sku&quot;: &quot;WR3WNCW070&quot;,
+      &quot;price&quot;: 49,
+      &quot;compare_at_price&quot;: 110,
+      &quot;available&quot;: false,
+      &quot;options&quot;: [
+        &quot;7&quot;
+      ],
+      &quot;grams&quot;: 737,
+      &quot;requires_shipping&quot;: true,
+      &quot;taxable&quot;: true,
+      &quot;url&quot;: &quot;https://allbirds.com/products/womens-wool-runners-natural-grey?variant=42424464965712&quot;,
+      &quot;created_at&quot;: &quot;2026-05-26T18:10:22Z&quot;,
+      &quot;updated_at&quot;: &quot;2026-11-04T06:12:06Z&quot;,
+      &quot;previous_price&quot;: null,
+      &quot;barcode&quot;: null,
+      &quot;inventory_quantity&quot;: null
+    },
+    &quot;… 4 more&quot;
+  ],
+  &quot;inventory_total&quot;: null,
+  &quot;image_url&quot;: &quot;https://cdn.shopify.com/s/files/1/1104/4168/files/WR3WNCW_SHOE_LEFT_GLOBAL_WOMENS_WOOL_RUNNER_GREY_LIGHT_GREY_bc7cc3a6-43a0-4dde-8f9e-48a8d80499df.png?v=1779…&quot;,
+  &quot;images&quot;: [
+    {
+      &quot;url&quot;: &quot;https://cdn.shopify.com/s/files/1/1104/4168/files/WR3WNCW_SHOE_LEFT_GLOBAL_WOMENS_WOOL_RUNNER_GREY_LIGHT_GREY_bc7cc3a6-43a0-4dde-8f9e-48a8d80499df.png?v=1779…&quot;,
+      &quot;alt&quot;: null,
+      &quot;width&quot;: 1600,
+      &quot;height&quot;: 1600,
+      &quot;variant_ids&quot;: []
+    },
+    {
+      &quot;url&quot;: &quot;https://cdn.shopify.com/s/files/1/1104/4168/files/WR3WNCW_SHOE_BACK_GLOBAL_WOMENS_WOOL_RUNNER_GREY_LIGHT_GREY_0e004c82-37f9-43cb-aea0-2adb950bf655.png?v=1779…&quot;,
+      &quot;alt&quot;: null,
+      &quot;width&quot;: 1600,
+      &quot;height&quot;: 1600,
+      &quot;variant_ids&quot;: []
+    },
+    {
+      &quot;url&quot;: &quot;https://cdn.shopify.com/s/files/1/1104/4168/files/WR3WNCW_SHOE_TOP_GLOBAL_WOMENS_WOOL_RUNNER_GREY_LIGHT_GREY_76623920-15eb-4ed9-bf55-67d5b11066d4.png?v=17798…&quot;,
+      &quot;alt&quot;: null,
+      &quot;width&quot;: 1600,
+      &quot;height&quot;: 1600,
+      &quot;variant_ids&quot;: []
+    },
+    &quot;… 1 more&quot;
+  ],
+  &quot;product_url&quot;: &quot;https://allbirds.com/products/womens-wool-runners-natural-grey&quot;,
+  &quot;collections&quot;: [
+    &quot;All&quot;,
+    &quot;All Products&quot;,
+    &quot;All Shoes - Men&#x27;s and Women&#x27;s&quot;,
+    &quot;… 1 more&quot;
+  ],
+  &quot;description_text&quot;: &quot;The Allbirds Wool Runner is the original wool sneaker that started it all. Called the world&#x27;s most comfortable shoe, it&#x27;s flexible, supportive,…&quot;,
+  &quot;created_at&quot;: &quot;2026-05-26T18:10:21Z&quot;,
+  &quot;updated_at&quot;: &quot;2026-11-04T06:12:06Z&quot;,
+  &quot;published_at&quot;: &quot;2026-09-25T23:24:03Z&quot;,
+  &quot;change_type&quot;: &quot;unchanged&quot;,
+  &quot;price_changed&quot;: false,
+  &quot;previous_price_min&quot;: null,
+  &quot;source_url&quot;: &quot;https://allbirds.com/products.json&quot;,
+  &quot;scraped_at&quot;: &quot;2026-11-04T06:24:01Z&quot;
+}</code></pre><p class="note">From a real run of this tool; long text and lists shortened here.</p></div></div></section>
+<section><p class="kicker">How to use it</p><h2>Three steps</h2><ol class="steps"><li>Paste one or more Shopify store URLs into &#x27;Shopify store URLs&#x27; (e.g. kith.com or https://www.allbirds.com).</li><li>Optionally set &#x27;Max products per store&#x27;, turn on &#x27;Barcodes and stock counts&#x27;, turn on &#x27;Only new or changed products&#x27; for a change feed, or switch collection tags or descriptions off.</li><li>Click Start, then download JSON, CSV or Excel, or schedule it daily and send results to Google Sheets, Zapier, Make or n8n.</li></ol></section>
+<section><p class="kicker">API</p><h2>Call it from Python</h2><pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+run = client.actor(&quot;aurelix/shopify-products-scraper&quot;).call(run_input={&#x27;storeUrls&#x27;: [&#x27;kith.com&#x27;, &#x27;https://www.allbirds.com&#x27;],
+ &#x27;maxProductsPerStore&#x27;: 500,
+ &#x27;incremental&#x27;: True})
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)</code></pre><p class="note"><code>pip install apify-client</code>. The same input works from the Apify console, a schedule, Make, n8n, Zapier or an AI agent through the Apify MCP server.</p></section>
+<section><p class="kicker">Pricing</p><h2>Pay per result</h2><div class="box"><table class="price"><tr><td>Per 1,000 products, free plan</td><td>$0.90</td></tr><tr><td>Per 1,000 products, paid plans</td><td>$0.63</td></tr><tr><td>Start fee per run</td><td>$0.001</td></tr></table><p class="note">Live prices from the Apify Store; no subscription and no platform usage billed on top. <a href="https://apify.com/aurelix/shopify-products-scraper">See the Store page</a>.</p></div></section>
+<section><p class="kicker">Honest limits</p><h2>What it does not do</h2><div class="box"><ul class="ticks"><li>Only Shopify stores that leave the public products.json feed on. Stores that disable it, password-protect it or block automated visitors are skipped.</li><li>At most 25,000 products per store per run: Shopify&#x27;s public feed ends at page 100 of 250 products. A larger store returns its first 25,000 products, and the run status does not flag the cut.</li><li>Some stores&#x27; feeds include products the shop does not show, such as bundles or test items: in our checks one store returned 508 products where its sitemap listed 274.</li><li>Respects each store&#x27;s robots.txt: a store that disallows products.json is skipped, and collections it disallows are left out of the collection tags.</li><li>Stock counts only where the store publishes them (many do not); otherwise an in-stock flag per variant.</li><li>Currency comes from the store&#x27;s public metadata; stores that hide it return currency = null. Prices are the ones the store serves to the Actor&#x27;s server. Stores that price by visitor country can show other visitors converted prices: in our checks, two stores showed a Canadian address prices converted at a fixed rate.</li><li>Collection tags cover the first 20 collections by default (&#x27;Max collections per store&#x27;); large stores can have over 1,000.</li><li>Some stores rate-limit busy addresses (HTTP 429). The Actor waits and retries; if a store keeps refusing, the products already read are kept and the run ends with a &#x27;Partial&#x27; status naming the store.</li><li>Price-change flags compare with the last run on the same store only; the first run has nothing to compare with.</li><li>No SEO title or metafields: they are not in Shopify&#x27;s public product JSON.</li></ul></div></section>
+<section><p class="kicker">FAQ</p><h2>Questions buyers ask</h2><details><summary>How much does the Shopify Product Export Scraper cost?</summary><p>$0.90 per 1,000 products ($0.63 on paid Apify plans), billed through your Apify account; you pay only for results. Apify&#x27;s free plan includes $5 of credit a month, enough for about 5,555 products.</p></details><details><summary>How do I know if a store runs on Shopify?</summary><p>Open https://&lt;store&gt;/products.json in a browser. If you see product data, this Actor can read it. Most Shopify stores leave it on; some large brands turn it off.</p></details><details><summary>What happens with stores that block the feed?</summary><p>They are skipped with a clear reason in the run status (not found, blocked, password-protected or rate-limited) and you pay nothing per product for them (only the small run start fee). Other stores in the same run are still read.</p></details><details><summary>How does the price-change flag work?</summary><p>The Actor remembers each product&#x27;s variant prices per store. On the next run, any variant whose price moved gets previous_price set and the product gets price_changed = true. The memory is shared across your runs on that store unless you set a change-tracking name.</p></details><details><summary>What does &#x27;Only new or changed products&#x27; return on the first run?</summary><p>Everything, because nothing has been seen yet. From the second run on, only products that are new, repriced, went in or out of stock, or had variants, title or tags changed. Routine inventory syncs that only bump the update time do not count.</p></details><details><summary>Does it show stock quantities?</summary><p>Yes, where the store publishes them: turn on &#x27;Barcodes and stock counts&#x27; and each variant gets inventory_quantity (and the product inventory_total). Many stores hide quantities; then those fields stay empty and you still get the in-stock flag (available). We never guess quantities.</p></details><details><summary>Does it return barcodes (GTIN/UPC/EAN)?</summary><p>Yes, with &#x27;Barcodes and stock counts&#x27; on: every variant&#x27;s barcode as the store entered it. It costs nothing extra per product.</p></details><details><summary>Is this legal?</summary><p>It reads only public data any logged-out visitor can see: the product feed each Shopify store serves to every visitor. It goes at a polite pace, respects robots.txt, never logs in and never solves CAPTCHAs. It returns product fields (title, price, variants, images, collections, links); no customer or order data. To have a record removed, open an issue on this Actor&#x27;s Issues tab; if a store formally asks us to stop, this Actor will stop. You are responsible for using the data lawfully, incl. anti-spam and privacy laws; this is not legal advice.</p></details><details><summary>Can I use it from an AI assistant?</summary><p>Yes. The input is described for agents: give &#x27;storeUrls&#x27; and optional limits. It works through Apify&#x27;s MCP server and API.</p></details><details><summary>Is there a limit on products or stores per run?</summary><p>Shopify&#x27;s public feed serves at most 100 pages of 250 products, so a run reads up to 25,000 products per store; a larger store returns its first 25,000. &#x27;Max products per store&#x27; sets a lower cap. There is no fixed limit on the number of stores; the Actor reads 3 stores at a time.</p></details><details><summary>What am I charged when a store returns nothing or only part of its catalogue?</summary><p>You pay per product returned, plus the start fee once per run. A store that is blocked, not on Shopify or not reachable returns nothing and costs nothing per product. If a store stops answering midway, the products already read are kept and charged, and the run status starts with &#x27;Partial&#x27; and names the store. With &#x27;Only new or changed products&#x27; on, unchanged products are not returned and not charged.</p></details><details><summary>How are duplicates handled?</summary><p>Store URLs are reduced to their domain, so kith.com and https://kith.com/collections/sale in the same run read the store once. A product in several collections is one row with all its collection names. Use <code>product_key</code> (store domain plus product id) as the key when you merge runs.</p></details><details><summary>How long does a run take?</summary><p>Each request returns 250 products, with a short pause between pages. In our test runs a 352-product catalogue took 3.8 s and 852 products from two stores with collection names took 48.6 s. Collection names add requests per collection, and &#x27;Barcodes and stock counts&#x27; adds one request per product (4 at a time).</p></details><details><summary>How long does the change memory last?</summary><p>It is kept per store and per change-tracking name. A product not seen for 90 days is forgotten and counts as new when it comes back. If the run&#x27;s Max total charge stops output, products that were not returned are not remembered, so they come back on the next run.</p></details><details><summary>Do I need a proxy?</summary><p>Usually not: the feed is public and the Actor runs without one by default. Each request is retried up to 5 times with growing waits (it follows the store&#x27;s Retry-After header, up to 30 s). If a store keeps answering HTTP 429, turn on Apify Proxy in the Proxy field.</p></details><details><summary>What do price_min, on_sale, available and inventory_total mean?</summary><p>price_min and price_max are the lowest and highest variant prices; compare_at_price_max is the highest compare-at (was) price. on_sale is true when any variant&#x27;s compare-at price is above its price. available is true when any variant is in stock. inventory_total adds up the published stock counts, counting negative stock as 0.</p></details><details><summary>Why is the currency empty?</summary><p>The currency comes from the store&#x27;s public meta.json, or from its cart file when meta.json has none. A store that hides both returns currency = null; prices are still filled in.</p></details><details><summary>How do I export products to Google Sheets?</summary><p>Download the run&#x27;s results as CSV or Excel and open them in Google Sheets, or add Apify&#x27;s Google Sheets integration to the run or a schedule so every run&#x27;s results land in a sheet.</p></details></section>
+<section><p class="kicker">Related</p><h2>Related tools</h2><div class="cards"><a class="tcard" href="/tools/amazon-best-sellers/" data-cat="E-commerce"><div class="row"><img src="/tools/amazon-best-sellers/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Amazon New Releases &amp; Best Sellers</h3></div><p>Amazon Best Sellers and New Releases top 100 on 10 marketplaces: rank, ASIN, price, rating, rank change.</p><div class="meta"><span class="tag">E-commerce</span><span class="price-s">$0.55 / 1,000 products</span></div></a><a class="tcard" href="/tools/aliexpress-product-search/" data-cat="E-commerce"><div class="row"><img src="/tools/aliexpress-product-search/icon.png" alt="" width="44" height="44" loading="lazy"><h3>AliExpress Scraper</h3></div><p>AliExpress search results by keyword: price, discount, rating, units sold, ship-from country and sponsored flag.</p><div class="meta"><span class="tag">E-commerce</span><span class="price-s">$1.80 / 1,000 products</span></div></a><a class="tcard" href="/tools/amazon-product-search/" data-cat="E-commerce Marketing"><div class="row"><img src="/tools/amazon-product-search/icon.png" alt="" width="44" height="44" loading="lazy"><h3>Amazon Sponsored Products &amp; Search Results Scraper</h3></div><p>Scrape Amazon search results for any keyword at $0.10 per 1,000 products: position, ASIN, title, price, list price, rating, review count, Prime, sponsored flag and badges, up to 20 pages per search, on amazon.com and amazon.ca. No login; only-new-products mode.</p><div class="meta"><span class="tag">E-commerce</span><span class="price-s">$0.10 / 1,000 products</span></div></a></div></section>
+<section class="cta"><div><h2>Try the Shopify Product Export Scraper</h2><p>Open it on the Apify Store, paste the example input above and click Start. Results download as CSV, Excel or JSON.</p><div class="btns"><a class="btn btn-gold" href="https://apify.com/aurelix/shopify-products-scraper">Run it on Apify</a></div></div></section>
+</main>
+<footer class="wrap"><p>Aurelix builds and maintains these tools. They run on the <a href="https://apify.com/aurelix">Apify Store</a>, which handles accounts and billing; prices on this site are read from the Store each time the site is rebuilt. Tools read only public pages a logged-out visitor can see. <a href="/tools/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p></footer>
+</body>
+</html>
